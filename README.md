@@ -1,8 +1,8 @@
-# Movies UI
+## Movies UI
 
 ---
 
-## DEPLOYMENT
+### DEPLOYMENT
 
 Will be filled.
 
@@ -10,13 +10,13 @@ Will be filled.
 
 ---
 
-## TOOLS USING
+### TOOLS USING
 
 Will be filled.
 
 ---
 
-## OVERVIEW
+### OVERVIEW
 
 The idea is to create a single page application, which will allow users:
 
@@ -28,7 +28,7 @@ from the Movies DB database.
 
 ---
 
-## Local Movies API Service
+### Local Movies API Service
 
 GitHub Repository with local Movies API Service implementation:
 https://github.com/VarvaraZadnepriak/MoviesAPI.ReactJS
@@ -46,12 +46,12 @@ API Swagger documentation will be available on http://localhost:4000/api-docs.
 
 ---
 
-## Interface requirements
+### Interface requirements
 
 Design is available via [InVision prototype](https://projects.invisionapp.com/share/F9VXQ7IMZGY#/screens/406802250). There’s no need to implement pixel perfect responsive design. Design can be implemented schematically.
 
 ---
 
-### DEVELOPMENT
+#### DEVELOPMENT
 
 @ 2021 Diana Ivanova (@melk0sha)
