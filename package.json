@@ -2,12 +2,6 @@
   "name": "movies-ui",
   "version": "1.0.0",
   "description": "Movies UI is a SPA which allow users to search, add and delete movies from the Movies DB database.",
-  "author": "melk0sha",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/melk0sha/movies-ui.git"
-  },
   "main": "src/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -36,5 +30,11 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
+  },
+  "author": "melk0sha",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melk0sha/movies-ui.git"
   }
 }
