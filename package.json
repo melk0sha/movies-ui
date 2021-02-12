@@ -4,15 +4,16 @@
   "description": "Movies UI is a SPA which allow users to search, add and delete movies from the Movies DB database.",
   "main": "src/index.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development --config config/webpack.dev.js",
-    "build": "webpack --mode production --config config/webpack.prod.js"
+    "build": "webpack --mode production --config config/webpack.prod.js",
+    "test": "jest src",
+    "test:live": "jest src --watch"
   },
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
-    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "styled-components": "^5.2.1"
   },
