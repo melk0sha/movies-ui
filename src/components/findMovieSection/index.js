@@ -1,0 +1,1 @@
+export { FindMovieSection } from "./FindMovieSection";
