@@ -14,7 +14,7 @@ const Button = ({ children, primary, size }) => {
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   primary: PropTypes.bool,
-  size: PropTypes.oneOf[(BUTTON_TYPE.SMALL, BUTTON_TYPE.MEDIUM, BUTTON_TYPE.LARGE)]
+  size: PropTypes.oneOf([(BUTTON_TYPE.SMALL, BUTTON_TYPE.MEDIUM, BUTTON_TYPE.LARGE)])
 };
 
 export { Button };

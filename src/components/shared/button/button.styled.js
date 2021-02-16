@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BUTTON_TYPE } from "consts";
 
 const getHeightFromSizeProp = ({ size }) => {
   switch (size) {
@@ -15,8 +16,8 @@ export const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: ${getHeightFromSizeProp(props)};
-  padding: 10px;
+  height: ${(props) => getHeightFromSizeProp(props)};
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   color: ${(props) => (props.primary ? "#ffffff" : "#000000")};
