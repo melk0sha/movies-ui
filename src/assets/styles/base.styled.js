@@ -1,8 +1,12 @@
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
 
 export const BaseStyles = css`
-  html {
+  html,
+  body {
     height: 100%;
   }
-  // footer things
+`;
+
+export const Logo = styled.img`
+  height: 40px;
 `;
