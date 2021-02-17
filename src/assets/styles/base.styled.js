@@ -2,7 +2,8 @@ import styled, { css } from "styled-components";
 
 export const BaseStyles = css`
   html,
-  body {
+  body,
+  #root {
     height: 100%;
   }
 `;
