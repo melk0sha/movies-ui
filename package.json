@@ -4,8 +4,8 @@
   "description": "Movies UI is a SPA which allow users to search, add and delete movies from the Movies DB database.",
   "main": "src/index.jsx",
   "scripts": {
-    "start": "webpack serve --mode development --config config/webpack.dev.js",
-    "build": "webpack --mode production --config config/webpack.prod.js",
+    "start": "webpack serve --node-env development --config config/webpack.dev.js",
+    "build": "webpack --node-env production --config config/webpack.prod.js",
     "test": "jest src",
     "test:live": "jest src --watch"
   },
