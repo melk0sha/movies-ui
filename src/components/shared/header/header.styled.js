@@ -9,4 +9,5 @@ export const HeaderWrapper = styled.header`
   width: 100%;
   padding: 15px 30px;
   background-color: ${transparentColor_1};
+  z-index: 2;
 `;
