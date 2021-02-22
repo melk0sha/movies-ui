@@ -1,15 +1,23 @@
 import styled from "styled-components";
+import { baseColor_1, transparentColor_1, transparentColor_2 } from "assets/styles/colors";
 
 export const StyledInput = styled.input`
-  margin: 20px;
+  flex: 1 1 auto;
+  margin: 0 10px;
   padding: 15px 30px;
   border: none;
   border-radius: 5px;
-  background: rgba(0, 0, 0, 0.4);
+  background-color: ${transparentColor_1};
   font-size: 20px;
-  transition: background 0.2s ease-out;
+  color: ${baseColor_1};
+  transition: background-color 0.2s ease-out;
 
   &:focus {
-    background: rgba(0, 0, 0, 0.8);
+    background-color: ${transparentColor_2};
+  }
+
+  &::placeholder {
+    color: ${baseColor_1};
+    opacity: 0.6;
   }
 `;

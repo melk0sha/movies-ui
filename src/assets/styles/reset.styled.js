@@ -6,5 +6,7 @@ export const ResetStyles = css`
     padding: 0;
     box-sizing: border-box;
     list-style: none;
+    outline: 0; // TODO: Think about accessibility.
+    font-family: "Cabin", Arial, sans-serif;
   }
 `;
