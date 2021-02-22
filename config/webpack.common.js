@@ -39,6 +39,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
+      api: path.resolve(__dirname, "../src/api"),
       assets: path.resolve(__dirname, "../src/assets"),
       components: path.resolve(__dirname, "../src/components"),
       consts: path.resolve(__dirname, "../src/constants"),
