@@ -1,9 +1,16 @@
 import styled from "styled-components";
-import { baseColor_1, baseColor_2, baseColor_3, baseColor_5 } from "assets/styles/colors";
+import { baseColor_1, baseColor_3, baseColor_5 } from "assets/styles/colors";
 
 export const DropdownWrapper = styled.div`
   position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.opened && baseColor_5};
+
+  &:hover {
+    background-color: ${baseColor_5};
+  }
 `;
 
 export const DropdownHeader = styled.div`
@@ -17,10 +24,6 @@ export const DropdownHeader = styled.div`
   text-transform: uppercase;
   font-size: 1rem;
   cursor: pointer;
-
-  &:hover {
-    background-color: ${baseColor_5};
-  }
 `;
 
 export const DropdownList = styled.ul`
@@ -29,7 +32,7 @@ export const DropdownList = styled.ul`
   left: 0;
   width: 100%;
   margin-top: 50px;
-  border: 2px solid ${baseColor_2};
+  border: 2px solid ${baseColor_5};
   border-radius: 5px;
 `;
 

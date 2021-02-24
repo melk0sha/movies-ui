@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { baseColor_3, baseColor_5 } from "assets/styles/colors";
+import { baseColor_1, baseColor_3, baseColor_5 } from "assets/styles/colors";
 
 export const ResultsSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 20px 100px 50px;
   background-color: ${baseColor_3};
-  padding-bottom: 50px;
 `;
 
 export const ResultsSectionHeader = styled.div`
@@ -13,5 +13,11 @@ export const ResultsSectionHeader = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   border-bottom: 5px solid ${baseColor_5};
-  margin: 20px 50px;
+`;
+
+export const MoviesFoundSpan = styled.span`
+  display: flex;
+  padding: 20px;
+  color: ${baseColor_1};
+  font-size: 1rem;
 `;

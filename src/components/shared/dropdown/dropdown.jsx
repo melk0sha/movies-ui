@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { arrayOf, shape, string } from "prop-types";
+import { arrayOf, number, shape, string } from "prop-types";
 import { useOnClickOutside } from "hooks";
 import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "components/shared/dropdown/dropdown.styled";
 
-const Dropdown = ({ options, defaultSelectedOption }) => {
+const Dropdown = ({ className, options, defaultSelectedOption }) => {
   const [isOpen, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultSelectedOption);
   const dropdownWrapperRef = useRef(null);
@@ -31,7 +31,7 @@ const Dropdown = ({ options, defaultSelectedOption }) => {
   );
 
   return (
-    <DropdownWrapper ref={dropdownWrapperRef}>
+    <DropdownWrapper className={className} ref={dropdownWrapperRef} opened={isOpen}>
       <DropdownHeader onClick={handleHeaderClick}>{selectedOption.value}</DropdownHeader>
       {isOpen && options.length !== 0 && <DropdownList>{OptionItems}</DropdownList>}
     </DropdownWrapper>
@@ -39,19 +39,21 @@ const Dropdown = ({ options, defaultSelectedOption }) => {
 };
 
 Dropdown.propTypes = {
+  className: string,
   options: arrayOf(
     shape({
-      id: string,
+      id: number,
       value: string
     })
   ),
   defaultSelectedOption: shape({
-    id: string,
+    id: number,
     value: string
   })
 };
 
 Dropdown.defaultProps = {
+  className: "",
   options: [],
   defaultSelectedOption: null
 };
