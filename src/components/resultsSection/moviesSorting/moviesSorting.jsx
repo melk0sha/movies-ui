@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { SortingSpan, MoviesSortingWrapper } from "components/results/moviesSorting/moviesSorting.styled";
+import React from "react";
+import { SortingSpan, MoviesSortingWrapper } from "components/resultsSection/moviesSorting/moviesSorting.styled";
 import { SORT_BY_OPTIONS, SORT_BY_VALUES } from "consts";
 import { Dropdown } from "components/shared/dropdown";
 

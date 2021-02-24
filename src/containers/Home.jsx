@@ -1,13 +1,13 @@
 import React from "react";
 
 import { FindMovieSection } from "components/findMovieSection";
-import { Results } from "components/results";
+import { ResultsSection } from "components/resultsSection";
 
 const Home = () => {
   return (
     <>
       <FindMovieSection />
-      <Results />
+      <ResultsSection />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { arrayOf, number, shape, string } from "prop-types";
-import { GenresWrapper, Genre } from "components/results/genres/genres.styled";
+import { GenresWrapper, Genre } from "components/resultsSection/genres/genres.styled";
 
 const Genres = ({ genres }) => {
   const Genres = useMemo(() => genres.map((genre) => <Genre key={genre.id}>{genre.name}</Genre>), [genres]);
