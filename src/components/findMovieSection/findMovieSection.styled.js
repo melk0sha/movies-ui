@@ -42,7 +42,7 @@ export const FindMovieTitle = styled.h1`
   font-size: 3rem;
 `;
 
-export const SearchWrapper = styled.div`
+export const SearchForm = styled.form`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
