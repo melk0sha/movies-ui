@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { string } from "prop-types";
 import { StyledInput } from "components/shared/input/input.styled";
 
 const Input = ({ placeholder }) => {
@@ -7,7 +7,11 @@ const Input = ({ placeholder }) => {
 };
 
 Input.propTypes = {
-  placeholder: PropTypes.string
+  placeholder: string
+};
+
+Input.defaultProps = {
+  placeholder: ""
 };
 
 export { Input };

@@ -10,7 +10,7 @@ export const FindMovieSectionWrapper = styled.div`
   align-items: center;
   min-height: 600px;
   margin-top: -70px;
-  padding: 70px 200px 0;
+  padding: 70px 10% 0;
   background-image: url(${mainBackgroundImage});
   background-position: center center;
   background-repeat: no-repeat;
@@ -36,7 +36,6 @@ export const FindMovieSectionWrapper = styled.div`
 `;
 
 export const FindMovieTitle = styled.h1`
-  align-self: flex-start;
   text-shadow: black 1px 1px 0, black -1px 1px 0, black 1px -1px 0, black -1px -1px 0;
   margin: 0 10px 50px;
   color: ${baseColor_1};
@@ -45,5 +44,7 @@ export const FindMovieTitle = styled.h1`
 
 export const SearchWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
 `;

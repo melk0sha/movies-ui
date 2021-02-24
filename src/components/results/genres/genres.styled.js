@@ -3,6 +3,7 @@ import { baseColor_1, baseColor_5 } from "assets/styles/colors";
 
 export const GenresWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 export const Genre = styled.span`
@@ -14,6 +15,7 @@ export const Genre = styled.span`
   padding: 20px;
   text-transform: uppercase;
   color: ${baseColor_1};
+  font-size: 1rem;
   cursor: pointer;
 
   &:hover {

@@ -6,6 +6,7 @@ export const baseColor_3 = "#371B1E";
 export const baseColor_4 = "#FAE5C8";
 export const baseColor_5 = "#271315";
 export const baseColor_6 = "#DECAAE";
+export const baseColor_7 = "#909090";
 
 export const smallButtonSize = "30px";
 export const mediumButtonSize = "40px";

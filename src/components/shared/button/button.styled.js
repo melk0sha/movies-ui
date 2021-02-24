@@ -32,6 +32,7 @@ export const StyledButton = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  white-space: nowrap;
   color: ${(props) => (props.primary ? baseColor_1 : baseColor_2)};
   background-color: ${(props) => (props.primary ? baseColor_2 : baseColor_1)};
   font-size: ${(props) => (props.size === BUTTON_TYPE.LARGE ? "1.2rem" : "1rem")};

@@ -3,6 +3,7 @@ import { baseColor_1, transparentColor_1, transparentColor_2 } from "assets/styl
 
 export const StyledInput = styled.input`
   flex: 1 1 auto;
+  max-width: 700px;
   margin: 0 10px;
   padding: 15px 30px;
   border: none;

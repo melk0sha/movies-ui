@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import PropTypes from "prop-types";
+import { arrayOf, number, shape, string } from "prop-types";
 import { GenresWrapper, Genre } from "components/results/genres/genres.styled";
 
 const Genres = ({ genres }) => {
@@ -9,12 +9,16 @@ const Genres = ({ genres }) => {
 };
 
 Genres.propTypes = {
-  genres: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string
+  genres: arrayOf(
+    shape({
+      id: number,
+      name: string
     })
   )
+};
+
+Genres.defaultProps = {
+  genres: []
 };
 
 export { Genres };
