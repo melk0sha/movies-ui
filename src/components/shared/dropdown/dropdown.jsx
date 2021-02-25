@@ -3,7 +3,7 @@ import { arrayOf, number, shape, string } from "prop-types";
 import { useOnClickOutside } from "hooks";
 import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "components/shared/dropdown/dropdown.styled";
 
-const Dropdown = ({ className, options, defaultSelectedOption }) => {
+const Dropdown = ({ className = "", options = [], defaultSelectedOption = null }) => {
   const [isOpen, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultSelectedOption);
   const dropdownWrapperRef = useRef(null);
@@ -50,12 +50,6 @@ Dropdown.propTypes = {
     id: number,
     value: string
   })
-};
-
-Dropdown.defaultProps = {
-  className: "",
-  options: [],
-  defaultSelectedOption: null
 };
 
 export { Dropdown };

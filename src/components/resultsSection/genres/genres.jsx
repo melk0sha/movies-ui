@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import { arrayOf, number, shape, string } from "prop-types";
 import { GenresWrapper, Genre } from "components/resultsSection/genres/genres.styled";
 
-const Genres = ({ genres }) => {
+const Genres = ({ genres = [] }) => {
   const [activeGenreId, setActiveGenreId] = useState(0);
 
   const handleGenreClick = useCallback(
@@ -36,10 +36,6 @@ Genres.propTypes = {
       name: string
     })
   )
-};
-
-Genres.defaultProps = {
-  genres: []
 };
 
 export { Genres };

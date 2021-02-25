@@ -9,7 +9,7 @@ import {
   MovieYear
 } from "components/resultsSection/movies/movie/movie.styled";
 
-const Movie = ({ movie }) => {
+const Movie = ({ movie = {} }) => {
   const { image, genres, name, year } = movie;
 
   const genresString = useMemo(() =>
@@ -30,10 +30,6 @@ const Movie = ({ movie }) => {
 
 Movie.propTypes = {
   movie: object
-};
-
-Movie.defaultProps = {
-  movie: {}
 };
 
 export { Movie };
