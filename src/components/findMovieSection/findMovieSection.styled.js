@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { baseColor_1, baseColor_3 } from "assets/styles/colors";
+import { baseColor_1, baseColor_2, baseColor_3 } from "assets/styles/colors";
 import mainBackgroundImage from "assets/images/background.jpg";
 
 export const FindMovieSectionWrapper = styled.div`
@@ -36,7 +36,8 @@ export const FindMovieSectionWrapper = styled.div`
 `;
 
 export const FindMovieTitle = styled.h1`
-  text-shadow: black 1px 1px 0, black -1px 1px 0, black 1px -1px 0, black -1px -1px 0;
+  text-shadow: ${baseColor_2} 1px 1px 0, ${baseColor_2} -1px 1px 0, ${baseColor_2} 1px -1px 0,
+    ${baseColor_2} -1px -1px 0;
   margin: 0 10px 50px;
   color: ${baseColor_1};
   font-size: 3rem;
