@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ActionMenu } from "components/shared/actionMenu";
 import { baseColor_1, baseColor_5 } from "assets/styles/colors";
 
 export const MovieWrapper = styled.div`
@@ -11,6 +12,10 @@ export const MovieWrapper = styled.div`
   &:hover {
     background-color: ${baseColor_5};
   }
+`;
+
+export const MovieImageWrapper = styled.div`
+  position: relative;
 `;
 
 export const MovieImage = styled.img`
@@ -41,4 +46,10 @@ export const MovieGenres = styled.span`
   margin-top: 10px;
   font-size: 1rem;
   color: ${baseColor_1};
+`;
+
+export const StyledActionMenu = styled(ActionMenu)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
 `;

@@ -6,7 +6,8 @@ import { Movies } from "components/resultsSection/movies";
 import {
   ResultsSectionHeader,
   ResultsSectionWrapper,
-  MoviesFoundSpan
+  MoviesFoundSpan,
+  NoMovieFoundSpan
 } from "components/resultsSection/resultsSection.styled";
 
 const ResultsSection = () => {
@@ -26,8 +27,15 @@ const ResultsSection = () => {
         <Genres genres={genres} />
         <MoviesSorting />
       </ResultsSectionHeader>
-      <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
-      <Movies movies={movies} />
+
+      {movies.length ? (
+        <>
+          <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
+          <Movies movies={movies} />
+        </>
+      ) : (
+        <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
+      )}
     </ResultsSectionWrapper>
   );
 };

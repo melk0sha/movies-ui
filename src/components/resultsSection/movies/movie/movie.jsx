@@ -2,11 +2,13 @@ import React, { useMemo } from "react";
 import { object } from "prop-types";
 import {
   MovieWrapper,
+  MovieImageWrapper,
   MovieImage,
   MovieInfoWrapper,
   MovieTitle,
   MovieGenres,
-  MovieYear
+  MovieYear,
+  StyledActionMenu
 } from "components/resultsSection/movies/movie/movie.styled";
 
 const Movie = ({ movie = {} }) => {
@@ -18,7 +20,10 @@ const Movie = ({ movie = {} }) => {
 
   return (
     <MovieWrapper>
-      <MovieImage src={image} alt={name} />
+      <MovieImageWrapper>
+        <StyledActionMenu />
+        <MovieImage src={image} alt={name} />
+      </MovieImageWrapper>
       <MovieInfoWrapper>
         <MovieTitle>{name}</MovieTitle>
         <MovieYear>{year}</MovieYear>

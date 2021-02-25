@@ -33,7 +33,7 @@ export const DropdownList = styled.ul`
   width: 100%;
   margin-top: 50px;
   border: 2px solid ${baseColor_5};
-  border-radius: 5px;
+  z-index: 1;
 `;
 
 export const ListItem = styled.li`

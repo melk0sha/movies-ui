@@ -21,3 +21,12 @@ export const MoviesFoundSpan = styled.span`
   color: ${baseColor_1};
   font-size: 1rem;
 `;
+
+export const NoMovieFoundSpan = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 150px 0;
+  font-size: 2.5rem;
+  color: ${baseColor_1};
+`;
