@@ -17,6 +17,7 @@ const ResultsSection = () => {
   useEffect(() => {
     const genresData = getGenres();
     const moviesData = getMovies();
+
     setGenres(genresData);
     setMovies(moviesData);
   }, [setGenres, setMovies]);

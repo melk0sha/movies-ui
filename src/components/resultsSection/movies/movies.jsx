@@ -4,7 +4,9 @@ import { Movie } from "components/resultsSection/movies/movie";
 import { MoviesWrapper } from "components/resultsSection/movies/movies.styled";
 
 const Movies = ({ movies = [] }) => {
-  const MoviesCards = useMemo(() => movies.map((movie) => <Movie movie={movie} key={movie.id || Math.random()} />));
+  const MoviesCards = useMemo(() => movies.map((movie) => <Movie movie={movie} key={movie.id || Math.random()} />), [
+    movies
+  ]);
 
   return <MoviesWrapper>{MoviesCards}</MoviesWrapper>;
 };

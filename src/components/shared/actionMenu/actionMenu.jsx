@@ -1,14 +1,55 @@
-import React from "react";
-import { ActionMenuWrapper, ActionMenuCircle } from "components/shared/actionMenu/actionMenu.styled";
+import React, { useCallback, useMemo, useState } from "react";
+import { arrayOf, func, number, shape, string } from "prop-types";
+import {
+  ActionMenuWrapper,
+  ActionMenuCircleWrapper,
+  ActionMenuCircle,
+  ActionMenuOptions,
+  ActionMenuOption,
+  Close
+} from "components/shared/actionMenu/actionMenu.styled";
 
-const ActionMenu = ({ className = "" }) => {
+const ActionMenu = ({ className = "", options = [], onOptionClick }) => {
+  const [isCircleHidden, setCircleHidden] = useState(false);
+
+  const handleActionMenuClick = useCallback(() => {
+    setCircleHidden((prevState) => !prevState);
+  }, [setCircleHidden]);
+
+  const Options = useMemo(
+    () =>
+      options.map((option) => (
+        <ActionMenuOption key={option.id || Math.random()} onClick={() => onOptionClick(option)}>
+          {option.value}
+        </ActionMenuOption>
+      )),
+    [options]
+  );
+
   return (
     <ActionMenuWrapper className={className}>
-      <ActionMenuCircle />
-      <ActionMenuCircle />
-      <ActionMenuCircle />
+      <ActionMenuCircleWrapper onClick={handleActionMenuClick} hidden={isCircleHidden}>
+        <ActionMenuCircle />
+        <ActionMenuCircle />
+        <ActionMenuCircle />
+      </ActionMenuCircleWrapper>
+      <ActionMenuOptions hidden={!isCircleHidden}>
+        {Options}
+        <Close onClick={handleActionMenuClick} />
+      </ActionMenuOptions>
     </ActionMenuWrapper>
   );
+};
+
+ActionMenu.propTypes = {
+  className: string,
+  options: arrayOf(
+    shape({
+      id: number,
+      value: string,
+      handler: func
+    })
+  )
 };
 
 export { ActionMenu };

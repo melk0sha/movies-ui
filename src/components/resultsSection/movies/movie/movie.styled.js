@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ActionMenu } from "components/shared/actionMenu";
-import { baseColor_1, baseColor_5 } from "assets/styles/colors";
+import { baseColor_1, baseColor_5, baseColor_9 } from "assets/styles/colors";
 
 export const MovieWrapper = styled.div`
   display: flex;
@@ -20,6 +20,7 @@ export const MovieImageWrapper = styled.div`
 
 export const MovieImage = styled.img`
   height: 320px;
+  border-radius: 5px;
   cursor: pointer;
 `;
 
@@ -38,14 +39,14 @@ export const MovieTitle = styled.h3`
 
 export const MovieYear = styled.span`
   font-size: 1rem;
-  color: ${baseColor_1};
+  color: ${baseColor_9};
 `;
 
 export const MovieGenres = styled.span`
   max-width: 200px;
   margin-top: 10px;
   font-size: 1rem;
-  color: ${baseColor_1};
+  color: ${baseColor_9};
 `;
 
 export const StyledActionMenu = styled(ActionMenu)`

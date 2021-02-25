@@ -1,5 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { object } from "prop-types";
+import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS } from "consts";
 import {
   MovieWrapper,
   MovieImageWrapper,
@@ -14,14 +15,25 @@ import {
 const Movie = ({ movie = {} }) => {
   const { image, genres, name, year } = movie;
 
-  const genresString = useMemo(() =>
-    genres.map((genre, idx) => (idx === 0 ? genre.name : genre.name.toLowerCase())).join(", ")
+  const genresString = useMemo(
+    () => genres.map((genre, idx) => (idx === 0 ? genre.name : genre.name.toLowerCase())).join(", "),
+    [genres]
   );
+
+  const handleOptionClick = useCallback((option) => {
+    if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
+      console.log("Edit was clicked");
+    }
+
+    if (option.id === ACTION_MENU_MOVIE_VALUES.DELETE.id) {
+      console.log("Delete was clicked");
+    }
+  }, []);
 
   return (
     <MovieWrapper>
       <MovieImageWrapper>
-        <StyledActionMenu />
+        <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
         <MovieImage src={image} alt={name} />
       </MovieImageWrapper>
       <MovieInfoWrapper>
