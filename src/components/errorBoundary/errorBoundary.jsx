@@ -20,7 +20,7 @@ class ErrorBoundary extends Component {
     const { hasError, error, errorInfo } = this.state;
     const { children } = this.props;
 
-    return !hasError ? (
+    return hasError ? (
       <ErrorBoundaryWrapper>
         <ErrorBoundaryTitle>Oops! Something went wrong.</ErrorBoundaryTitle>
         {errorInfo && (
