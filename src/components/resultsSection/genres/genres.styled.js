@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 export const GenresWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const Genre = styled.span`

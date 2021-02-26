@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { BUTTON_SIZE, SEARCH_PLACEHOLDER_TEXT } from "consts";
-import { Input } from "components/shared/input";
 import { Button } from "components/shared/button";
 import {
   FindMovieSectionWrapper,
   FindMovieTitle,
-  SearchForm
+  SearchForm,
+  StyledInput
 } from "components/findMovieSection/findMovieSection.styled";
 
 const FindMovieSection = () => {
@@ -26,7 +26,11 @@ const FindMovieSection = () => {
     <FindMovieSectionWrapper>
       <FindMovieTitle>Find your movie</FindMovieTitle>
       <SearchForm onSubmit={handleSearchFormSubmit}>
-        <Input value={inputSearchValue} onChange={handleInputSearchChange} placeholder={SEARCH_PLACEHOLDER_TEXT} />
+        <StyledInput
+          value={inputSearchValue}
+          onChange={handleInputSearchChange}
+          placeholder={SEARCH_PLACEHOLDER_TEXT}
+        />
         <Button primary size={BUTTON_SIZE.lg}>
           Search
         </Button>

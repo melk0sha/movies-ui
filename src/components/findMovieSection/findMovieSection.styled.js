@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { device } from "assets/styles/device";
+import { Input } from "components/shared/input";
 import mainBackgroundImage from "assets/images/background.jpg";
 
 const getTextOutlineByColor = (color) =>
@@ -49,4 +51,13 @@ export const SearchForm = styled.form`
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
+`;
+
+export const StyledInput = styled(Input)`
+  min-width: 300px;
+  margin-bottom: 20px;
+
+  @media ${device.tablet} {
+    margin-bottom: 0;
+  }
 `;

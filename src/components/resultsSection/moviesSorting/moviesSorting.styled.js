@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Dropdown } from "components/shared/dropdown";
 
 export const MoviesSortingWrapper = styled.div`
+  position: relative;
+  top: 1px;
   display: flex;
 `;
 

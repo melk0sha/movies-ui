@@ -8,7 +8,7 @@ export const StyledInput = styled.input`
   border: none;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.transparent.black_04};
-  font-size: 20px;
+  font-size: 1.2rem;
   color: ${({ theme }) => theme.colors.white};
   transition: background-color 0.2s ease-out;
 

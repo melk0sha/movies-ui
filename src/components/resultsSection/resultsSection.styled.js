@@ -1,17 +1,26 @@
 import styled from "styled-components";
+import { device } from "assets/styles/device";
 
 export const ResultsSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 100px 50px;
+  padding: 20px 20px 50px;
   background-color: ${({ theme }) => theme.colors.vinous.original};
+
+  @media ${device.tablet} {
+    padding: 20px 100px 50px;
+  }
 `;
 
 export const ResultsSectionHeader = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   border-bottom: 5px solid ${({ theme }) => theme.colors.vinous.dark};
+
+  @media ${device.laptop} {
+    justify-content: space-between;
+  }
 `;
 
 export const MoviesFoundSpan = styled.span`
