@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Dropdown } from "components/shared/dropdown";
-import { baseColor_7 } from "assets/styles/colors";
 
 export const MoviesSortingWrapper = styled.div`
   display: flex;
@@ -12,7 +11,7 @@ export const SortingSpan = styled.span`
   align-items: center;
   height: 50px;
   padding: 20px;
-  color: ${baseColor_7};
+  color: ${({ theme }) => theme.colors.grey.original};
   white-space: nowrap;
   text-transform: uppercase;
   font-size: 1rem;

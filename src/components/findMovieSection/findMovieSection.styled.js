@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { baseColor_1, baseColor_2, baseColor_3 } from "assets/styles/colors";
 import mainBackgroundImage from "assets/images/background.jpg";
+
+const getTextOutlineByColor = (color) =>
+  `${color} 1px 1px 0, ${color} -1px 1px 0, ${color} 1px -1px 0, ${color} -1px -1px 0`;
 
 export const FindMovieSectionWrapper = styled.div`
   position: relative;
@@ -16,7 +18,7 @@ export const FindMovieSectionWrapper = styled.div`
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-color: ${baseColor_3};
+  background-color: ${({ theme }) => theme.colors.vinous.original};
 
   &::after {
     content: "";
@@ -25,7 +27,7 @@ export const FindMovieSectionWrapper = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: ${({ theme }) => theme.colors.transparent.black_05};
     z-index: 1;
   }
 
@@ -36,10 +38,9 @@ export const FindMovieSectionWrapper = styled.div`
 `;
 
 export const FindMovieTitle = styled.h1`
-  text-shadow: ${baseColor_2} 1px 1px 0, ${baseColor_2} -1px 1px 0, ${baseColor_2} 1px -1px 0,
-    ${baseColor_2} -1px -1px 0;
   margin: 0 10px 50px;
-  color: ${baseColor_1};
+  text-shadow: ${({ theme }) => getTextOutlineByColor(theme.colors.black)};
+  color: ${({ theme }) => theme.colors.white};
   font-size: 3rem;
 `;
 

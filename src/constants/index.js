@@ -1,7 +1,8 @@
-export const BUTTON_TYPE = {
-  SMALL: "small",
-  MEDIUM: "medium",
-  LARGE: "large"
+export const BUTTON_SIZE = {
+  xs: "xs",
+  sm: "sm",
+  md: "md",
+  lg: "lg"
 };
 
 export const SORT_BY_VALUES = {

@@ -1,25 +1,24 @@
 import styled from "styled-components";
-import { baseColor_1, baseColor_3, baseColor_5 } from "assets/styles/colors";
 
 export const ResultsSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 100px 50px;
-  background-color: ${baseColor_3};
+  background-color: ${({ theme }) => theme.colors.vinous.original};
 `;
 
 export const ResultsSectionHeader = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  border-bottom: 5px solid ${baseColor_5};
+  border-bottom: 5px solid ${({ theme }) => theme.colors.vinous.dark};
 `;
 
 export const MoviesFoundSpan = styled.span`
   display: flex;
   padding: 20px;
-  color: ${baseColor_1};
   font-size: 1rem;
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const NoMovieFoundSpan = styled.span`
@@ -28,5 +27,5 @@ export const NoMovieFoundSpan = styled.span`
   align-items: center;
   padding: 150px 0;
   font-size: 2.5rem;
-  color: ${baseColor_1};
+  color: ${({ theme }) => theme.colors.white};
 `;

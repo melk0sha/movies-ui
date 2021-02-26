@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { baseColor_5 } from "assets/styles/colors";
 
 export const FooterWrapper = styled.footer`
   display: flex;
@@ -8,5 +7,5 @@ export const FooterWrapper = styled.footer`
   flex: 0 0 auto;
   width: 100%;
   padding: 30px;
-  background-color: ${baseColor_5};
+  background-color: ${({ theme }) => theme.colors.vinous.dark};
 `;

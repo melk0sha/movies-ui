@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { baseColor_1, baseColor_3 } from "assets/styles/colors";
 
 export const ErrorBoundaryWrapper = styled.div`
   display: flex;
@@ -8,8 +7,8 @@ export const ErrorBoundaryWrapper = styled.div`
   align-items: center;
   min-height: 100vh;
   padding: 20%;
-  background-color: ${baseColor_3};
-  color: ${baseColor_1};
+  background-color: ${({ theme }) => theme.colors.vinous.original};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const ErrorBoundaryTitle = styled.h2`

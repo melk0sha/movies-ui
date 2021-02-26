@@ -1,6 +1,8 @@
 import React from "react";
-import { GlobalStyles, Main, Wrapper } from "assets/styles";
+import { ThemeProvider } from "styled-components";
 
+import { GlobalStyles, Main, Wrapper } from "assets/styles";
+import { theme } from "assets/styles/theme";
 import { ErrorBoundary } from "components/errorBoundary";
 import { Footer } from "components/shared/footer";
 import { Header } from "components/shared/header";
@@ -8,7 +10,7 @@ import { Home } from "containers";
 
 const App = () => {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <ErrorBoundary>
         <Wrapper>
           <Header />
@@ -19,7 +21,7 @@ const App = () => {
         </Wrapper>
       </ErrorBoundary>
       <GlobalStyles />
-    </>
+    </ThemeProvider>
   );
 };
 

@@ -1,15 +1,14 @@
 import styled from "styled-components";
-import { baseColor_1, baseColor_3, baseColor_5 } from "assets/styles/colors";
 
 export const DropdownWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.opened && baseColor_5};
+  background-color: ${({ opened, theme }) => opened && theme.colors.vinous.dark};
 
   &:hover {
-    background-color: ${baseColor_5};
+    background-color: ${({ theme }) => theme.colors.vinous.dark};
   }
 `;
 
@@ -20,7 +19,7 @@ export const DropdownHeader = styled.div`
   height: 50px;
   padding: 20px;
   background-color: transparent;
-  color: ${baseColor_1};
+  color: ${({ theme }) => theme.colors.white};
   text-transform: uppercase;
   font-size: 1rem;
   cursor: pointer;
@@ -32,19 +31,19 @@ export const DropdownList = styled.ul`
   left: 0;
   width: 100%;
   margin-top: 50px;
-  border: 2px solid ${baseColor_5};
+  border: 2px solid ${({ theme }) => theme.colors.vinous.dark};
   z-index: 1;
 `;
 
 export const ListItem = styled.li`
   padding: 20px;
-  color: ${baseColor_1};
-  background-color: ${baseColor_3};
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.vinous.original};
   text-transform: uppercase;
   font-size: 1rem;
   cursor: pointer;
 
   &:hover {
-    background-color: ${baseColor_5};
+    background-color: ${({ theme }) => theme.colors.vinous.dark};
   }
 `;

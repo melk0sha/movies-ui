@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { baseColor_1, baseColor_4, baseColor_6, baseColor_8, transparentColor_3 } from "assets/styles/colors";
 
 export const ActionMenuWrapper = styled.div`
   display: flex;
@@ -9,14 +8,14 @@ export const ActionMenuWrapper = styled.div`
 `;
 
 export const ActionMenuCircleWrapper = styled.div`
-  display: ${(props) => (props.hidden ? "none" : "flex")};
+  display: ${({ hidden }) => (hidden ? "none" : "flex")};
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-color: ${transparentColor_3};
+  background-color: ${({ theme }) => theme.colors.transparent.white_08};
   cursor: pointer;
 `;
 
@@ -25,11 +24,11 @@ export const ActionMenuCircle = styled.div`
   height: 5px;
   margin: 1px;
   border-radius: 50%;
-  background-color: ${baseColor_8};
+  background-color: ${({ theme }) => theme.colors.grey.dark};
 `;
 
 export const ActionMenuOptions = styled.ul`
-  display: ${(props) => (props.hidden ? "none" : "flex")};
+  display: ${({ hidden }) => (hidden ? "none" : "flex")};
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -37,8 +36,8 @@ export const ActionMenuOptions = styled.ul`
   min-width: 50px;
   padding-top: 30px;
   border-radius: 5px;
-  color: ${baseColor_8};
-  background-color: ${baseColor_1};
+  color: ${({ theme }) => theme.colors.grey.dark};
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const ActionMenuOption = styled.li`
@@ -50,11 +49,11 @@ export const ActionMenuOption = styled.li`
   cursor: pointer;
 
   &:hover {
-    background-color: ${baseColor_4};
+    background-color: ${({ theme }) => theme.colors.beige.original};
   }
 
   &:active {
-    background-color: ${baseColor_6};
+    background-color: ${({ theme }) => theme.colors.beige.dark};
   }
 `;
 
@@ -78,7 +77,7 @@ export const Close = styled.span`
     content: "";
     height: 15px;
     width: 2px;
-    background-color: black;
+    background-color: ${({ theme }) => theme.colors.black};
   }
 
   &::before {

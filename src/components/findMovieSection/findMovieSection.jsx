@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { BUTTON_TYPE, SEARCH_PLACEHOLDER_TEXT } from "consts";
+import { BUTTON_SIZE, SEARCH_PLACEHOLDER_TEXT } from "consts";
 import { Input } from "components/shared/input";
 import { Button } from "components/shared/button";
 import {
@@ -27,7 +27,7 @@ const FindMovieSection = () => {
       <FindMovieTitle>Find your movie</FindMovieTitle>
       <SearchForm onSubmit={handleSearchFormSubmit}>
         <Input value={inputSearchValue} onChange={handleInputSearchChange} placeholder={SEARCH_PLACEHOLDER_TEXT} />
-        <Button primary size={BUTTON_TYPE.LARGE}>
+        <Button primary size={BUTTON_SIZE.lg}>
           Search
         </Button>
       </SearchForm>

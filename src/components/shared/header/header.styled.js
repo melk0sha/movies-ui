@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { transparentColor_1 } from "assets/styles/colors";
 
 export const HeaderWrapper = styled.header`
   position: relative;
@@ -8,6 +7,6 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   width: 100%;
   padding: 15px 30px;
-  background-color: ${transparentColor_1};
+  background-color: ${({ theme }) => theme.colors.transparent.black_04};
   z-index: 2;
 `;

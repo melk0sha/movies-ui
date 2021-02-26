@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { baseColor_1, transparentColor_1, transparentColor_2 } from "assets/styles/colors";
 
 export const StyledInput = styled.input`
   flex: 1 1 auto;
@@ -8,17 +7,17 @@ export const StyledInput = styled.input`
   padding: 15px 30px;
   border: none;
   border-radius: 5px;
-  background-color: ${transparentColor_1};
+  background-color: ${({ theme }) => theme.colors.transparent.black_04};
   font-size: 20px;
-  color: ${baseColor_1};
+  color: ${({ theme }) => theme.colors.white};
   transition: background-color 0.2s ease-out;
 
   &:focus {
-    background-color: ${transparentColor_2};
+    background-color: ${({ theme }) => theme.colors.transparent.black_08};
   }
 
   &::placeholder {
-    color: ${baseColor_1};
+    color: ${({ theme }) => theme.colors.white};
     opacity: 0.6;
   }
 `;
