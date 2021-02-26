@@ -33,7 +33,7 @@ const Dropdown = ({ className = "", options = [], defaultSelectedOption = null }
   return (
     <DropdownWrapper className={className} ref={dropdownWrapperRef} opened={isOpen}>
       <DropdownHeader onClick={handleHeaderClick}>{selectedOption.value}</DropdownHeader>
-      {isOpen && options.length !== 0 && <DropdownList>{OptionItems}</DropdownList>}
+      {isOpen && !!options.length && <DropdownList>{OptionItems}</DropdownList>}
     </DropdownWrapper>
   );
 };

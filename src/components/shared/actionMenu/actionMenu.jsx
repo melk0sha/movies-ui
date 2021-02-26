@@ -1,5 +1,6 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { arrayOf, func, number, shape, string } from "prop-types";
+import { useOnClickOutside } from "hooks";
 import {
   ActionMenuWrapper,
   ActionMenuCircleWrapper,
@@ -11,6 +12,9 @@ import {
 
 const ActionMenu = ({ className = "", options = [], onOptionClick }) => {
   const [isCircleHidden, setCircleHidden] = useState(false);
+  const actionMenuWrapperRef = useRef(null);
+
+  useOnClickOutside(actionMenuWrapperRef, () => setCircleHidden(false));
 
   const handleActionMenuClick = useCallback(() => {
     setCircleHidden((prevState) => !prevState);
@@ -27,7 +31,7 @@ const ActionMenu = ({ className = "", options = [], onOptionClick }) => {
   );
 
   return (
-    <ActionMenuWrapper className={className}>
+    <ActionMenuWrapper className={className} ref={actionMenuWrapperRef}>
       <ActionMenuCircleWrapper onClick={handleActionMenuClick} hidden={isCircleHidden}>
         <ActionMenuCircle />
         <ActionMenuCircle />
