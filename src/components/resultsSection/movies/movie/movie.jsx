@@ -13,6 +13,11 @@ import {
 } from "components/resultsSection/movies/movie/movie.styled";
 
 class Movie extends Component {
+  static defaultProps = {
+    movie: {},
+    genres: []
+  };
+
   handleOptionClick = (option) => {
     if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
       console.log("Edit was clicked");
@@ -62,8 +67,4 @@ Movie.propTypes = {
   )
 };
 
-Movie.defaultProps = {
-  movie: {},
-  genres: []
-};
 export { Movie };

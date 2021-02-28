@@ -4,6 +4,11 @@ import { Movie } from "components/resultsSection/movies/movie";
 import { MoviesWrapper } from "components/resultsSection/movies/movies.styled";
 
 class Movies extends Component {
+  static defaultProps = {
+    movies: [],
+    genres: []
+  };
+
   render() {
     const { genres, movies } = this.props;
 
@@ -29,11 +34,6 @@ Movies.propTypes = {
       name: string
     })
   )
-};
-
-Movies.defaultProps = {
-  movies: [],
-  genres: []
 };
 
 export { Movies };
