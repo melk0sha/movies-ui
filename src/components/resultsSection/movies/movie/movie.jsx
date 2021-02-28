@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { object } from "prop-types";
+import { arrayOf, number, shape, string } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS } from "consts";
 import {
   MovieWrapper,
@@ -12,12 +12,12 @@ import {
   StyledActionMenu
 } from "components/resultsSection/movies/movie/movie.styled";
 
-const Movie = ({ movie = {} }) => {
-  const { image, genres, name, year } = movie;
+const Movie = ({ movie = {}, genres = [] }) => {
+  const { image, genreIds, name, year } = movie;
 
-  const genresString = useMemo(
-    () => genres.map((genre, idx) => (idx === 0 ? genre.name : genre.name.toLowerCase())).join(", "),
-    [genres]
+  const genresText = useMemo(
+    () => genreIds.map((genreId) => genres.find((genre) => genre.id === genreId).name).join(", "),
+    [genreIds, genres]
   );
 
   const handleOptionClick = useCallback((option) => {
@@ -40,13 +40,25 @@ const Movie = ({ movie = {} }) => {
         <MovieTitle>{name}</MovieTitle>
         <MovieYear>{year}</MovieYear>
       </MovieInfoWrapper>
-      <MovieGenres>{genresString}</MovieGenres>
+      <MovieGenres>{genresText}</MovieGenres>
     </MovieWrapper>
   );
 };
 
 Movie.propTypes = {
-  movie: object
+  movie: shape({
+    id: number,
+    name: string,
+    genreIds: arrayOf(number),
+    year: string,
+    image: string
+  }),
+  genres: arrayOf(
+    shape({
+      id: number,
+      name: string
+    })
+  )
 };
 
 export { Movie };

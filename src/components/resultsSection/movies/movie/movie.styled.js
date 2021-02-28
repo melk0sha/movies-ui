@@ -46,6 +46,11 @@ export const MovieGenres = styled.span`
   margin-top: 10px;
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.grey.light};
+  text-transform: lowercase;
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
 `;
 
 export const StyledActionMenu = styled(ActionMenu)`

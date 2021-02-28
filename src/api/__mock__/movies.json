@@ -3,80 +3,56 @@
     {
       "id": 0,
       "name": "Movie 1",
-      "genres": [
-        { "id": 2, "name": "Comedy" },
-        { "id": 4, "name": "Crime" }
-      ],
+      "genreIds": [2, 4],
       "year": "2013",
       "image": "https://images2.vudu.com/poster2/488007-338"
     },
     {
       "id": 1,
       "name": "Movie 2",
-      "genres": [
-        { "id": 2, "name": "Comedy" },
-        { "id": 4, "name": "Crime" }
-      ],
+      "genreIds": [2, 4],
       "year": "2013",
       "image": "https://images2.vudu.com/poster2/488007-338"
     },
     {
       "id": 2,
       "name": "Movie 3",
-      "genres": [
-        { "id": 2, "name": "Comedy" },
-        { "id": 4, "name": "Crime" }
-      ],
+      "genreIds": [2, 4],
       "year": "2013",
       "image": "https://images2.vudu.com/poster2/488007-338"
     },
     {
       "id": 3,
       "name": "Movie 4",
-      "genres": [
-        { "id": 2, "name": "Comedy" },
-        { "id": 4, "name": "Crime" }
-      ],
+      "genreIds": [2, 4],
       "year": "2013",
       "image": "https://images2.vudu.com/poster2/488007-338"
     },
     {
       "id": 4,
       "name": "Movie 5",
-      "genres": [
-        { "id": 2, "name": "Comedy" },
-        { "id": 4, "name": "Crime" }
-      ],
+      "genreIds": [2, 4],
       "year": "2013",
       "image": "https://images2.vudu.com/poster2/488007-338"
     },
     {
       "id": 5,
       "name": "Movie 6",
-      "genres": [
-        { "id": 2, "name": "Comedy" },
-        { "id": 4, "name": "Crime" }
-      ],
+      "genreIds": [2, 4],
       "year": "2013",
       "image": "https://images2.vudu.com/poster2/488007-338"
     },
     {
       "id": 6,
       "name": "Movie 7",
-      "genres": [
-        { "id": 2, "name": "Comedy" },
-        { "id": 4, "name": "Crime" }
-      ],
+      "genreIds": [2, 4],
       "year": "2013",
       "image": "https://images2.vudu.com/poster2/488007-338"
     },
     {
       "id": 7,
       "name": "Movie 8",
-      "genres": [
-        { "id": 2, "name": "Comedy" },
-        { "id": 4, "name": "Crime" }
-      ],
+      "genreIds": [2, 4],
       "year": "2013",
       "image": "https://images2.vudu.com/poster2/488007-338"
     }

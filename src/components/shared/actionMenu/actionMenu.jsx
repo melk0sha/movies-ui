@@ -53,7 +53,8 @@ ActionMenu.propTypes = {
       value: string,
       handler: func
     })
-  )
+  ),
+  onOptionClick: func
 };
 
 export { ActionMenu };

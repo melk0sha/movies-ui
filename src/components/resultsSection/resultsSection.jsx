@@ -32,7 +32,7 @@ const ResultsSection = () => {
       {movies.length ? (
         <>
           <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
-          <Movies movies={movies} />
+          <Movies movies={movies} genres={genres} />
         </>
       ) : (
         <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
