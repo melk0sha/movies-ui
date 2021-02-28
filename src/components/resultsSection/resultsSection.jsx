@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
 import { getGenres, getMovies } from "api";
 import { Genres } from "components/resultsSection/genres";
 import { MoviesSorting } from "components/resultsSection/moviesSorting";
@@ -10,35 +10,40 @@ import {
   NoMovieFoundSpan
 } from "components/resultsSection/resultsSection.styled";
 
-const ResultsSection = () => {
-  const [genres, setGenres] = useState([]);
-  const [movies, setMovies] = useState([]);
+class ResultsSection extends Component {
+  state = {
+    genres: [],
+    movies: []
+  };
 
-  useEffect(() => {
+  componentDidMount() {
     const genresData = getGenres();
     const moviesData = getMovies();
 
-    setGenres(genresData);
-    setMovies(moviesData);
-  }, [setGenres, setMovies]);
+    this.setState({ genres: genresData, movies: moviesData });
+  }
 
-  return (
-    <ResultsSectionWrapper>
-      <ResultsSectionHeader>
-        <Genres genres={genres} />
-        <MoviesSorting />
-      </ResultsSectionHeader>
+  render() {
+    const { genres, movies } = this.state;
 
-      {movies.length ? (
-        <>
-          <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
-          <Movies movies={movies} genres={genres} />
-        </>
-      ) : (
-        <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
-      )}
-    </ResultsSectionWrapper>
-  );
-};
+    return (
+      <ResultsSectionWrapper>
+        <ResultsSectionHeader>
+          <Genres genres={genres} />
+          <MoviesSorting />
+        </ResultsSectionHeader>
+
+        {movies.length ? (
+          <>
+            <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
+            <Movies movies={movies} genres={genres} />
+          </>
+        ) : (
+          <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
+        )}
+      </ResultsSectionWrapper>
+    );
+  }
+}
 
 export { ResultsSection };

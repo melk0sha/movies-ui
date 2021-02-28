@@ -1,16 +1,17 @@
-import React, { useMemo } from "react";
+import React, { Component } from "react";
 import { arrayOf, number, shape, string } from "prop-types";
 import { Movie } from "components/resultsSection/movies/movie";
 import { MoviesWrapper } from "components/resultsSection/movies/movies.styled";
 
-const Movies = ({ movies = [], genres = [] }) => {
-  const MoviesCards = useMemo(
-    () => movies.map((movie) => <Movie movie={movie} key={movie.id || Math.random()} genres={genres} />),
-    [movies]
-  );
+class Movies extends Component {
+  render() {
+    const { genres, movies } = this.props;
 
-  return <MoviesWrapper>{MoviesCards}</MoviesWrapper>;
-};
+    const MoviesCards = movies.map((movie) => <Movie movie={movie} key={movie.id || Math.random()} genres={genres} />);
+
+    return <MoviesWrapper>{MoviesCards}</MoviesWrapper>;
+  }
+}
 
 Movies.propTypes = {
   movies: arrayOf(
@@ -28,6 +29,11 @@ Movies.propTypes = {
       name: string
     })
   )
+};
+
+Movies.defaultProps = {
+  movies: [],
+  genres: []
 };
 
 export { Movies };

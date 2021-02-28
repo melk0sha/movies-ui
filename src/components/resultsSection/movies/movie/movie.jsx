@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { Component } from "react";
 import { arrayOf, number, shape, string } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS } from "consts";
 import {
@@ -12,15 +12,8 @@ import {
   StyledActionMenu
 } from "components/resultsSection/movies/movie/movie.styled";
 
-const Movie = ({ movie = {}, genres = [] }) => {
-  const { image, genreIds, name, year } = movie;
-
-  const genresText = useMemo(
-    () => genreIds.map((genreId) => genres.find((genre) => genre.id === genreId).name).join(", "),
-    [genreIds, genres]
-  );
-
-  const handleOptionClick = useCallback((option) => {
+class Movie extends Component {
+  handleOptionClick = (option) => {
     if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
       console.log("Edit was clicked");
     }
@@ -28,22 +21,30 @@ const Movie = ({ movie = {}, genres = [] }) => {
     if (option.id === ACTION_MENU_MOVIE_VALUES.DELETE.id) {
       console.log("Delete was clicked");
     }
-  }, []);
+  };
 
-  return (
-    <MovieWrapper>
-      <MovieImageWrapper>
-        <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
-        <MovieImage src={image} alt={name} />
-      </MovieImageWrapper>
-      <MovieInfoWrapper>
-        <MovieTitle>{name}</MovieTitle>
-        <MovieYear>{year}</MovieYear>
-      </MovieInfoWrapper>
-      <MovieGenres>{genresText}</MovieGenres>
-    </MovieWrapper>
-  );
-};
+  render() {
+    const { handleOptionClick } = this;
+    const { movie, genres } = this.props;
+    const { image, genreIds, name, year } = movie;
+
+    const genresText = genreIds.map((genreId) => genres.find((genre) => genre.id === genreId).name).join(", ");
+
+    return (
+      <MovieWrapper>
+        <MovieImageWrapper>
+          <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
+          <MovieImage src={image} alt={name} />
+        </MovieImageWrapper>
+        <MovieInfoWrapper>
+          <MovieTitle>{name}</MovieTitle>
+          <MovieYear>{year}</MovieYear>
+        </MovieInfoWrapper>
+        <MovieGenres>{genresText}</MovieGenres>
+      </MovieWrapper>
+    );
+  }
+}
 
 Movie.propTypes = {
   movie: shape({
@@ -61,4 +62,8 @@ Movie.propTypes = {
   )
 };
 
+Movie.defaultProps = {
+  movie: {},
+  genres: []
+};
 export { Movie };

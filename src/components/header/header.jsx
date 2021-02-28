@@ -1,6 +1,6 @@
 import React from "react";
 import { BUTTON_SIZE } from "consts";
-import { HeaderWrapper, LogoWrapper } from "components/shared/header/header.styled";
+import { HeaderWrapper, LogoWrapper } from "components/header/header.styled";
 import { Button } from "components/shared/button";
 import { Logo } from "assets/styles";
 import logoImage from "assets/images/logo.png";
