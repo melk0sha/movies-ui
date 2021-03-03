@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { arrayOf, number, shape, string } from "prop-types";
+import { genreType } from "types";
 import { Movie } from "components/resultsSection/movies/movie";
 import { MoviesWrapper } from "components/resultsSection/movies/movies.styled";
 
@@ -28,12 +29,7 @@ Movies.propTypes = {
       image: string
     })
   ),
-  genres: arrayOf(
-    shape({
-      id: number,
-      name: string
-    })
-  )
+  genres: arrayOf(genreType)
 };
 
 export { Movies };

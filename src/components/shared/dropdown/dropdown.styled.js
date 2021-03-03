@@ -5,10 +5,17 @@ export const DropdownWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ opened, theme }) => opened && theme.colors.vinous.dark};
+  background-color: ${({ theme, opened, primary }) =>
+    opened
+      ? primary
+        ? theme.colors.vinous.dark
+        : theme.colors.brown.dark
+      : primary
+      ? theme.colors.vinous.original
+      : theme.colors.brown.original};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.vinous.dark};
+    background-color: ${({ theme, primary }) => (primary ? theme.colors.vinous.dark : theme.colors.brown.dark)};
   }
 `;
 
@@ -16,9 +23,10 @@ export const DropdownHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
-  padding: 20px;
-  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: ${({ primary }) => !primary && "5px"};
   color: ${({ theme }) => theme.colors.white};
   text-transform: uppercase;
   font-size: 1rem;
@@ -27,23 +35,23 @@ export const DropdownHeader = styled.div`
 
 export const DropdownList = styled.ul`
   position: absolute;
-  top: 0;
+  top: 100%;
   left: 0;
   width: 100%;
-  margin-top: 50px;
-  border: 2px solid ${({ theme }) => theme.colors.vinous.dark};
+  border: 2px solid ${({ theme, primary }) => (primary ? theme.colors.vinous.dark : theme.colors.brown.dark)};
+  border-radius: ${({ primary }) => !primary && "5px"};
   z-index: 1;
 `;
 
 export const ListItem = styled.li`
   padding: 20px;
   color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.vinous.original};
+  background-color: ${({ theme, primary }) => (primary ? theme.colors.vinous.original : theme.colors.brown.original)};
   text-transform: uppercase;
   font-size: 1rem;
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.vinous.dark};
+    background-color: ${({ theme, primary }) => (primary ? theme.colors.vinous.dark : theme.colors.brown.dark)};
   }
 `;

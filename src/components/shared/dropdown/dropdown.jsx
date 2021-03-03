@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { arrayOf, number, shape, string } from "prop-types";
+import { arrayOf, bool, number, shape, string } from "prop-types";
 import { useOnClickOutside } from "hooks";
 import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "components/shared/dropdown/dropdown.styled";
 
-const Dropdown = ({ className = "", options = [], defaultSelectedOption = null }) => {
+const Dropdown = ({ className = "", options = [], defaultSelectedOption = null, primary = false }) => {
   const [isOpen, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultSelectedOption);
   const dropdownWrapperRef = useRef(null);
@@ -23,7 +23,7 @@ const Dropdown = ({ className = "", options = [], defaultSelectedOption = null }
   const OptionItems = useMemo(
     () =>
       options.map((option) => (
-        <ListItem onClick={() => handleOptionChange(option)} key={option.id || Math.random()}>
+        <ListItem primary={primary} onClick={() => handleOptionChange(option)} key={option.id || Math.random()}>
           {option.value}
         </ListItem>
       )),
@@ -31,9 +31,11 @@ const Dropdown = ({ className = "", options = [], defaultSelectedOption = null }
   );
 
   return (
-    <DropdownWrapper className={className} ref={dropdownWrapperRef} opened={isOpen}>
-      <DropdownHeader onClick={handleHeaderClick}>{selectedOption.value}</DropdownHeader>
-      {isOpen && !!options.length && <DropdownList>{OptionItems}</DropdownList>}
+    <DropdownWrapper primary={primary} className={className} ref={dropdownWrapperRef} opened={isOpen}>
+      <DropdownHeader primary={primary} onClick={handleHeaderClick}>
+        {selectedOption.value}
+      </DropdownHeader>
+      {isOpen && !!options.length && <DropdownList primary={primary}>{OptionItems}</DropdownList>}
     </DropdownWrapper>
   );
 };
@@ -49,7 +51,8 @@ Dropdown.propTypes = {
   defaultSelectedOption: shape({
     id: number,
     value: string
-  })
+  }),
+  primary: bool
 };
 
 export { Dropdown };

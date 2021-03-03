@@ -1,12 +1,13 @@
 import React from "react";
-import { object } from "prop-types";
+import { object, string } from "prop-types";
 import { StyledInput } from "components/shared/input/input.styled";
 
-const Input = (props) => {
-  return <StyledInput {...props} />;
+const Input = ({ className, ...props }) => {
+  return <StyledInput className={className} {...props} />;
 };
 
 Input.propTypes = {
+  className: string,
   props: object
 };
 

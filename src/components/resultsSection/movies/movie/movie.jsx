@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { arrayOf, number, shape, string } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS } from "consts";
+import { genreType } from "types";
 import {
   MovieWrapper,
   MovieImageWrapper,
@@ -59,12 +60,7 @@ Movie.propTypes = {
     year: string,
     image: string
   }),
-  genres: arrayOf(
-    shape({
-      id: number,
-      name: string
-    })
-  )
+  genres: arrayOf(genreType)
 };
 
 export { Movie };

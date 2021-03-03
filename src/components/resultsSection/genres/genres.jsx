@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { arrayOf, number, shape, string } from "prop-types";
+import { genreType } from "types";
 import { GenresWrapper, Genre } from "components/resultsSection/genres/genres.styled";
 
 const Genres = ({ genres = [] }) => {
@@ -30,12 +31,7 @@ const Genres = ({ genres = [] }) => {
 };
 
 Genres.propTypes = {
-  genres: arrayOf(
-    shape({
-      id: number,
-      name: string
-    })
-  )
+  genres: arrayOf(genreType)
 };
 
 export { Genres };

@@ -45,6 +45,7 @@ module.exports = {
       consts: path.resolve(__dirname, "../src/constants"),
       hooks: path.resolve(__dirname, "../src/hooks"),
       routes: path.resolve(__dirname, "../src/routes"),
+      types: path.resolve(__dirname, "../src/types"),
       utils: path.resolve(__dirname, "../src/utils")
     }
   }
