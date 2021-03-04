@@ -21,10 +21,21 @@ class ResultsSection extends Component {
     movies: []
   };
 
-  componentDidMount() {
-    const moviesData = getMovies();
+  componentDidUpdate() {
+    const { genres } = this.props;
+    const { movies } = this.state;
 
-    this.setState({ movies: moviesData });
+    if (genres.length && !movies.length) {
+      const moviesData = getMovies().map((movie) => {
+        const genresText = movie.genreIds
+          .map((genreId) => genres.find((genre) => genre.id === genreId)?.name)
+          .join(", ");
+        delete movie.genreIds;
+        return { ...movie, genresText };
+      });
+
+      this.setState({ movies: moviesData });
+    }
   }
 
   render() {

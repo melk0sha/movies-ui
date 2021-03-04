@@ -16,7 +16,7 @@ const App = () => {
     const genresData = getGenres();
 
     setGenres(genresData);
-  }, []);
+  }, [setGenres]);
 
   return (
     <ThemeProvider theme={theme}>

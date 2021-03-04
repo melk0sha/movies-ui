@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { arrayOf, number, shape, string } from "prop-types";
+import { arrayOf, func, number, shape, string } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS } from "consts";
-import { genreType } from "types";
 import {
   MovieWrapper,
   MovieImageWrapper,
@@ -15,26 +14,23 @@ import {
 
 class Movie extends Component {
   static defaultProps = {
-    movie: {},
-    genres: []
+    movie: {}
   };
 
   handleOptionClick = (option) => {
-    if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
-      console.log("Edit was clicked");
-    }
+    const { movie, onEditClick, onDeleteClick } = this.props;
 
-    if (option.id === ACTION_MENU_MOVIE_VALUES.DELETE.id) {
-      console.log("Delete was clicked");
+    if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
+      onEditClick(movie);
+    } else if (option.id === ACTION_MENU_MOVIE_VALUES.DELETE.id) {
+      onDeleteClick(option);
     }
   };
 
   render() {
     const { handleOptionClick } = this;
-    const { movie, genres } = this.props;
-    const { image, genreIds, name, year } = movie;
-
-    const genresText = genreIds.map((genreId) => genres.find((genre) => genre.id === genreId)?.name).join(", ");
+    const { movie } = this.props;
+    const { image, genresText, name, year } = movie;
 
     return (
       <MovieWrapper>
@@ -60,7 +56,8 @@ Movie.propTypes = {
     year: string,
     image: string
   }),
-  genres: arrayOf(genreType)
+  onEditClick: func,
+  onDeleteClick: func
 };
 
 export { Movie };
