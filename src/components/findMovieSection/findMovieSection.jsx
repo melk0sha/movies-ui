@@ -20,6 +20,7 @@ const FindMovieSection = () => {
 
   const handleSearchFormSubmit = useCallback((e) => {
     e.preventDefault();
+    console.log("Movie Search Submitting");
   }, []);
 
   return (

@@ -34,7 +34,7 @@ class Movie extends Component {
     const { movie, genres } = this.props;
     const { image, genreIds, name, year } = movie;
 
-    const genresText = genreIds.map((genreId) => genres.find((genre) => genre.id === genreId).name).join(", ");
+    const genresText = genreIds.map((genreId) => genres.find((genre) => genre.id === genreId)?.name).join(", ");
 
     return (
       <MovieWrapper>

@@ -20,5 +20,7 @@ export const SortingSpan = styled.span`
 `;
 
 export const StyledDropdown = styled(Dropdown)`
+  justify-content: center;
   min-width: 157px;
+  text-transform: uppercase;
 `;

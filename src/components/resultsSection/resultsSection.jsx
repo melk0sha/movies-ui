@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { getGenres, getMovies } from "api";
+import { arrayOf } from "prop-types";
+import { getMovies } from "api";
+import { genreType } from "types";
 import { Genres } from "components/resultsSection/genres";
 import { MoviesSorting } from "components/resultsSection/moviesSorting";
 import { Movies } from "components/resultsSection/movies";
@@ -11,20 +13,23 @@ import {
 } from "components/resultsSection/resultsSection.styled";
 
 class ResultsSection extends Component {
+  static defaultProps = {
+    genres: []
+  };
+
   state = {
-    genres: [],
     movies: []
   };
 
   componentDidMount() {
-    const genresData = getGenres();
     const moviesData = getMovies();
 
-    this.setState({ genres: genresData, movies: moviesData });
+    this.setState({ movies: moviesData });
   }
 
   render() {
-    const { genres, movies } = this.state;
+    const { movies } = this.state;
+    const { genres } = this.props;
 
     return (
       <ResultsSectionWrapper>
@@ -45,5 +50,9 @@ class ResultsSection extends Component {
     );
   }
 }
+
+ResultsSection.propTypes = {
+  genres: arrayOf(genreType)
+};
 
 export { ResultsSection };

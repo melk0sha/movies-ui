@@ -40,6 +40,10 @@ export const ModalDropdown = styled(Dropdown)`
   height: 40px;
   margin: 0 10px;
   border-radius: 5px;
+
+  div {
+    justify-content: flex-start;
+  }
 `;
 
 export const ModalButtonWrapper = styled.div`

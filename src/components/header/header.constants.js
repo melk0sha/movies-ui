@@ -1,8 +1,8 @@
-const newMovieValuesDefaultState = {
+export const newMovieValuesDefaultState = {
   title: "",
   releaseDate: "",
   movieUrl: "",
-  genre: {},
+  selectedGenre: {},
   overview: "",
   runtime: ""
 };

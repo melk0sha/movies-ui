@@ -28,7 +28,7 @@ export const DropdownHeader = styled.div`
   padding: 10px 20px;
   border-radius: ${({ primary }) => !primary && "5px"};
   color: ${({ theme }) => theme.colors.white};
-  text-transform: uppercase;
+  opacity: ${({ isLabel }) => isLabel && "0.6"};
   font-size: 1rem;
   cursor: pointer;
 `;
@@ -47,7 +47,6 @@ export const ListItem = styled.li`
   padding: 20px;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme, primary }) => (primary ? theme.colors.vinous.original : theme.colors.brown.original)};
-  text-transform: uppercase;
   font-size: 1rem;
   cursor: pointer;
 

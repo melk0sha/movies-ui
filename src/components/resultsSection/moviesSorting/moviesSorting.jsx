@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
+import { SORT_BY_OPTIONS, SORT_BY_VALUES } from "consts";
 import {
   SortingSpan,
   MoviesSortingWrapper,
   StyledDropdown
 } from "components/resultsSection/moviesSorting/moviesSorting.styled";
-import { SORT_BY_OPTIONS, SORT_BY_VALUES } from "consts";
 
 const MoviesSorting = () => {
+  const [selectedOption, setSelectedOption] = useState(SORT_BY_VALUES.RELEASE_DATE);
+
+  const handleOptionSelect = useCallback(
+    (newOption) => {
+      setSelectedOption(newOption);
+    },
+    [setSelectedOption]
+  );
+
   return (
     <MoviesSortingWrapper>
       <SortingSpan>Sort By</SortingSpan>
-      <StyledDropdown primary options={SORT_BY_OPTIONS} defaultSelectedOption={SORT_BY_VALUES.RELEASE_DATE} />
+      <StyledDropdown primary options={SORT_BY_OPTIONS} selectedOption={selectedOption} onSelect={handleOptionSelect} />
     </MoviesSortingWrapper>
   );
 };

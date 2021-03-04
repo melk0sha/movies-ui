@@ -1,11 +1,17 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { arrayOf, bool, number, shape, string } from "prop-types";
 import { useOnClickOutside } from "hooks";
 import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "components/shared/dropdown/dropdown.styled";
 
-const Dropdown = ({ className = "", options = [], defaultSelectedOption = null, primary = false }) => {
+const Dropdown = ({
+  className = "",
+  options = [],
+  defaultLabel = "",
+  selectedOption = {},
+  onSelect,
+  primary = false
+}) => {
   const [isOpen, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(defaultSelectedOption);
   const dropdownWrapperRef = useRef(null);
 
   useOnClickOutside(dropdownWrapperRef, () => setOpen(false));
@@ -14,10 +20,10 @@ const Dropdown = ({ className = "", options = [], defaultSelectedOption = null, 
 
   const handleOptionChange = useCallback(
     (newOption) => {
-      setSelectedOption(newOption);
       setOpen(false);
+      onSelect(newOption);
     },
-    [setSelectedOption, setOpen]
+    [onSelect, setOpen]
   );
 
   const OptionItems = useMemo(
@@ -32,8 +38,8 @@ const Dropdown = ({ className = "", options = [], defaultSelectedOption = null, 
 
   return (
     <DropdownWrapper primary={primary} className={className} ref={dropdownWrapperRef} opened={isOpen}>
-      <DropdownHeader primary={primary} onClick={handleHeaderClick}>
-        {selectedOption.value}
+      <DropdownHeader primary={primary} isLabel={!!defaultLabel && !selectedOption.value} onClick={handleHeaderClick}>
+        {selectedOption.value || defaultLabel}
       </DropdownHeader>
       {isOpen && !!options.length && <DropdownList primary={primary}>{OptionItems}</DropdownList>}
     </DropdownWrapper>
@@ -48,10 +54,7 @@ Dropdown.propTypes = {
       value: string
     })
   ),
-  defaultSelectedOption: shape({
-    id: number,
-    value: string
-  }),
+  defaultLabel: string,
   primary: bool
 };
 
