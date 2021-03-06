@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { arrayOf, func } from "prop-types";
-import { addMovieValuesType, genreType } from "types";
+import { modalValuesAddType, genreType } from "types";
 import {
   AddMovieModalWrapper,
   ModalTitle,
@@ -116,8 +116,8 @@ class AddMovieModal extends Component {
 }
 
 AddMovieModal.propTypes = {
-  values: addMovieValuesType,
-  defaultValues: addMovieValuesType,
+  values: modalValuesAddType,
+  defaultValues: modalValuesAddType,
   genres: arrayOf(genreType),
   onValuesChange: func
 };

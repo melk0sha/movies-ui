@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { arrayOf } from "prop-types";
+import { arrayOf, func } from "prop-types";
 import { getMovies } from "api";
-import { genreType } from "types";
+import { genreType, modalValues } from "types";
 import { Genres } from "components/resultsSection/genres";
 import { MoviesSorting } from "components/resultsSection/moviesSorting";
 import { Movies } from "components/resultsSection/movies";
@@ -14,7 +14,9 @@ import {
 
 class ResultsSection extends Component {
   static defaultProps = {
-    genres: []
+    genres: [],
+    modalValues: {},
+    defaultModalValues: {}
   };
 
   state = {
@@ -40,7 +42,7 @@ class ResultsSection extends Component {
 
   render() {
     const { movies } = this.state;
-    const { genres } = this.props;
+    const { genres, modalValues, defaultModalValues, onModalValuesChange } = this.props;
 
     return (
       <ResultsSectionWrapper>
@@ -52,7 +54,13 @@ class ResultsSection extends Component {
         {movies.length ? (
           <>
             <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
-            <Movies movies={movies} genres={genres} />
+            <Movies
+              movies={movies}
+              genres={genres}
+              modalValues={modalValues}
+              defaultModalValues={defaultModalValues}
+              onModalValuesChange={onModalValuesChange}
+            />
           </>
         ) : (
           <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
@@ -63,7 +71,10 @@ class ResultsSection extends Component {
 }
 
 ResultsSection.propTypes = {
-  genres: arrayOf(genreType)
+  genres: arrayOf(genreType),
+  modalValues: modalValues,
+  defaultModalValues: modalValues,
+  onModalValuesChange: func
 };
 
 export { ResultsSection };

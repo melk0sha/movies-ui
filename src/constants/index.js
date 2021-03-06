@@ -32,3 +32,9 @@ export const ACTION_MENU_MOVIE_VALUES = {
 };
 
 export const ACTION_MENU_MOVIE_OPTIONS = [ACTION_MENU_MOVIE_VALUES.EDIT, ACTION_MENU_MOVIE_VALUES.DELETE];
+
+export const MODAL_TYPES = {
+  ADD_MOVIE: "addMovie",
+  EDIT_MOVIE: "editMovie",
+  DELETE_MOVIE: "deleteMovie"
+};

@@ -1,18 +1,16 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { arrayOf } from "prop-types";
-import { BUTTON_SIZE } from "consts";
-import { genreType } from "types";
+import { arrayOf, func } from "prop-types";
+import { BUTTON_SIZE, MODAL_TYPES } from "consts";
+import { genreType, modalValuesAddType } from "types";
 import { HeaderWrapper, LogoWrapper } from "components/header/header.styled";
 import { Button } from "components/shared/button";
 import { Modal } from "components/shared/modal";
 import { AddMovieModal } from "components/modals/addMovieModal";
-import { newMovieValuesDefaultState } from "components/header/header.constants";
 import { Logo } from "assets/styles";
 import logoImage from "assets/images/logo.png";
 
-const Header = ({ genres = [] }) => {
+const Header = ({ genres = [], modalValues = {}, defaultModalValues = {}, onModalValuesChange }) => {
   const [isModalShown, setModalShown] = useState(false);
-  const [newMovieValues, setNewMovieValues] = useState(newMovieValuesDefaultState);
 
   const genreOptions = useMemo(() => genres.map((genre) => ({ ...genre, value: genre.name })), [genres]);
 
@@ -20,11 +18,11 @@ const Header = ({ genres = [] }) => {
     setModalShown((prevState) => !prevState);
   }, [setModalShown]);
 
-  const handleValuesChange = useCallback(
+  const handleModalValuesChange = useCallback(
     (values) => {
-      setNewMovieValues(values);
+      onModalValuesChange(values, MODAL_TYPES.ADD_MOVIE);
     },
-    [setNewMovieValues]
+    [onModalValuesChange]
   );
 
   return (
@@ -39,9 +37,9 @@ const Header = ({ genres = [] }) => {
 
       <Modal show={isModalShown} onClose={handleModalShowingChange}>
         <AddMovieModal
-          values={newMovieValues}
-          defaultValues={newMovieValuesDefaultState}
-          onValuesChange={handleValuesChange}
+          values={modalValues}
+          defaultValues={defaultModalValues}
+          onValuesChange={handleModalValuesChange}
           genres={genreOptions}
         />
       </Modal>
@@ -50,7 +48,10 @@ const Header = ({ genres = [] }) => {
 };
 
 Header.propTypes = {
-  genres: arrayOf(genreType)
+  genres: arrayOf(genreType),
+  modalValues: modalValuesAddType,
+  defaultModalValues: modalValuesAddType,
+  onModalValuesChange: func
 };
 
 export { Header };
