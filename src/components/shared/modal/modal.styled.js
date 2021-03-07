@@ -1,19 +1,33 @@
 import styled from "styled-components";
+import { device } from "assets/styles/device";
+
+export const ModalContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const ModalWrapper = styled.div`
-  position: absolute;
-  top: 100px;
-  left: 0;
-  right: 0;
+  position: fixed;
   display: ${({ show }) => (show ? "flex" : "none")};
   height: auto;
-  max-width: 560px;
-  margin: auto;
-  padding: 50px;
+  max-width: 650px;
+  margin: 20px;
+  padding: 40px 20px;
   z-index: 3;
   background-color: ${({ theme }) => theme.colors.vinous.dark};
   color: ${({ theme }) => theme.colors.white};
-  box-shadow: 0px 0px 5px 1px ${({ theme }) => theme.colors.transparent.black_05};
+  box-shadow: 0px 0px 1px 1000px ${({ theme }) => theme.colors.transparent.black_05};
+
+  @media ${device.tablet} {
+    padding: 40px;
+  }
 `;
 
 export const ModalCloseIcon = styled.div`

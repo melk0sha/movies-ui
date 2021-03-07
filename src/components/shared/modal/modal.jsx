@@ -1,21 +1,25 @@
 import React, { Component } from "react";
 import { createPortal } from "react-dom";
 import { bool, element, func } from "prop-types";
-import { ModalWrapper, ModalCloseIcon } from "components/shared/modal/modal.styled";
+import { ModalContainer, ModalWrapper, ModalCloseIcon } from "components/shared/modal/modal.styled";
 
 const modalParentElement = document.getElementById("root");
 
 class Modal extends Component {
-  static defaultProps = {};
+  static defaultProps = {
+    show: false
+  };
 
   render() {
     const { show, children, onClose } = this.props;
 
     return createPortal(
-      <ModalWrapper show={show}>
-        {children}
-        <ModalCloseIcon onClick={onClose} />
-      </ModalWrapper>,
+      <ModalContainer>
+        <ModalWrapper show={show}>
+          {children}
+          <ModalCloseIcon onClick={onClose} />
+        </ModalWrapper>
+      </ModalContainer>,
       modalParentElement
     );
   }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "assets/styles/device";
 
 export const DeleteMovieModalWrapper = styled.div`
   display: flex;
@@ -7,9 +8,13 @@ export const DeleteMovieModalWrapper = styled.div`
 `;
 
 export const ModalTitle = styled.h2`
-  margin-bottom: 30px;
+  margin: 0 20px 30px;
   font-size: 2.4rem;
   text-transform: uppercase;
+
+  @media ${device.tablet} {
+    margin: 10px 10px 30px;
+  }
 `;
 
 export const ModalButtonWrapper = styled.div`
