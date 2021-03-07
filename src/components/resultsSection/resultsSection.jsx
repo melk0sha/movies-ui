@@ -20,17 +20,17 @@ class ResultsSection extends Component {
   };
 
   state = {
-    movies: []
+    movies: null
   };
 
   componentDidUpdate() {
     const { genres } = this.props;
     const { movies } = this.state;
 
-    if (genres.length && !movies.length) {
+    if (genres.length && !movies) {
       const moviesData = getMovies().map((movie) => {
         const genresText = movie.genreIds
-          .map((genreId) => genres.find((genre) => genre.id === genreId)?.name)
+          .map((genreId) => genres.find((genre) => genre.id === genreId)?.value)
           .join(", ");
         delete movie.genreIds;
         return { ...movie, genresText };
@@ -40,9 +40,23 @@ class ResultsSection extends Component {
     }
   }
 
-  render() {
+  handleMovieDelete = (movieId) => {
     const { movies } = this.state;
-    const { genres, modalValues, defaultModalValues, onModalValuesChange } = this.props;
+    const movieIndex = movies.findIndex((movie) => movie.id === movieId);
+    movies.splice(movieIndex, 1);
+
+    this.setState({ movies });
+  };
+
+  handleModalValuesChange = (values) => {
+    const { onModalValuesChange } = this.props;
+    onModalValuesChange(values);
+  };
+
+  render() {
+    const { handleMovieDelete, handleModalValuesChange } = this;
+    const { movies } = this.state;
+    const { genres, modalValues, defaultModalValues } = this.props;
 
     return (
       <ResultsSectionWrapper>
@@ -51,7 +65,7 @@ class ResultsSection extends Component {
           <MoviesSorting />
         </ResultsSectionHeader>
 
-        {movies.length ? (
+        {movies && movies.length ? (
           <>
             <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
             <Movies
@@ -59,7 +73,8 @@ class ResultsSection extends Component {
               genres={genres}
               modalValues={modalValues}
               defaultModalValues={defaultModalValues}
-              onModalValuesChange={onModalValuesChange}
+              onModalValuesChange={handleModalValuesChange}
+              onMovieDelete={handleMovieDelete}
             />
           </>
         ) : (

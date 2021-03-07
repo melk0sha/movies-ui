@@ -28,7 +28,7 @@ const Dropdown = ({
 
   const OptionItems = useMemo(
     () =>
-      options.map((option) => (
+      options?.map((option) => (
         <ListItem primary={primary} onClick={() => handleOptionChange(option)} key={option.id || Math.random()}>
           {option.value}
         </ListItem>

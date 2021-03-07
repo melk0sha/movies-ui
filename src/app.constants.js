@@ -19,6 +19,6 @@ export const modalValuesDefaultState = {
     runtime: ""
   },
   [MODAL_TYPES.DELETE_MOVIE]: {
-    movieId: null
+    id: null
   }
 };

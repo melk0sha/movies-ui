@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { arrayOf, number, shape, string } from "prop-types";
+import { arrayOf } from "prop-types";
 import { genreType } from "types";
 import { GenresWrapper, Genre } from "components/resultsSection/genres/genres.styled";
 
@@ -15,13 +15,13 @@ const Genres = ({ genres = [] }) => {
 
   const Genres = useMemo(
     () =>
-      genres.map((genre, idx) => (
+      genres?.map((genre, idx) => (
         <Genre
           key={genre.id}
           active={genre.id === activeGenreId || idx === activeGenreId}
           onClick={() => handleGenreClick(genre.id)}
         >
-          {genre.name}
+          {genre.value}
         </Genre>
       )),
     [activeGenreId, handleGenreClick, genres]

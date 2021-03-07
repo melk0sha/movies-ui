@@ -23,7 +23,7 @@ class Movie extends Component {
     if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
       onEditClick(movie);
     } else if (option.id === ACTION_MENU_MOVIE_VALUES.DELETE.id) {
-      onDeleteClick(option);
+      onDeleteClick(movie);
     }
   };
 

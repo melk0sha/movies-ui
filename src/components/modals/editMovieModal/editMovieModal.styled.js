@@ -53,7 +53,7 @@ export const ModalButtonWrapper = styled.div`
 `;
 
 export const ModalSpan = styled.span`
-  margin: 10px;
+  margin: 0 10px 10px;
   text-transform: uppercase;
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.white};

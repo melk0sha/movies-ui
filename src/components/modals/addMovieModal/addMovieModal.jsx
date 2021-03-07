@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { arrayOf, func } from "prop-types";
+import { MODAL_TYPES } from "consts";
 import { modalValuesAddType, genreType } from "types";
 import {
   AddMovieModalWrapper,
@@ -22,12 +23,12 @@ class AddMovieModal extends Component {
   handleResetClick = (e) => {
     e.preventDefault();
     const { defaultValues, onValuesChange } = this.props;
-    onValuesChange(defaultValues);
+    onValuesChange({ values: defaultValues, type: MODAL_TYPES.ADD_MOVIE });
   };
 
   handleValueChange = (value, type) => {
     const { values, onValuesChange } = this.props;
-    onValuesChange({ ...values, [type]: value });
+    onValuesChange({ values: { ...values, [type]: value }, type: MODAL_TYPES.ADD_MOVIE });
   };
 
   handleAddMovieSubmit = (e) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { arrayOf, func } from "prop-types";
 import { genreType, modalValues } from "types";
 
@@ -6,6 +6,13 @@ import { FindMovieSection } from "components/findMovieSection";
 import { ResultsSection } from "components/resultsSection";
 
 const Home = ({ genres = [], modalValues = {}, defaultModalValues = {}, onModalValuesChange }) => {
+  const handleModalValuesChange = useCallback(
+    (values) => {
+      onModalValuesChange(values);
+    },
+    [onModalValuesChange]
+  );
+
   return (
     <>
       <FindMovieSection />
@@ -13,7 +20,7 @@ const Home = ({ genres = [], modalValues = {}, defaultModalValues = {}, onModalV
         genres={genres}
         modalValues={modalValues}
         defaultModalValues={defaultModalValues}
-        onModalValuesChange={onModalValuesChange}
+        onModalValuesChange={handleModalValuesChange}
       />
     </>
   );

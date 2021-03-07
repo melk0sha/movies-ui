@@ -10,13 +10,17 @@ export const SORT_BY_VALUES = {
     id: 0,
     value: "Release Date"
   },
-  ANOTHER_DATE: {
+  RATING: {
     id: 1,
-    value: "Another Date"
+    value: "Rating"
+  },
+  GENRE: {
+    id: 2,
+    value: "Genre"
   }
 };
 
-export const SORT_BY_OPTIONS = [SORT_BY_VALUES.RELEASE_DATE, SORT_BY_VALUES.ANOTHER_DATE];
+export const SORT_BY_OPTIONS = [SORT_BY_VALUES.RELEASE_DATE, SORT_BY_VALUES.RATING, SORT_BY_VALUES.GENRE];
 
 export const SEARCH_PLACEHOLDER_TEXT = "What do you want to watch?";
 

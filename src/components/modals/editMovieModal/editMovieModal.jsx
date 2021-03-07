@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { arrayOf, func } from "prop-types";
+import { MODAL_TYPES } from "consts";
 import { modalValuesAddType, genreType } from "types";
 import {
   EditMovieModalWrapper,
@@ -22,18 +23,18 @@ class EditMovieModal extends Component {
 
   handleResetClick = (e) => {
     e.preventDefault();
-    const { defaultValues, onValuesChange } = this.props;
-    onValuesChange(defaultValues);
+    const { values, defaultValues, onValuesChange } = this.props;
+    onValuesChange({ values: { ...defaultValues, id: values.id }, type: MODAL_TYPES.EDIT_MOVIE });
   };
 
   handleValueChange = (value, type) => {
     const { values, onValuesChange } = this.props;
-    onValuesChange({ ...values, [type]: value });
+    onValuesChange({ values: { ...values, [type]: value }, type: MODAL_TYPES.EDIT_MOVIE });
   };
 
   handleEditMovieSubmit = (e) => {
     e.preventDefault();
-    console.log("Edit Movie Submitting");
+    console.log("Edit Movie Saving");
   };
 
   render() {
@@ -44,7 +45,7 @@ class EditMovieModal extends Component {
       <EditMovieModalWrapper>
         <ModalTitle>Edit movie</ModalTitle>
         <ModalLabel>Movie ID</ModalLabel>
-        <ModalSpan>{123456}</ModalSpan>
+        <ModalSpan>{values.id}</ModalSpan>
         <ModalForm onSubmit={handleEditMovieSubmit}>
           <ModalField>
             <ModalLabel htmlFor="title">Title</ModalLabel>
@@ -110,7 +111,7 @@ class EditMovieModal extends Component {
             <Button primary onClick={handleResetClick}>
               Reset
             </Button>
-            <Button>Submit</Button>
+            <Button>Save</Button>
           </ModalButtonWrapper>
         </ModalForm>
       </EditMovieModalWrapper>

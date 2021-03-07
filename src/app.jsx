@@ -10,7 +10,7 @@ import { Home } from "routes";
 import { modalValuesDefaultState } from "./app.constants";
 
 const App = () => {
-  const [genres, setGenres] = useState([]);
+  const [genres, setGenres] = useState(null);
   const [modalValues, setModalValues] = useState(modalValuesDefaultState);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const App = () => {
   }, [setGenres]);
 
   const handleModalValuesChange = useCallback(
-    (values, type) => {
+    ({ values, type }) => {
       setModalValues((prevState) => ({ ...prevState, [type]: values }));
     },
     [setModalValues]
