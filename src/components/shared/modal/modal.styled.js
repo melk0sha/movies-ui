@@ -3,11 +3,11 @@ import { device } from "assets/styles/device";
 
 export const ModalContainer = styled.div`
   position: absolute;
+  display: ${({ show }) => (show ? "flex" : "none")};
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  display: flex;
   align-content: center;
   justify-content: center;
   align-items: center;

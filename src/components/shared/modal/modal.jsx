@@ -14,7 +14,7 @@ class Modal extends Component {
     const { show, children, onClose } = this.props;
 
     return createPortal(
-      <ModalContainer>
+      <ModalContainer show={show}>
         <ModalWrapper show={show}>
           {children}
           <ModalCloseIcon onClick={onClose} />
