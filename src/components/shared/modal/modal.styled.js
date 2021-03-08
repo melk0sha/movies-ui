@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "assets/styles/device";
 
 export const ModalContainer = styled.div`
-  position: absolute;
+  position: fixed;
   display: ${({ show }) => (show ? "flex" : "none")};
   top: 0;
   left: 0;
@@ -11,6 +11,7 @@ export const ModalContainer = styled.div`
   align-content: center;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `;
 
 export const ModalWrapper = styled.div`
