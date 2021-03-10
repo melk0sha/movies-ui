@@ -4,6 +4,7 @@ import { useOnClickOutside } from "hooks";
 import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "components/shared/dropdown/dropdown.styled";
 
 const Dropdown = ({
+  id,
   className = "",
   options = [],
   defaultLabel = "",
@@ -28,8 +29,8 @@ const Dropdown = ({
 
   const OptionItems = useMemo(
     () =>
-      options?.map((option) => (
-        <ListItem primary={primary} onClick={() => handleOptionChange(option)} key={option.id || Math.random()}>
+      options?.map((option, index) => (
+        <ListItem primary={primary} onClick={() => handleOptionChange(option)} key={option.id || index}>
           {option.value}
         </ListItem>
       )),
@@ -38,7 +39,12 @@ const Dropdown = ({
 
   return (
     <DropdownWrapper primary={primary} className={className} ref={dropdownWrapperRef} opened={isOpen}>
-      <DropdownHeader primary={primary} isLabel={!!defaultLabel && !selectedOption.value} onClick={handleHeaderClick}>
+      <DropdownHeader
+        id={id}
+        primary={primary}
+        isLabel={!!defaultLabel && !selectedOption.value}
+        onClick={handleHeaderClick}
+      >
         {selectedOption.value || defaultLabel}
       </DropdownHeader>
       {isOpen && !!options.length && <DropdownList primary={primary}>{OptionItems}</DropdownList>}
@@ -47,6 +53,7 @@ const Dropdown = ({
 };
 
 Dropdown.propTypes = {
+  id: string,
   className: string,
   options: arrayOf(
     shape({

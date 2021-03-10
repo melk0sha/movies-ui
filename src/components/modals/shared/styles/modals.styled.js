@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { device } from "assets/styles/device";
 
-export const DeleteMovieModalWrapper = styled.div`
+export const ModalMovieWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+export const ModalLabel = styled.label`
+  padding: 15px 10px 10px;
+  font-size: 1.1rem;
 `;
 
 export const ModalTitle = styled.h2`

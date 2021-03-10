@@ -1,0 +1,1 @@
+export { UpdateMovieFields } from "./updateMovieFields";

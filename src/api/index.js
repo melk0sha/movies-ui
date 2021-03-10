@@ -1,1 +1,1 @@
-export { getGenres, getMovies } from "./data.service";
+export { getMovies } from "./data.service";

@@ -22,8 +22,8 @@ const ActionMenu = ({ className = "", options = [], onOptionClick }) => {
 
   const Options = useMemo(
     () =>
-      options.map((option) => (
-        <ActionMenuOption key={option.id || Math.random()} onClick={() => onOptionClick(option)}>
+      options.map((option, index) => (
+        <ActionMenuOption key={option.id || index} onClick={() => onOptionClick(option)}>
           {option.value}
         </ActionMenuOption>
       )),

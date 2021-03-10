@@ -15,37 +15,17 @@ import {
 class ResultsSection extends Component {
   static defaultProps = {
     genres: [],
+    movies: [],
     modalValues: {},
     defaultModalValues: {}
   };
 
-  state = {
-    movies: null
-  };
-
-  componentDidUpdate() {
-    const { genres } = this.props;
-    const { movies } = this.state;
-
-    if (genres.length && !movies) {
-      const moviesData = getMovies().map((movie) => {
-        const genresText = movie.genreIds
-          .map((genreId) => genres.find((genre) => genre.id === genreId)?.value)
-          .join(", ");
-        delete movie.genreIds;
-        return { ...movie, genresText };
-      });
-
-      this.setState({ movies: moviesData });
-    }
-  }
-
   handleMovieDelete = (movieId) => {
-    const { movies } = this.state;
+    const { movies, onMovieUpdate } = this.props;
     const movieIndex = movies.findIndex((movie) => movie.id === movieId);
     movies.splice(movieIndex, 1);
 
-    this.setState({ movies });
+    onMovieUpdate(movies);
   };
 
   handleModalValuesChange = (values) => {
@@ -55,8 +35,7 @@ class ResultsSection extends Component {
 
   render() {
     const { handleMovieDelete, handleModalValuesChange } = this;
-    const { movies } = this.state;
-    const { genres, modalValues, defaultModalValues } = this.props;
+    const { genres, movies, modalValues, defaultModalValues } = this.props;
 
     return (
       <ResultsSectionWrapper>
@@ -65,7 +44,7 @@ class ResultsSection extends Component {
           <MoviesSorting />
         </ResultsSectionHeader>
 
-        {movies && movies.length ? (
+        {movies?.length ? (
           <>
             <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
             <Movies
@@ -89,7 +68,8 @@ ResultsSection.propTypes = {
   genres: arrayOf(genreType),
   modalValues: modalValues,
   defaultModalValues: modalValues,
-  onModalValuesChange: func
+  onModalValuesChange: func,
+  onMovieUpdate: func
 };
 
 export { ResultsSection };

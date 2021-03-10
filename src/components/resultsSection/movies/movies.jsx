@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { arrayOf, func, number, shape, string } from "prop-types";
+import { arrayOf, func } from "prop-types";
 import { MODAL_TYPES } from "consts";
-import { genreType, modalValues } from "types";
+import { genreType, movieType, modalValues } from "types";
 import { Modal } from "components/shared/modal";
 import { EditMovieModal } from "components/modals/editMovieModal";
 import { DeleteMovieModal } from "components/modals/deleteMovieModal";
@@ -58,11 +58,10 @@ class Movies extends Component {
     const { genres, movies, modalValues, defaultModalValues } = this.props;
     const { isModalShown } = this.state;
 
-    const MoviesCards = movies.map((movie) => (
+    const MoviesCards = movies.map((movie, index) => (
       <Movie
         movie={movie}
-        key={movie.id || Math.random()}
-        genres={genres}
+        key={movie.id || index}
         onEditClick={(movie) => handleOptionClick(movie, MODAL_TYPES.EDIT_MOVIE)}
         onDeleteClick={(movie) => handleOptionClick(movie, MODAL_TYPES.DELETE_MOVIE)}
       />
@@ -90,16 +89,8 @@ class Movies extends Component {
 }
 
 Movies.propTypes = {
-  movies: arrayOf(
-    shape({
-      id: number,
-      name: string,
-      genreIds: arrayOf(number),
-      year: string,
-      image: string
-    })
-  ),
   genres: arrayOf(genreType),
+  movies: arrayOf(movieType),
   modalValues: modalValues,
   defaultModalValues: modalValues,
   onModalValuesChange: func,

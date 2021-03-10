@@ -1,22 +1,32 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { getGenres } from "api";
+import { getMovies } from "api";
 import { GlobalStyles, Main, Wrapper } from "assets/styles";
 import { theme } from "assets/styles/theme";
 import { ErrorBoundary } from "components/errorBoundary";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
 import { Home } from "routes";
-import { modalValuesDefaultState } from "./app.constants";
+import { getUniqueGenres } from "utils";
+import { modalValuesDefaultState, updateMovieModalDefaultValues } from "./app.constants";
 
 const App = () => {
-  const [genres, setGenres] = useState(null);
+  const [movies, setMovies] = useState(null);
   const [modalValues, setModalValues] = useState(modalValuesDefaultState);
 
   useEffect(() => {
-    const genresData = getGenres();
-    setGenres(genresData);
-  }, [setGenres]);
+    const moviesData = getMovies();
+    setMovies(moviesData);
+  }, [setMovies]);
+
+  const genres = useMemo(() => getUniqueGenres(movies), [movies]);
+
+  const handleMovieUpdate = useCallback(
+    (newMovies) => {
+      setMovies(newMovies);
+    },
+    [setMovies]
+  );
 
   const handleModalValuesChange = useCallback(
     ({ values, type }) => {
@@ -24,6 +34,14 @@ const App = () => {
     },
     [setModalValues]
   );
+
+  const updateMovieModalValues = useMemo(() => {
+    const { editMovie, deleteMovie } = modalValues;
+    return {
+      editMovie,
+      deleteMovie
+    };
+  }, [modalValues]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -38,9 +56,11 @@ const App = () => {
           <Main>
             <Home
               genres={genres}
-              modalValues={modalValues}
-              defaultModalValues={modalValuesDefaultState}
+              movies={movies}
+              modalValues={updateMovieModalValues}
+              defaultModalValues={updateMovieModalDefaultValues}
               onModalValuesChange={handleModalValuesChange}
+              onMovieUpdate={handleMovieUpdate}
             />
           </Main>
           <Footer />

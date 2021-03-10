@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { arrayOf, func, number, shape, string } from "prop-types";
+import { func } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS } from "consts";
+import { movieType } from "types";
 import {
   MovieWrapper,
   MovieImageWrapper,
@@ -30,7 +31,9 @@ class Movie extends Component {
   render() {
     const { handleOptionClick } = this;
     const { movie } = this.props;
-    const { image, genresText, name, year } = movie;
+    const { image, genres, name, year } = movie;
+
+    const genresText = genres.join(", ");
 
     return (
       <MovieWrapper>
@@ -49,13 +52,7 @@ class Movie extends Component {
 }
 
 Movie.propTypes = {
-  movie: shape({
-    id: number,
-    name: string,
-    genreIds: arrayOf(number),
-    year: string,
-    image: string
-  }),
+  movie: movieType,
   onEditClick: func,
   onDeleteClick: func
 };

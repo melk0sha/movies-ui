@@ -1,9 +1,0 @@
-{
-  "genres": [
-    { "id": 0, "value": "All" },
-    { "id": 1, "value": "Documentary" },
-    { "id": 2, "value": "Comedy" },
-    { "id": 3, "value": "Horror" },
-    { "id": 4, "value": "Crime" }
-  ]
-}

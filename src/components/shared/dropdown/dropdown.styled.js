@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DropdownWrapper = styled.div`
+export const DropdownWrapper = styled.button`
   position: relative;
   display: flex;
   justify-content: center;
@@ -13,7 +13,9 @@ export const DropdownWrapper = styled.div`
       : primary
       ? theme.colors.vinous.original
       : theme.colors.brown.original};
+  border: 0;
 
+  &:focus,
   &:hover {
     background-color: ${({ theme, primary }) => (primary ? theme.colors.vinous.dark : theme.colors.brown.dark)};
   }

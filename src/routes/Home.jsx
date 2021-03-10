@@ -1,11 +1,18 @@
 import React, { useCallback } from "react";
 import { arrayOf, func } from "prop-types";
-import { genreType, modalValues } from "types";
+import { genreType, movieType, modalValues } from "types";
 
 import { FindMovieSection } from "components/findMovieSection";
 import { ResultsSection } from "components/resultsSection";
 
-const Home = ({ genres = [], modalValues = {}, defaultModalValues = {}, onModalValuesChange }) => {
+const Home = ({
+  genres = [],
+  movies = [],
+  modalValues = {},
+  defaultModalValues = {},
+  onModalValuesChange,
+  onMovieUpdate
+}) => {
   const handleModalValuesChange = useCallback(
     (values) => {
       onModalValuesChange(values);
@@ -13,14 +20,23 @@ const Home = ({ genres = [], modalValues = {}, defaultModalValues = {}, onModalV
     [onModalValuesChange]
   );
 
+  const handleMovieUpdate = useCallback(
+    (newMovies) => {
+      onMovieUpdate(newMovies);
+    },
+    [onMovieUpdate]
+  );
+
   return (
     <>
       <FindMovieSection />
       <ResultsSection
         genres={genres}
+        movies={movies}
         modalValues={modalValues}
         defaultModalValues={defaultModalValues}
         onModalValuesChange={handleModalValuesChange}
+        onMovieUpdate={handleMovieUpdate}
       />
     </>
   );
@@ -28,9 +44,11 @@ const Home = ({ genres = [], modalValues = {}, defaultModalValues = {}, onModalV
 
 Home.propTypes = {
   genres: arrayOf(genreType),
+  movies: arrayOf(movieType),
   modalValues: modalValues,
   defaultModalValues: modalValues,
-  onModalValuesChange: func
+  onModalValuesChange: func,
+  onMovieUpdate: func
 };
 
 export { Home };

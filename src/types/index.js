@@ -1,8 +1,16 @@
-import { number, shape, string } from "prop-types";
+import { arrayOf, number, shape, string } from "prop-types";
 
 export const genreType = shape({
   id: number,
   value: string
+});
+
+export const movieType = shape({
+  id: number,
+  name: string,
+  genres: arrayOf(string),
+  year: string,
+  image: string
 });
 
 export const modalValues = shape({

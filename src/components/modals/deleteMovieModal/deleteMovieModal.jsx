@@ -1,13 +1,12 @@
 import React, { useCallback } from "react";
 import { func } from "prop-types";
-import { MODAL_TYPES } from "consts";
 import { modalValuesDeleteType } from "types";
 import {
-  DeleteMovieModalWrapper,
+  ModalMovieWrapper,
   ModalTitle,
   ModalButtonWrapper,
   ModalSpan
-} from "components/modals/deleteMovieModal/deleteMovieModal.styled";
+} from "components/modals/shared/styles/modals.styled";
 import { Button } from "components/shared/button";
 
 const DeleteMovieModal = ({ values = {}, onDelete }) => {
@@ -17,13 +16,13 @@ const DeleteMovieModal = ({ values = {}, onDelete }) => {
   }, [values]);
 
   return (
-    <DeleteMovieModalWrapper>
+    <ModalMovieWrapper>
       <ModalTitle>Delete movie</ModalTitle>
       <ModalSpan>Are you sure you want to delete this movie?</ModalSpan>
       <ModalButtonWrapper>
         <Button onClick={handleDeleteMovieClick}>Confirm</Button>
       </ModalButtonWrapper>
-    </DeleteMovieModalWrapper>
+    </ModalMovieWrapper>
   );
 };
 
