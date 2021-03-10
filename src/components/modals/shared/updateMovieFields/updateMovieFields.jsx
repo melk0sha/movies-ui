@@ -73,9 +73,10 @@ class UpdateMovieFields extends Component {
           <ModalDropdown
             id="genre"
             options={genres}
-            selectedOption={values.selectedGenre}
+            selectedOptions={values.selectedGenres}
             defaultLabel="Select genre"
-            onSelect={(option) => handleValueChange(option, "selectedGenre")}
+            onSelect={(options) => handleValueChange(options, "selectedGenres")}
+            multiSelect
           />
         </ModalField>
         <ModalField>

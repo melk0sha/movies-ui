@@ -13,6 +13,11 @@ export const movieType = shape({
   image: string
 });
 
+export const optionType = shape({
+  id: number,
+  value: string
+});
+
 export const modalValues = shape({
   addMovie: modalValuesAddType,
   editMovie: modalValuesEditType,

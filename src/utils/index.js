@@ -1,9 +1,9 @@
 export const getUniqueGenres = (movies) =>
   movies?.reduce((moviesAcc, movie) => {
     const uniqueGenresWithIds = movie.genres.reduce(
-      (genresAcc, genre, index) =>
+      (genresAcc, genre) =>
         moviesAcc.findIndex((accValue) => accValue.value === genre) === -1
-          ? [...genresAcc, { id: index, value: genre }]
+          ? [...genresAcc, { id: Math.random(), value: genre }]
           : genresAcc,
       []
     );

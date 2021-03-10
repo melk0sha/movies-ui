@@ -17,7 +17,7 @@ const Genres = ({ genres = [] }) => {
     () =>
       genres?.map((genre, idx) => (
         <Genre
-          key={genre.id}
+          key={genre.id || idx}
           active={genre.id === activeGenreId || idx === activeGenreId}
           onClick={() => handleGenreClick(genre.id)}
         >

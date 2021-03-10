@@ -4,7 +4,7 @@ const movieProperties = {
   title: "",
   releaseDate: "",
   movieUrl: "",
-  selectedGenre: {},
+  selectedGenres: [],
   overview: "",
   runtime: ""
 };

@@ -7,7 +7,7 @@ import {
 } from "components/resultsSection/moviesSorting/moviesSorting.styled";
 
 const MoviesSorting = () => {
-  const [selectedOption, setSelectedOption] = useState(SORT_BY_VALUES.RELEASE_DATE);
+  const [selectedOption, setSelectedOption] = useState([SORT_BY_VALUES.RELEASE_DATE]);
 
   const handleOptionSelect = useCallback(
     (newOption) => {
@@ -19,7 +19,12 @@ const MoviesSorting = () => {
   return (
     <MoviesSortingWrapper>
       <SortingSpan>Sort By</SortingSpan>
-      <StyledDropdown primary options={SORT_BY_OPTIONS} selectedOption={selectedOption} onSelect={handleOptionSelect} />
+      <StyledDropdown
+        primary
+        options={SORT_BY_OPTIONS}
+        selectedOptions={selectedOption}
+        onSelect={handleOptionSelect}
+      />
     </MoviesSortingWrapper>
   );
 };

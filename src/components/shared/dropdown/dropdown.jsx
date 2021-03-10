@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { arrayOf, bool, number, shape, string } from "prop-types";
+import { arrayOf, bool, string } from "prop-types";
 import { useOnClickOutside } from "hooks";
+import { optionType } from "types";
 import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "components/shared/dropdown/dropdown.styled";
 
 const Dropdown = ({
@@ -8,9 +9,10 @@ const Dropdown = ({
   className = "",
   options = [],
   defaultLabel = "",
-  selectedOption = {},
+  selectedOptions = [],
   onSelect,
-  primary = false
+  primary = false,
+  multiSelect = false
 }) => {
   const [isOpen, setOpen] = useState(false);
   const dropdownWrapperRef = useRef(null);
@@ -21,10 +23,23 @@ const Dropdown = ({
 
   const handleOptionChange = useCallback(
     (newOption) => {
+      // TODO: Refactor this part ---------
+      let newOptions = [newOption];
+      if (multiSelect) {
+        const newOptionIndex = selectedOptions.findIndex((option) => option.id === newOption.id);
+
+        if (newOptionIndex !== -1) {
+          selectedOptions.splice(newOptionIndex, 1);
+          newOptions = [...selectedOptions];
+        } else {
+          newOptions = [...selectedOptions, newOption];
+        }
+      }
       setOpen(false);
-      onSelect(newOption);
+      onSelect(newOptions);
+      // ---------
     },
-    [onSelect, setOpen]
+    [onSelect, setOpen, multiSelect, selectedOptions]
   );
 
   const OptionItems = useMemo(
@@ -37,15 +52,25 @@ const Dropdown = ({
     [options, handleOptionChange]
   );
 
+  const selectedOptionsText = useMemo(() => selectedOptions.map((selectedOption) => selectedOption.value).join(", "), [
+    selectedOptions
+  ]);
+
   return (
-    <DropdownWrapper primary={primary} className={className} ref={dropdownWrapperRef} opened={isOpen}>
+    <DropdownWrapper
+      primary={primary}
+      className={className}
+      ref={dropdownWrapperRef}
+      opened={isOpen}
+      onClick={(e) => e.preventDefault()}
+    >
       <DropdownHeader
         id={id}
         primary={primary}
-        isLabel={!!defaultLabel && !selectedOption.value}
+        isLabel={!!defaultLabel && !selectedOptionsText}
         onClick={handleHeaderClick}
       >
-        {selectedOption.value || defaultLabel}
+        {selectedOptionsText || defaultLabel}
       </DropdownHeader>
       {isOpen && !!options.length && <DropdownList primary={primary}>{OptionItems}</DropdownList>}
     </DropdownWrapper>
@@ -55,14 +80,11 @@ const Dropdown = ({
 Dropdown.propTypes = {
   id: string,
   className: string,
-  options: arrayOf(
-    shape({
-      id: number,
-      value: string
-    })
-  ),
+  options: arrayOf(optionType),
   defaultLabel: string,
-  primary: bool
+  selectedOptions: arrayOf(optionType),
+  primary: bool,
+  multiSelect: bool
 };
 
 export { Dropdown };
