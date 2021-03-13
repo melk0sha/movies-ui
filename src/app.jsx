@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { getMovies } from "api";
-import { GlobalStyles, Main, Wrapper } from "assets/styles";
+import { GlobalStyles, Wrapper } from "assets/styles";
 import { theme } from "assets/styles/theme";
 import { ErrorBoundary } from "components/errorBoundary";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
-import { Home } from "routes";
+import { Routes } from "routes";
 import { getUniqueGenres } from "utils";
 import { modalValuesDefaultState, updateMovieModalDefaultValues } from "./app.constants";
 
@@ -53,16 +53,14 @@ const App = () => {
             defaultModalValues={modalValuesDefaultState.addMovie}
             onModalValuesChange={handleModalValuesChange}
           />
-          <Main>
-            <Home
-              genres={genres}
-              movies={movies}
-              modalValues={updateMovieModalValues}
-              defaultModalValues={updateMovieModalDefaultValues}
-              onModalValuesChange={handleModalValuesChange}
-              onMovieUpdate={handleMovieUpdate}
-            />
-          </Main>
+          <Routes
+            genres={genres}
+            movies={movies}
+            modalValues={updateMovieModalValues}
+            defaultModalValues={updateMovieModalDefaultValues}
+            onModalValuesChange={handleModalValuesChange}
+            onMovieUpdate={handleMovieUpdate}
+          />
           <Footer />
         </Wrapper>
       </ErrorBoundary>

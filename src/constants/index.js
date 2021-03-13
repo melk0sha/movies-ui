@@ -42,3 +42,8 @@ export const MODAL_TYPES = {
   EDIT_MOVIE: "editMovie",
   DELETE_MOVIE: "deleteMovie"
 };
+
+export const PATHS = {
+  HOME: "/",
+  MOVIE: "/movie/:id"
+};

@@ -58,18 +58,14 @@ const Dropdown = ({
 
   return (
     <DropdownWrapper
+      id={id}
       primary={primary}
       className={className}
       ref={dropdownWrapperRef}
       opened={isOpen}
       onClick={(e) => e.preventDefault()}
     >
-      <DropdownHeader
-        id={id}
-        primary={primary}
-        isLabel={!!defaultLabel && !selectedOptionsText}
-        onClick={handleHeaderClick}
-      >
+      <DropdownHeader primary={primary} isLabel={!!defaultLabel && !selectedOptionsText} onClick={handleHeaderClick}>
         {selectedOptionsText || defaultLabel}
       </DropdownHeader>
       {isOpen && !!options.length && <DropdownList primary={primary}>{OptionItems}</DropdownList>}

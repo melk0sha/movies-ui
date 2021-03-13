@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { useCallback, useMemo } from "react";
+import { generatePath, Link } from "react-router-dom";
 import { func } from "prop-types";
-import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS } from "consts";
+import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS, PATHS } from "consts";
 import { movieType } from "types";
 import {
   MovieWrapper,
@@ -13,43 +14,37 @@ import {
   StyledActionMenu
 } from "components/resultsSection/movies/movie/movie.styled";
 
-class Movie extends Component {
-  static defaultProps = {
-    movie: {}
-  };
+const Movie = ({ movie = {}, onEditClick, onDeleteClick }) => {
+  const { id, image, genres, name, year } = movie;
+  const genresText = useMemo(() => genres.join(", "), [genres]);
 
-  handleOptionClick = (option) => {
-    const { movie, onEditClick, onDeleteClick } = this.props;
+  const handleOptionClick = useCallback(
+    (option) => {
+      if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
+        onEditClick(movie);
+      } else if (option.id === ACTION_MENU_MOVIE_VALUES.DELETE.id) {
+        onDeleteClick(movie);
+      }
+    },
+    [movie, onEditClick, onDeleteClick]
+  );
 
-    if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
-      onEditClick(movie);
-    } else if (option.id === ACTION_MENU_MOVIE_VALUES.DELETE.id) {
-      onDeleteClick(movie);
-    }
-  };
-
-  render() {
-    const { handleOptionClick } = this;
-    const { movie } = this.props;
-    const { image, genres, name, year } = movie;
-
-    const genresText = genres.join(", ");
-
-    return (
-      <MovieWrapper>
-        <MovieImageWrapper>
-          <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
+  return (
+    <MovieWrapper>
+      <MovieImageWrapper>
+        <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
+        <Link to={generatePath(PATHS.MOVIE, { id })}>
           <MovieImage src={image} alt={name} />
-        </MovieImageWrapper>
-        <MovieInfoWrapper>
-          <MovieTitle>{name}</MovieTitle>
-          <MovieYear>{year}</MovieYear>
-        </MovieInfoWrapper>
-        <MovieGenres>{genresText}</MovieGenres>
-      </MovieWrapper>
-    );
-  }
-}
+        </Link>
+      </MovieImageWrapper>
+      <MovieInfoWrapper>
+        <MovieTitle>{name}</MovieTitle>
+        <MovieYear>{year}</MovieYear>
+      </MovieInfoWrapper>
+      <MovieGenres>{genresText}</MovieGenres>
+    </MovieWrapper>
+  );
+};
 
 Movie.propTypes = {
   movie: movieType,

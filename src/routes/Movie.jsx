@@ -2,10 +2,10 @@ import React from "react";
 import { arrayOf, func } from "prop-types";
 import { genreType, movieType, modalValues } from "types";
 
-import { FindMovieSection } from "components/findMovieSection";
+import { MovieSection } from "components/movieSection";
 import { ResultsSection } from "components/resultsSection";
 
-const Home = ({
+const Movie = ({
   genres = [],
   movies = [],
   modalValues = {},
@@ -15,7 +15,7 @@ const Home = ({
 }) => {
   return (
     <>
-      <FindMovieSection />
+      <MovieSection />
       <ResultsSection
         genres={genres}
         movies={movies}
@@ -28,7 +28,7 @@ const Home = ({
   );
 };
 
-Home.propTypes = {
+Movie.propTypes = {
   genres: arrayOf(genreType),
   movies: arrayOf(movieType),
   modalValues: modalValues,
@@ -37,4 +37,4 @@ Home.propTypes = {
   onMovieUpdate: func
 };
 
-export { Home };
+export { Movie };
