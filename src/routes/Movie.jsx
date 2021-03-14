@@ -15,7 +15,7 @@ const Movie = ({
 }) => {
   return (
     <>
-      <MovieSection />
+      <MovieSection movies={movies} />
       <ResultsSection
         genres={genres}
         movies={movies}

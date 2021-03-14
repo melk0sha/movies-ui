@@ -13,8 +13,6 @@ const Routes = (props) => {
         <Route exact path={PATHS.HOME}>
           <Home {...props} />
         </Route>
-        {/* <Route exact path={PATHS.HOME} render={(props) => <Home {...props} />} /> */}
-        {/* <Route path={PATHS.MOVIE} component={Movie} /> */}
         <Route path={PATHS.MOVIE}>
           <Movie {...props} />
         </Route>

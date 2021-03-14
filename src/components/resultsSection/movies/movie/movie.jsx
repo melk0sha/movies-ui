@@ -1,8 +1,10 @@
 import React, { useCallback, useMemo } from "react";
-import { generatePath, Link } from "react-router-dom";
+import { generatePath } from "react-router-dom";
+import { NavHashLink } from "react-router-hash-link";
 import { func } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS, PATHS } from "consts";
 import { movieType } from "types";
+import { getYearFromReleaseDate } from "utils";
 import {
   MovieWrapper,
   MovieImageWrapper,
@@ -15,8 +17,10 @@ import {
 } from "components/resultsSection/movies/movie/movie.styled";
 
 const Movie = ({ movie = {}, onEditClick, onDeleteClick }) => {
-  const { id, image, genres, name, year } = movie;
+  const { id, poster_path, genres, title, release_date } = movie;
+
   const genresText = useMemo(() => genres.join(", "), [genres]);
+  const year = useMemo(() => getYearFromReleaseDate(release_date), [release_date]);
 
   const handleOptionClick = useCallback(
     (option) => {
@@ -33,12 +37,12 @@ const Movie = ({ movie = {}, onEditClick, onDeleteClick }) => {
     <MovieWrapper>
       <MovieImageWrapper>
         <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
-        <Link to={generatePath(PATHS.MOVIE, { id })}>
-          <MovieImage src={image} alt={name} />
-        </Link>
+        <NavHashLink smooth to={generatePath(`${PATHS.MOVIE}#top`, { id })}>
+          <MovieImage src={poster_path} alt={title} />
+        </NavHashLink>
       </MovieImageWrapper>
       <MovieInfoWrapper>
-        <MovieTitle>{name}</MovieTitle>
+        <MovieTitle>{title}</MovieTitle>
         <MovieYear>{year}</MovieYear>
       </MovieInfoWrapper>
       <MovieGenres>{genresText}</MovieGenres>

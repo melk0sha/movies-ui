@@ -13,6 +13,9 @@ export const colors = {
     dark: "#0E0707",
     original: "#170B0D"
   },
+  orange: {
+    original: "#FFD486"
+  },
   grey: {
     dark: "#4C4C4C",
     light: "#9E9E9E",
@@ -23,6 +26,7 @@ export const colors = {
     black_04: "rgba(0, 0, 0, 0.4)",
     black_05: "rgba(0, 0, 0, 0.5)",
     black_08: "rgba(0, 0, 0, 0.8)",
+    black_09: "rgba(0, 0, 0, 0.9)",
     white_08: "rgba(255, 255, 255, 0.8)"
   }
 };

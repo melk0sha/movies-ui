@@ -10,3 +10,5 @@ export const getUniqueGenres = (movies) =>
 
     return [...moviesAcc, ...uniqueGenresWithIds];
   }, []);
+
+export const getYearFromReleaseDate = (releaseDate) => releaseDate?.slice(0, 4);
