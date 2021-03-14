@@ -10,7 +10,7 @@ import {
   Close
 } from "components/shared/actionMenu/actionMenu.styled";
 
-const ActionMenu = ({ className = "", options = [], onOptionClick }) => {
+const ActionMenu = ({ className, options = [], onOptionClick }) => {
   const [isCircleHidden, setCircleHidden] = useState(false);
   const actionMenuWrapperRef = useRef(null);
 

@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { useCallback } from "react";
 import { arrayOf, func } from "prop-types";
-import { getMovies } from "api";
-import { genreType, modalValues } from "types";
+import { genreType, movieType, modalValues } from "types";
 import { Genres } from "components/resultsSection/genres";
 import { MoviesSorting } from "components/resultsSection/moviesSorting";
 import { Movies } from "components/resultsSection/movies";
@@ -12,60 +11,53 @@ import {
   NoMovieFoundSpan
 } from "components/resultsSection/resultsSection.styled";
 
-class ResultsSection extends Component {
-  static defaultProps = {
-    genres: [],
-    movies: [],
-    modalValues: {},
-    defaultModalValues: {}
-  };
+const ResultsSection = ({
+  genres = [],
+  movies = [],
+  modalValues = {},
+  defaultModalValues = {},
+  onModalValuesChange: handleModalValuesChange,
+  onMovieUpdate
+}) => {
+  const handleMovieDelete = useCallback(
+    (movieId) => {
+      const movieIndex = movies.findIndex((movie) => movie.id === movieId);
+      movies.splice(movieIndex, 1);
 
-  handleMovieDelete = (movieId) => {
-    const { movies, onMovieUpdate } = this.props;
-    const movieIndex = movies.findIndex((movie) => movie.id === movieId);
-    movies.splice(movieIndex, 1);
+      onMovieUpdate(movies);
+    },
+    [movies, onMovieUpdate]
+  );
 
-    onMovieUpdate(movies);
-  };
+  return (
+    <ResultsSectionWrapper>
+      <ResultsSectionHeader>
+        <Genres genres={genres} />
+        <MoviesSorting />
+      </ResultsSectionHeader>
 
-  handleModalValuesChange = (values) => {
-    const { onModalValuesChange } = this.props;
-    onModalValuesChange(values);
-  };
-
-  render() {
-    const { handleMovieDelete, handleModalValuesChange } = this;
-    const { genres, movies, modalValues, defaultModalValues } = this.props;
-
-    return (
-      <ResultsSectionWrapper>
-        <ResultsSectionHeader>
-          <Genres genres={genres} />
-          <MoviesSorting />
-        </ResultsSectionHeader>
-
-        {movies?.length ? (
-          <>
-            <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
-            <Movies
-              movies={movies}
-              genres={genres}
-              modalValues={modalValues}
-              defaultModalValues={defaultModalValues}
-              onModalValuesChange={handleModalValuesChange}
-              onMovieDelete={handleMovieDelete}
-            />
-          </>
-        ) : (
-          <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
-        )}
-      </ResultsSectionWrapper>
-    );
-  }
-}
+      {movies?.length ? (
+        <>
+          <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
+          <Movies
+            movies={movies}
+            genres={genres}
+            modalValues={modalValues}
+            defaultModalValues={defaultModalValues}
+            onModalValuesChange={handleModalValuesChange}
+            onMovieDelete={handleMovieDelete}
+          />
+        </>
+      ) : (
+        <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
+      )}
+    </ResultsSectionWrapper>
+  );
+};
 
 ResultsSection.propTypes = {
   genres: arrayOf(genreType),
+  movies: arrayOf(movieType),
   modalValues: modalValues,
   defaultModalValues: modalValues,
   onModalValuesChange: func,

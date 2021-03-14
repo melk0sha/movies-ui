@@ -6,7 +6,7 @@ import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "compone
 
 const Dropdown = ({
   id,
-  className = "",
+  className,
   options = [],
   defaultLabel = "",
   selectedOptions = [],
