@@ -12,6 +12,7 @@ export const StyledInput = styled.input`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.colors.white};
   transition: background-color 0.2s ease-out;
+  box-shadow: 0px 0px 3px -1px ${({ theme }) => theme.colors.transparent.black_08};
 
   &:focus {
     background-color: ${({ theme, primary }) =>
