@@ -3,17 +3,21 @@ export const colors = {
   black: "#000000",
   vinous: {
     dark: "#271315",
+    light: "#422427",
     original: "#371B1E"
   },
   beige: {
-    dark: "#DECAAE",
-    original: "#FAE5C8"
+    dark: "#E0B578",
+    light: "#FFDFB4",
+    original: "#FFD397"
   },
   brown: {
-    dark: "#0E0707",
-    original: "#170B0D"
+    dark: "#150B0D",
+    light: "#301D1F",
+    original: "#1E0F12"
   },
   orange: {
+    light: "#E0D7C6",
     original: "#FFD486"
   },
   grey: {

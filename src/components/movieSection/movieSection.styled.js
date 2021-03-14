@@ -42,7 +42,7 @@ export const MovieSectionWrapper = styled.div`
 export const MovieImage = styled.img`
   height: 320px;
   margin-top: 50px;
-  border-radius: 5px;
+  border-radius: 3px;
 
   @media ${device.tablet} {
     margin-top: 0;

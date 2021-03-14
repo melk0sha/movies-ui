@@ -20,7 +20,9 @@ const DeleteMovieModal = ({ values = {}, onDelete }) => {
       <ModalTitle>Delete movie</ModalTitle>
       <ModalSpan>Are you sure you want to delete this movie?</ModalSpan>
       <ModalButtonWrapper>
-        <Button onClick={handleDeleteMovieClick}>Confirm</Button>
+        <Button rounded onClick={handleDeleteMovieClick}>
+          Confirm
+        </Button>
       </ModalButtonWrapper>
     </ModalMovieWrapper>
   );

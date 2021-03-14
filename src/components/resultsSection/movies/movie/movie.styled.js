@@ -19,7 +19,7 @@ export const MovieImageWrapper = styled.div`
 
 export const MovieImage = styled.img`
   height: 320px;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
 `;
 

@@ -24,7 +24,7 @@ export const ModalField = styled.div`
 export const ModalDropdown = styled(Dropdown)`
   height: 40px;
   margin: 0 10px;
-  border-radius: 5px;
+  border-radius: 3px;
 
   div {
     justify-content: flex-start;

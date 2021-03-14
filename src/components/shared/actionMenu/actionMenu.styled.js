@@ -35,7 +35,7 @@ export const ActionMenuOptions = styled.ul`
   min-height: 50px;
   min-width: 50px;
   padding-top: 30px;
-  border-radius: 5px;
+  border-radius: 3px;
   color: ${({ theme }) => theme.colors.grey.dark};
   background-color: ${({ theme }) => theme.colors.white};
 `;

@@ -3,8 +3,8 @@ import { colors } from "assets/styles/theme/colors";
 
 export const buttonColors = {
   primary: css`
-    background-color: ${colors.black};
-    color: ${colors.white};
+    background-color: ${colors.vinous.light};
+    color: ${colors.orange.light};
 
     &:hover {
       background-color: ${colors.vinous.original};
@@ -16,8 +16,8 @@ export const buttonColors = {
   `,
 
   secondary: css`
-    background-color: ${colors.white};
-    color: ${colors.black};
+    background-color: ${colors.beige.light};
+    color: ${colors.transparent.black_09};
 
     &:hover {
       background-color: ${colors.beige.original};

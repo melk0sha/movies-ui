@@ -1,37 +1,46 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
+import { generatePath, useLocation } from "react-router";
+import { HashLink } from "react-router-hash-link";
 import { arrayOf, func } from "prop-types";
-import { BUTTON_SIZE } from "consts";
+import { BUTTON_SIZE, PATHS } from "consts";
 import { genreType, modalValuesAddType } from "types";
-import { HeaderWrapper, LogoWrapper } from "components/header/header.styled";
+import { HeaderWrapper, LogoWrapper, StyledHashLink } from "components/header/header.styled";
 import { Button } from "components/shared/button";
 import { Modal } from "components/shared/modal";
 import { AddMovieModal } from "components/modals/addMovieModal";
 import { Logo } from "assets/styles";
 import logoImage from "assets/images/logo.png";
 
-const Header = ({ genres = [], modalValues = {}, defaultModalValues = {}, onModalValuesChange }) => {
+const Header = ({
+  genres = [],
+  modalValues = {},
+  defaultModalValues = {},
+  onModalValuesChange: handleModalValuesChange
+}) => {
+  const { pathname } = useLocation();
   const [isModalShown, setModalShown] = useState(false);
 
   const handleModalShowingChange = useCallback(() => {
     setModalShown((prevState) => !prevState);
   }, [setModalShown]);
 
-  const handleModalValuesChange = useCallback(
-    (values) => {
-      onModalValuesChange(values);
-    },
-    [onModalValuesChange]
-  );
-
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <Logo src={logoImage} alt="Logo" />
+        <HashLink smooth to={generatePath(`${PATHS.HOME}#`)}>
+          <Logo src={logoImage} alt="Logo" />
+        </HashLink>
       </LogoWrapper>
 
-      <Button size={BUTTON_SIZE.sm} onClick={handleModalShowingChange}>
-        + Add movie
-      </Button>
+      {pathname === PATHS.HOME ? (
+        <Button rounded size={BUTTON_SIZE.sm} onClick={handleModalShowingChange}>
+          Add movie
+        </Button>
+      ) : (
+        <StyledHashLink smooth to={generatePath(`${PATHS.HOME}#`)}>
+          Back to movie search
+        </StyledHashLink>
+      )}
 
       <Modal show={isModalShown} onClose={handleModalShowingChange}>
         <AddMovieModal

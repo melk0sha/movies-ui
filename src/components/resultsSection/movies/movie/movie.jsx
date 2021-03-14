@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { generatePath } from "react-router-dom";
-import { NavHashLink } from "react-router-hash-link";
+import { HashLink } from "react-router-hash-link";
 import { func } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS, PATHS } from "consts";
 import { movieType } from "types";
@@ -37,9 +37,9 @@ const Movie = ({ movie = {}, onEditClick, onDeleteClick }) => {
     <MovieWrapper>
       <MovieImageWrapper>
         <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
-        <NavHashLink smooth to={generatePath(`${PATHS.MOVIE}#top`, { id })}>
+        <HashLink smooth to={generatePath(`${PATHS.MOVIE}#`, { id })}>
           <MovieImage src={poster_path} alt={title} />
-        </NavHashLink>
+        </HashLink>
       </MovieImageWrapper>
       <MovieInfoWrapper>
         <MovieTitle>{title}</MovieTitle>

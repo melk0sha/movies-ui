@@ -28,11 +28,13 @@ const FindMovieSection = () => {
       <FindMovieTitle>Find your movie</FindMovieTitle>
       <SearchForm onSubmit={handleSearchFormSubmit}>
         <StyledInput
+          primary
+          rounded
           value={inputSearchValue}
           onChange={handleInputSearchChange}
           placeholder={SEARCH_PLACEHOLDER_TEXT}
         />
-        <Button primary size={BUTTON_SIZE.lg}>
+        <Button primary rounded size={BUTTON_SIZE.lg}>
           Search
         </Button>
       </SearchForm>

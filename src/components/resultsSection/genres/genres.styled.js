@@ -19,7 +19,7 @@ export const Genre = styled.span`
     text-transform: uppercase;
     color: ${theme.colors.white};
     font-size: 1rem;
-    border-bottom: ${active && `3px solid ${theme.colors.beige.dark}`};
+    border-bottom: ${active && `3px solid ${theme.colors.beige.light}`};
     cursor: pointer;
 
     &:hover {

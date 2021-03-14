@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { arrayOf } from "prop-types";
 import { movieType } from "types";
-import { PATHS } from "consts";
 import { getYearFromReleaseDate } from "utils";
 import {
   MovieSectionWrapper,
@@ -16,9 +15,8 @@ import {
 } from "components/movieSection/movieSection.styled";
 
 const MovieSection = ({ movies = [] }) => {
-  const match = useRouteMatch(PATHS.MOVIE);
+  const { id } = useParams();
 
-  const id = useMemo(() => match.params.id, [match]);
   const movie = useMemo(() => movies?.find((movieEl) => movieEl.id === +id) || {}, [movies, id]);
   const genres = useMemo(() => movie.genres?.join(", "), [movie]);
   const year = useMemo(() => getYearFromReleaseDate(movie.release_date), [movie]);

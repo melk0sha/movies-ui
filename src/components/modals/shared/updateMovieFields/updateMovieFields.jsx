@@ -102,10 +102,10 @@ const UpdateMovieFields = ({
         />
       </ModalField>
       <ModalButtonWrapper>
-        <Button primary onClick={handleResetClick}>
+        <Button primary rounded onClick={handleResetClick}>
           Reset
         </Button>
-        <Button>{submitButtonText}</Button>
+        <Button rounded>{submitButtonText}</Button>
       </ModalButtonWrapper>
     </ModalForm>
   );
