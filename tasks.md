@@ -1,3 +1,15 @@
+### Task 5: Hooks
+
+Implement markup and styles for ["Movie details"](https://projects.invisionapp.com/share/F9VXQ7IMZGY/#/screens/407583174) page.  
+In your project, change Class components into Functional components and use hooks where applicable.
+
+**Evaluation criteria**
+
+2 - Implement “Movie details” page. Use “useState” hooks
+3 - Use “useCallback” hooks
+4 - Use “useEffect” hooks
+5 - Usage of custom hooks (discuss with your mentor)
+
 ### Task 4. Components. Part 2
 
 Implement markup and styles for ["Add movie"](https://projects.invisionapp.com/share/F9VXQ7IMZGY/#/screens/406802247), ["Edit"](https://projects.invisionapp.com/share/F9VXQ7IMZGY/#/screens/406802252), ["Delete"](https://projects.invisionapp.com/share/F9VXQ7IMZGY/#/screens/406802251) modal windows and "sorting".  
