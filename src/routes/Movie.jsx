@@ -1,40 +1,13 @@
 import React from "react";
-import { arrayOf, func } from "prop-types";
-import { genreType, movieType, modalValues } from "types";
+import { arrayOf } from "prop-types";
+import { movieType } from "types";
 
 import { MovieSection } from "components/movieSection";
-import { ResultsSection } from "components/resultsSection";
 
-const Movie = ({
-  genres = [],
-  movies = [],
-  modalValues = {},
-  defaultModalValues = {},
-  onModalValuesChange: handleModalValuesChange,
-  onMovieUpdate: handleMovieUpdate
-}) => {
-  return (
-    <>
-      <MovieSection movies={movies} />
-      <ResultsSection
-        genres={genres}
-        movies={movies}
-        modalValues={modalValues}
-        defaultModalValues={defaultModalValues}
-        onModalValuesChange={handleModalValuesChange}
-        onMovieUpdate={handleMovieUpdate}
-      />
-    </>
-  );
-};
+const Movie = ({ movies = [] }) => <MovieSection movies={movies} />;
 
 Movie.propTypes = {
-  genres: arrayOf(genreType),
-  movies: arrayOf(movieType),
-  modalValues: modalValues,
-  defaultModalValues: modalValues,
-  onModalValuesChange: func,
-  onMovieUpdate: func
+  movies: arrayOf(movieType)
 };
 
 export { Movie };

@@ -4,21 +4,18 @@ import { arrayOf, func } from "prop-types";
 import { genreType, movieType, modalValues } from "types";
 import { Home, Movie } from "routes";
 import { PATHS } from "consts";
-import { Main } from "assets/styles";
 
 const Routes = (props) => {
   return (
-    <Main>
-      <Switch>
-        <Route exact path={PATHS.HOME}>
-          <Home {...props} />
-        </Route>
-        <Route path={PATHS.MOVIE}>
-          <Movie {...props} />
-        </Route>
-        {/* <Route component={NotFound} /> */}
-      </Switch>
-    </Main>
+    <Switch>
+      <Route exact path={PATHS.HOME}>
+        <Home {...props} />
+      </Route>
+      <Route path={PATHS.MOVIE}>
+        <Movie {...props} />
+      </Route>
+      {/* <Route component={NotFound} /> */}
+    </Switch>
   );
 };
 
