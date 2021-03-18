@@ -1,3 +1,17 @@
+### Task 6. Redux
+
+1. Go through API docs in swagger: http://localhost:4000/api-docs
+2. Make your components perform real AJAX requests. Implement data fetches as async actions and pass data to your components with redux.
+3. Implement creating, editing and updating films according to the design operations as redux actions.
+4. Implement filtering and sorting (by genre, rating, and release date) as redux actions.
+
+**Evaluation criteria**
+
+2 - All data fetches done as actions and received from store by components  
+3 - Creating, editing, deleting and updating (CRUD operations) of films are done as redux actions  
+4 - Filtering by release date and rating done as redux actions  
+5 - Sorting by genre is done as redux actions
+
 ### Task 5: Hooks
 
 Implement markup and styles for ["Movie details"](https://projects.invisionapp.com/share/F9VXQ7IMZGY/#/screens/407583174) page.  
@@ -5,9 +19,9 @@ In your project, change Class components into Functional components and use hook
 
 **Evaluation criteria**
 
-2 - Implement “Movie details” page. Use “useState” hooks
-3 - Use “useCallback” hooks
-4 - Use “useEffect” hooks
+2 - Implement “Movie details” page. Use “useState” hooks  
+3 - Use “useCallback” hooks  
+4 - Use “useEffect” hooks  
 5 - Usage of custom hooks (discuss with your mentor)
 
 ### Task 4. Components. Part 2
