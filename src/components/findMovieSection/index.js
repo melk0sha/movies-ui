@@ -1,1 +1,1 @@
-export { FindMovieSection } from "./findMovieSection";
+export { default } from "./findMovieSection";

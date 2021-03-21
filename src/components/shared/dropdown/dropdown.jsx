@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { arrayOf, bool, string } from "prop-types";
 import { useOnClickOutside } from "hooks";
-import { optionType } from "types";
+import { dropdownOptionType } from "types";
 import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "components/shared/dropdown/dropdown.styled";
 
 const Dropdown = ({
@@ -76,11 +76,11 @@ const Dropdown = ({
 Dropdown.propTypes = {
   id: string,
   className: string,
-  options: arrayOf(optionType),
+  options: arrayOf(dropdownOptionType),
   defaultLabel: string,
-  selectedOptions: arrayOf(optionType),
+  selectedOptions: arrayOf(dropdownOptionType),
   primary: bool,
   multiSelect: bool
 };
 
-export { Dropdown };
+export default Dropdown;

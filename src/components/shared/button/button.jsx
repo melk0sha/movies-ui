@@ -1,15 +1,13 @@
 import React from "react";
 import { bool, func, node, oneOf } from "prop-types";
-import { StyledButton } from "components/shared/button/button.styled";
 import { BUTTON_SIZE } from "consts";
+import { StyledButton } from "components/shared/button/button.styled";
 
-const Button = ({ children, primary = false, rounded = false, size = BUTTON_SIZE.sm, onClick }) => {
-  return (
-    <StyledButton primary={primary} rounded={rounded} size={size} onClick={onClick}>
-      {children}
-    </StyledButton>
-  );
-};
+const Button = ({ children, primary = false, rounded = false, size = BUTTON_SIZE.sm, onClick }) => (
+  <StyledButton primary={primary} rounded={rounded} size={size} onClick={onClick}>
+    {children}
+  </StyledButton>
+);
 
 Button.propTypes = {
   children: node.isRequired,
@@ -19,4 +17,4 @@ Button.propTypes = {
   onClick: func
 };
 
-export { Button };
+export default Button;

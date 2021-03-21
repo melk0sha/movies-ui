@@ -1,21 +1,15 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { arrayOf, func } from "prop-types";
+import { connect } from "react-redux";
+import { arrayOf } from "prop-types";
 import { MODAL_TYPES } from "consts";
-import { genreType, movieType, modalValues } from "types";
-import { Modal } from "components/shared/modal";
-import { EditMovieModal } from "components/modals/editMovieModal";
-import { DeleteMovieModal } from "components/modals/deleteMovieModal";
-import { Movie } from "components/resultsSection/movies/movie";
+import { movieType } from "types";
+import Modal from "components/shared/modal";
+import EditMovieModal from "components/modals/editMovieModal";
+import DeleteMovieModal from "components/modals/deleteMovieModal";
+import Movie from "components/resultsSection/movies/movie";
 import { MoviesWrapper } from "components/resultsSection/movies/movies.styled";
 
-const Movies = ({
-  movies = [],
-  genres = [],
-  modalValues = {},
-  defaultModalValues = {},
-  onModalValuesChange: handleModalValuesChange,
-  onMovieDelete
-}) => {
+const Movies = ({ movies = [] }) => {
   const [isModalShown, setModalShown] = useState({
     [MODAL_TYPES.EDIT_MOVIE]: false,
     [MODAL_TYPES.DELETE_MOVIE]: false
@@ -29,30 +23,20 @@ const Movies = ({
   );
 
   const handleOptionClick = useCallback(
-    (movie, type) => {
+    (type) => {
       handleModalShowingChange(type);
-      handleModalValuesChange({ values: { ...modalValues[type], id: movie.id }, type });
     },
-    [handleModalShowingChange, modalValues, handleModalValuesChange]
+    [handleModalShowingChange]
   );
 
-  const handleMovieDelete = useCallback(
-    (movieId) => {
-      onMovieDelete(movieId);
-      handleModalShowingChange(MODAL_TYPES.DELETE_MOVIE);
-    },
-    [onMovieDelete, handleModalShowingChange]
-  );
+  const handleMovieDeletionSubmit = useCallback(() => {
+    handleModalShowingChange(MODAL_TYPES.DELETE_MOVIE);
+  }, [handleModalShowingChange]);
 
   const MoviesCards = useMemo(
     () =>
       movies.map((movie, index) => (
-        <Movie
-          key={movie.id || index}
-          movie={movie}
-          onEditClick={(movie) => handleOptionClick(movie, MODAL_TYPES.EDIT_MOVIE)}
-          onDeleteClick={(movie) => handleOptionClick(movie, MODAL_TYPES.DELETE_MOVIE)}
-        />
+        <Movie key={movie.id || index} movie={movie} onOptionClick={(type) => handleOptionClick(type)} />
       )),
     [movies, handleOptionClick]
   );
@@ -62,28 +46,22 @@ const Movies = ({
       {MoviesCards}
 
       <Modal show={isModalShown.editMovie} onClose={() => handleModalShowingChange(MODAL_TYPES.EDIT_MOVIE)}>
-        <EditMovieModal
-          values={modalValues.editMovie}
-          defaultValues={defaultModalValues.editMovie}
-          onValuesChange={handleModalValuesChange}
-          genres={genres}
-        />
+        <EditMovieModal />
       </Modal>
 
       <Modal show={isModalShown.deleteMovie} onClose={() => handleModalShowingChange(MODAL_TYPES.DELETE_MOVIE)}>
-        <DeleteMovieModal values={modalValues.deleteMovie} onDelete={handleMovieDelete} />
+        <DeleteMovieModal onDeletionSubmit={handleMovieDeletionSubmit} />
       </Modal>
     </MoviesWrapper>
   );
 };
 
 Movies.propTypes = {
-  genres: arrayOf(genreType),
-  movies: arrayOf(movieType),
-  modalValues: modalValues,
-  defaultModalValues: modalValues,
-  onModalValuesChange: func,
-  onMovieDelete: func
+  movies: arrayOf(movieType)
 };
 
-export { Movies };
+const mapStateToProps = (state) => ({
+  movies: state.movies.movieList
+});
+
+export default connect(mapStateToProps)(Movies);

@@ -1,22 +1,15 @@
 import React, { useCallback, useState } from "react";
 import { generatePath, useLocation } from "react-router";
 import { HashLink } from "react-router-hash-link";
-import { arrayOf, func } from "prop-types";
 import { BUTTON_SIZE, PATHS } from "consts";
-import { genreType, modalValuesAddType } from "types";
-import { HeaderWrapper, LogoWrapper, StyledHashLink } from "components/header/header.styled";
-import { Button } from "components/shared/button";
-import { Modal } from "components/shared/modal";
-import { AddMovieModal } from "components/modals/addMovieModal";
+import Button from "components/shared/button";
+import Modal from "components/shared/modal";
+import AddMovieModal from "components/modals/addMovieModal";
 import { Logo } from "assets/styles";
+import { HeaderWrapper, LogoWrapper, StyledHashLink } from "components/header/header.styled";
 import logoImage from "assets/images/logo.png";
 
-const Header = ({
-  genres = [],
-  modalValues = {},
-  defaultModalValues = {},
-  onModalValuesChange: handleModalValuesChange
-}) => {
+const Header = () => {
   const { pathname } = useLocation();
   const [isModalShown, setModalShown] = useState(false);
 
@@ -43,22 +36,10 @@ const Header = ({
       )}
 
       <Modal show={isModalShown} onClose={handleModalShowingChange}>
-        <AddMovieModal
-          values={modalValues}
-          defaultValues={defaultModalValues}
-          onValuesChange={handleModalValuesChange}
-          genres={genres}
-        />
+        <AddMovieModal />
       </Modal>
     </HeaderWrapper>
   );
 };
 
-Header.propTypes = {
-  genres: arrayOf(genreType),
-  modalValues: modalValuesAddType,
-  defaultModalValues: modalValuesAddType,
-  onModalValuesChange: func
-};
-
-export { Header };
+export default Header;

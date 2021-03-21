@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { BUTTON_SIZE, SEARCH_PLACEHOLDER_TEXT } from "consts";
-import { Button } from "components/shared/button";
+import Button from "components/shared/button";
 import {
   FindMovieSectionWrapper,
   FindMovieTitle,
@@ -42,4 +42,4 @@ const FindMovieSection = () => {
   );
 };
 
-export { FindMovieSection };
+export default FindMovieSection;

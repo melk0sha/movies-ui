@@ -1,7 +1,11 @@
 import React, { useCallback, useMemo } from "react";
-import { arrayOf, func, oneOf } from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { arrayOf, func, oneOf, oneOfType } from "prop-types";
 import { MODAL_TYPES } from "consts";
-import { modalValuesAddType, genreType } from "types";
+import { modalValuesAddType, modalValuesEditType, genreType } from "types";
+import { resetModalValues, updateModalValueField } from "actions";
+import Button from "components/shared/button";
 import {
   ModalForm,
   ModalInput,
@@ -9,13 +13,12 @@ import {
   ModalDropdown
 } from "components/modals/shared/updateMovieFields/updateMovieFields.styled";
 import { ModalLabel, ModalButtonWrapper } from "components/modals/shared/styles/modals.styled";
-import { Button } from "components/shared/button";
 
 const UpdateMovieFields = ({
   values = {},
-  defaultValues = {},
   genres = [],
   onValuesChange,
+  onValuesReset,
   type,
   onFieldsSubmit: handleFieldsSubmit
 }) => {
@@ -24,17 +27,16 @@ const UpdateMovieFields = ({
   const handleResetClick = useCallback(
     (e) => {
       e.preventDefault();
-      const valuesWithId = type === MODAL_TYPES.EDIT_MOVIE && { ...defaultValues, id: values.id };
-      onValuesChange({ values: valuesWithId || defaultValues, type });
+      onValuesReset(type);
     },
-    [values, onValuesChange, type, defaultValues]
+    [type]
   );
 
   const handleValueChange = useCallback(
-    (value, valueType) => {
-      onValuesChange({ values: { ...values, [valueType]: value }, type });
+    (value, fieldType) => {
+      onValuesChange(value, type, fieldType);
     },
-    [values, onValuesChange, type]
+    [type]
   );
 
   return (
@@ -112,12 +114,22 @@ const UpdateMovieFields = ({
 };
 
 UpdateMovieFields.propTypes = {
-  values: modalValuesAddType,
-  defaultValues: modalValuesAddType,
-  genres: arrayOf(genreType),
+  values: oneOfType([modalValuesAddType, modalValuesEditType]),
   onValuesChange: func,
+  onValuesReset: func,
+  genres: arrayOf(genreType),
   type: oneOf([MODAL_TYPES.ADD_MOVIE, MODAL_TYPES.EDIT_MOVIE]),
   onFieldsSubmit: func
 };
 
-export { UpdateMovieFields };
+const mapStateToProps = (state, ownProps) => ({
+  values: state.modals[ownProps.type],
+  genres: state.movies.genres
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onValuesChange: bindActionCreators(updateModalValueField, dispatch),
+  onValuesReset: bindActionCreators(resetModalValues, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateMovieFields);

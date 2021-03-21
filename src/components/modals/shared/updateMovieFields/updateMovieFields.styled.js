@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Input } from "components/shared/input";
-import { Dropdown } from "components/shared/dropdown";
+import Input from "components/shared/input";
+import Dropdown from "components/shared/dropdown";
 
 export const ModalForm = styled.form`
   display: flex;

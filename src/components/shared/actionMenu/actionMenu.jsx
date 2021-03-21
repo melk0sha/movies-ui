@@ -57,4 +57,4 @@ ActionMenu.propTypes = {
   onOptionClick: func
 };
 
-export { ActionMenu };
+export default ActionMenu;

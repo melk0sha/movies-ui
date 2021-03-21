@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import { arrayOf } from "prop-types";
 import { genreType } from "types";
 import { GenresWrapper, Genre } from "components/resultsSection/genres/genres.styled";
+import { connect } from "react-redux";
 
 const Genres = ({ genres = [] }) => {
   const [activeGenreId, setActiveGenreId] = useState(0);
@@ -34,4 +35,8 @@ Genres.propTypes = {
   genres: arrayOf(genreType)
 };
 
-export { Genres };
+const mapStateToProps = (state) => ({
+  genres: state.movies.genres
+});
+
+export default connect(mapStateToProps)(Genres);

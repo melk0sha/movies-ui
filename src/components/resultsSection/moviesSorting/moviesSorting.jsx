@@ -29,4 +29,4 @@ const MoviesSorting = () => {
   );
 };
 
-export { MoviesSorting };
+export default MoviesSorting;

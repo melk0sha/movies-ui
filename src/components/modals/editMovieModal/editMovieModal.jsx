@@ -1,12 +1,12 @@
 import React, { useCallback } from "react";
-import { arrayOf, func } from "prop-types";
+import { connect } from "react-redux";
 import { MODAL_TYPES } from "consts";
-import { modalValuesAddType, genreType } from "types";
+import { number } from "prop-types";
 import { ModalMovieWrapper, ModalTitle, ModalLabel } from "components/modals/shared/styles/modals.styled";
 import { StyledModalSpan } from "components/modals/editMovieModal/editMovieModal.styled";
-import { UpdateMovieFields } from "components/modals/shared/updateMovieFields";
+import UpdateMovieFields from "components/modals/shared/updateMovieFields";
 
-const EditMovieModal = ({ values = {}, defaultValues = {}, genres = [], onValuesChange: handleValuesChange }) => {
+const EditMovieModal = ({ movieId }) => {
   const handleEditMovieSubmit = useCallback((e) => {
     e.preventDefault();
     console.log("Edit Movie Submitting");
@@ -16,24 +16,18 @@ const EditMovieModal = ({ values = {}, defaultValues = {}, genres = [], onValues
     <ModalMovieWrapper>
       <ModalTitle>Edit movie</ModalTitle>
       <ModalLabel>Movie ID</ModalLabel>
-      <StyledModalSpan>{values.id}</StyledModalSpan>
-      <UpdateMovieFields
-        values={values}
-        defaultValues={defaultValues}
-        onValuesChange={handleValuesChange}
-        genres={genres}
-        type={MODAL_TYPES.EDIT_MOVIE}
-        onFieldsSubmit={handleEditMovieSubmit}
-      />
+      <StyledModalSpan>{movieId}</StyledModalSpan>
+      <UpdateMovieFields type={MODAL_TYPES.EDIT_MOVIE} onFieldsSubmit={handleEditMovieSubmit} />
     </ModalMovieWrapper>
   );
 };
 
 EditMovieModal.propTypes = {
-  values: modalValuesAddType,
-  defaultValues: modalValuesAddType,
-  genres: arrayOf(genreType),
-  onValuesChange: func
+  movieId: number
 };
 
-export { EditMovieModal };
+const mapStateToProps = (state) => ({
+  movieId: state.modals[MODAL_TYPES.EDIT_MOVIE].id
+});
+
+export default connect(mapStateToProps)(EditMovieModal);

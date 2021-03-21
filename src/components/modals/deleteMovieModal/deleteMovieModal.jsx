@@ -1,19 +1,22 @@
 import React, { useCallback } from "react";
-import { func } from "prop-types";
-import { modalValuesDeleteType } from "types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { func, number } from "prop-types";
+import { MODAL_TYPES } from "consts";
+import { deleteMovie } from "actions";
+import Button from "components/shared/button";
 import {
   ModalMovieWrapper,
   ModalTitle,
   ModalButtonWrapper,
   ModalSpan
 } from "components/modals/shared/styles/modals.styled";
-import { Button } from "components/shared/button";
 
-const DeleteMovieModal = ({ values = {}, onDelete }) => {
+const DeleteMovieModal = ({ movieId, onDelete, onDeletionSubmit }) => {
   const handleDeleteMovieClick = useCallback(() => {
-    console.log("Delete Movie Confirming", values.id);
-    onDelete(values.id);
-  }, [values]);
+    onDelete(movieId);
+    onDeletionSubmit();
+  }, [movieId]);
 
   return (
     <ModalMovieWrapper>
@@ -29,8 +32,17 @@ const DeleteMovieModal = ({ values = {}, onDelete }) => {
 };
 
 DeleteMovieModal.propTypes = {
-  values: modalValuesDeleteType,
-  onValuesChange: func
+  movieId: number,
+  onDelete: func,
+  onDeletionSubmit: func
 };
 
-export { DeleteMovieModal };
+const mapStateToProps = (state) => ({
+  movieId: state.modals[MODAL_TYPES.DELETE_MOVIE].id
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onDelete: bindActionCreators(deleteMovie, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteMovieModal);
