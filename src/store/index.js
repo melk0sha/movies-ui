@@ -7,4 +7,4 @@ const store = createStore(
   compose(applyMiddleware(thunk), window.REDUX_DEVTOOLS_EXTENSION ? window.REDUX_DEVTOOLS_EXTENSION() : (f) => f)
 );
 
-export { store };
+export default store;
