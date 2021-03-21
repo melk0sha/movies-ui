@@ -20,15 +20,9 @@ export const movieType = shape({
   runtime: number
 });
 
-export const optionType = shape({
+export const dropdownOptionType = shape({
   id: number,
   value: string
-});
-
-export const modalValues = shape({
-  addMovie: modalValuesAddType,
-  editMovie: modalValuesEditType,
-  deleteMovie: modalValuesDeleteType
 });
 
 export const modalValuesAddType = shape({
@@ -48,8 +42,4 @@ export const modalValuesEditType = shape({
   selectedGenre: genreType,
   overview: string,
   runtime: string
-});
-
-export const modalValuesDeleteType = shape({
-  id: number
 });
