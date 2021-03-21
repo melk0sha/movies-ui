@@ -1,7 +1,6 @@
 import React from "react";
-
-import { FindMovieSection } from "components/findMovieSection";
+import FindMovieSection from "components/findMovieSection";
 
 const Home = () => <FindMovieSection />;
 
-export { Home };
+export default Home;
