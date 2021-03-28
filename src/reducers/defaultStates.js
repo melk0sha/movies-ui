@@ -2,9 +2,9 @@ import { MODAL_TYPES } from "consts";
 
 const movieProperties = {
   title: "",
-  releaseDate: "",
-  movieUrl: "",
-  selectedGenres: [],
+  release_date: "",
+  poster_path: "",
+  genres: [],
   overview: "",
   runtime: ""
 };

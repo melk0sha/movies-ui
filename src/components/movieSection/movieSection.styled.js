@@ -110,6 +110,7 @@ export const MovieRating = styled.span`
 export const MovieSpan = styled.span`
   padding: 8px;
   text-align: center;
+  color: ${({ theme }) => theme.colors.white};
 
   @media ${device.tablet} {
     text-align: start;

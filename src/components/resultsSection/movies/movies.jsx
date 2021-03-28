@@ -29,9 +29,12 @@ const Movies = ({ movies = [] }) => {
     [handleModalShowingChange]
   );
 
-  const handleMovieDeletionSubmit = useCallback(() => {
-    handleModalShowingChange(MODAL_TYPES.DELETE_MOVIE);
-  }, [handleModalShowingChange]);
+  const handleMovieUpdatingSubmit = useCallback(
+    (type) => {
+      handleModalShowingChange(type);
+    },
+    [handleModalShowingChange]
+  );
 
   const MoviesCards = useMemo(
     () =>
@@ -46,11 +49,11 @@ const Movies = ({ movies = [] }) => {
       {MoviesCards}
 
       <Modal show={isModalShown.editMovie} onClose={() => handleModalShowingChange(MODAL_TYPES.EDIT_MOVIE)}>
-        <EditMovieModal />
+        <EditMovieModal onEditingSubmit={() => handleMovieUpdatingSubmit(MODAL_TYPES.EDIT_MOVIE)} />
       </Modal>
 
       <Modal show={isModalShown.deleteMovie} onClose={() => handleModalShowingChange(MODAL_TYPES.DELETE_MOVIE)}>
-        <DeleteMovieModal onDeletionSubmit={handleMovieDeletionSubmit} />
+        <DeleteMovieModal onDeletionSubmit={() => handleMovieUpdatingSubmit(MODAL_TYPES.DELETE_MOVIE)} />
       </Modal>
     </MoviesWrapper>
   );

@@ -1,15 +1,19 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { arrayOf } from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { arrayOf, func } from "prop-types";
+import { getMoviesByParams } from "actions";
 import { genreType } from "types";
 import { GenresWrapper, Genre } from "components/resultsSection/genres/genres.styled";
-import { connect } from "react-redux";
 
-const Genres = ({ genres = [] }) => {
+const Genres = ({ genres = [], onGenresFilter }) => {
   const [activeGenreId, setActiveGenreId] = useState(0);
 
   const handleGenreClick = useCallback(
-    (newGenreId) => {
-      setActiveGenreId(newGenreId);
+    (newGenre) => {
+      const params = newGenre.value === "All" ? {} : { search: newGenre.value, searchBy: "genres" };
+      onGenresFilter(params);
+      setActiveGenreId(newGenre.id);
     },
     [setActiveGenreId]
   );
@@ -20,7 +24,7 @@ const Genres = ({ genres = [] }) => {
         <Genre
           key={genre.id || idx}
           active={genre.id === activeGenreId || idx === activeGenreId}
-          onClick={() => handleGenreClick(genre.id)}
+          onClick={() => handleGenreClick(genre)}
         >
           {genre.value}
         </Genre>
@@ -32,11 +36,16 @@ const Genres = ({ genres = [] }) => {
 };
 
 Genres.propTypes = {
-  genres: arrayOf(genreType)
+  genres: arrayOf(genreType),
+  onGenresFilter: func
 };
 
 const mapStateToProps = (state) => ({
   genres: state.movies.genres
 });
 
-export default connect(mapStateToProps)(Genres);
+const mapDispatchToProps = (dispatch) => ({
+  onGenresFilter: bindActionCreators(getMoviesByParams, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Genres);

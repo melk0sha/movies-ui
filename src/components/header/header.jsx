@@ -36,7 +36,7 @@ const Header = () => {
       )}
 
       <Modal show={isModalShown} onClose={handleModalShowingChange}>
-        <AddMovieModal />
+        <AddMovieModal onAddingSubmit={handleModalShowingChange} />
       </Modal>
     </HeaderWrapper>
   );

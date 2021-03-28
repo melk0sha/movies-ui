@@ -24,20 +24,26 @@ const MovieSection = ({ movie = {} }) => {
 
   return (
     <MovieSectionWrapper>
-      <MovieImage src={movie.poster_path} alt={movie.title} onError={handleSrcError} />
-      <MovieInfoSection>
-        <InfoWrapper>
-          <MovieTitle>{movie.title}</MovieTitle>
-          <MovieRating>{movie.vote_average}</MovieRating>
-        </InfoWrapper>
-        <MovieSpan>{movie.tagline}</MovieSpan>
-        <MovieGenres>{genres}</MovieGenres>
-        <InfoWrapper>
-          <MovieSpan>{year}</MovieSpan>
-          <MovieSpan>{movie.runtime} min</MovieSpan>
-        </InfoWrapper>
-        <MovieSpan>{movie.overview}</MovieSpan>
-      </MovieInfoSection>
+      {movie.id ? (
+        <>
+          <MovieImage src={movie.poster_path} alt={movie.title} onError={handleSrcError} />
+          <MovieInfoSection>
+            <InfoWrapper>
+              <MovieTitle>{movie.title}</MovieTitle>
+              <MovieRating>{movie.vote_average}</MovieRating>
+            </InfoWrapper>
+            <MovieSpan>{movie.tagline}</MovieSpan>
+            <MovieGenres>{genres}</MovieGenres>
+            <InfoWrapper>
+              <MovieSpan>{year}</MovieSpan>
+              <MovieSpan>{movie.runtime} min</MovieSpan>
+            </InfoWrapper>
+            <MovieSpan>{movie.overview}</MovieSpan>
+          </MovieInfoSection>
+        </>
+      ) : (
+        <MovieSpan>Sorry, but no movie was found.</MovieSpan>
+      )}
     </MovieSectionWrapper>
   );
 };

@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { arrayOf, func } from "prop-types";
-import { requestMovies } from "actions";
+import { getMoviesByParams } from "actions";
 import { movieType } from "types";
+import { SORT_BY_DEFAULT_VALUE } from "consts";
 import Genres from "components/resultsSection/genres";
 import MoviesSorting from "components/resultsSection/moviesSorting";
 import Movies from "components/resultsSection/movies";
@@ -14,9 +15,9 @@ import {
   NoMovieFoundSpan
 } from "components/resultsSection/resultsSection.styled";
 
-const ResultsSection = ({ movies = [], onRequestMoviesData }) => {
+const ResultsSection = ({ movies = [], onMoviesByParamsGet }) => {
   useEffect(() => {
-    onRequestMoviesData();
+    onMoviesByParamsGet({ sortBy: SORT_BY_DEFAULT_VALUE });
   }, []);
 
   return (
@@ -40,7 +41,7 @@ const ResultsSection = ({ movies = [], onRequestMoviesData }) => {
 
 ResultsSection.propTypes = {
   movies: arrayOf(movieType),
-  onRequestMoviesData: func
+  onMoviesByParamsGet: func
 };
 
 const mapStateToProps = (state) => ({
@@ -48,7 +49,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onRequestMoviesData: bindActionCreators(requestMovies, dispatch)
+  onMoviesByParamsGet: bindActionCreators(getMoviesByParams, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsSection);

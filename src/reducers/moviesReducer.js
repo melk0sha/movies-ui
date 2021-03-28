@@ -1,4 +1,5 @@
-import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR, MAKE_GENRES, DELETE_MOVIE } from "consts/actions";
+import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR, MAKE_GENRES } from "consts/actions";
+import { ALL_GENRES_OPTION } from "consts";
 
 const initialState = {
   error: null,
@@ -12,7 +13,7 @@ export const moviesReducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        movieList: [...state.movieList, ...action.payload]
+        movieList: [...action.payload]
       };
     case REQUEST_MOVIES_ERROR:
       return {
@@ -22,16 +23,7 @@ export const moviesReducer = (state = initialState, action) => {
     case MAKE_GENRES:
       return {
         ...state,
-        genres: action.payload
-      };
-    case DELETE_MOVIE:
-      const newMovieList = [...state.movieList];
-      const movieIndex = newMovieList.findIndex((movie) => movie.id === action.payload);
-      newMovieList.splice(movieIndex, 1);
-
-      return {
-        ...state,
-        movieList: newMovieList
+        genres: [ALL_GENRES_OPTION, ...action.payload]
       };
     default:
       return state;

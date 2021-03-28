@@ -1,13 +1,24 @@
 import React, { useCallback } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { func } from "prop-types";
 import { MODAL_TYPES } from "consts";
-import { ModalMovieWrapper, ModalTitle } from "components/modals/shared/styles/modals.styled";
+import { modalValuesAddType, moviesSortByType } from "types";
+import { addMovieByData, getMoviesByParams } from "actions";
 import UpdateMovieFields from "components/modals/shared/updateMovieFields";
+import { ModalMovieWrapper, ModalTitle } from "components/modals/shared/styles/modals.styled";
 
-const AddMovieModal = () => {
-  const handleAddMovieSubmit = useCallback((e) => {
-    e.preventDefault();
-    console.log("Add Movie Submitting");
-  }, []);
+const AddMovieModal = ({ movie, moviesSortBy, onMovieAdd, onNewMoviesUpdate, onAddingSubmit }) => {
+  const handleAddMovieSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      onMovieAdd(movie);
+      onNewMoviesUpdate({ sortBy: moviesSortBy });
+      onAddingSubmit();
+    },
+    [movie, moviesSortBy]
+  );
 
   return (
     <ModalMovieWrapper>
@@ -17,4 +28,22 @@ const AddMovieModal = () => {
   );
 };
 
-export default AddMovieModal;
+AddMovieModal.propTypes = {
+  movie: modalValuesAddType,
+  moviesSortBy: moviesSortByType,
+  onMovieAdd: func,
+  onNewMoviesUpdate: func,
+  onAddingSubmit: func
+};
+
+const mapStateToProps = (state) => ({
+  movie: state.modals[MODAL_TYPES.ADD_MOVIE],
+  moviesSortBy: state.app.moviesSortBy
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMovieAdd: bindActionCreators(addMovieByData, dispatch),
+  onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddMovieModal);

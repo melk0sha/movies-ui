@@ -55,19 +55,19 @@ const UpdateMovieFields = ({
         <ModalLabel htmlFor="release-date">Release Date</ModalLabel>
         {/* Will be DatePicker instead of release date*/}
         <ModalInput
-          value={values.releaseDate}
-          onChange={({ target }) => handleValueChange(target.value, "releaseDate")}
+          value={values.release_date}
+          onChange={({ target }) => handleValueChange(target.value, "release_date")}
           id="release-date"
           placeholder="Select date"
           type="text"
         />
       </ModalField>
       <ModalField>
-        <ModalLabel htmlFor="movie-url">Movie URL</ModalLabel>
+        <ModalLabel htmlFor="poster-path">Movie URL</ModalLabel>
         <ModalInput
-          value={values.movieUrl}
-          onChange={({ target }) => handleValueChange(target.value, "movieUrl")}
-          id="movie-url"
+          value={values.poster_path}
+          onChange={({ target }) => handleValueChange(target.value, "poster_path")}
+          id="poster-path"
           placeholder="Insert movie URL"
           type="text"
         />
@@ -77,9 +77,9 @@ const UpdateMovieFields = ({
         <ModalDropdown
           id="genre"
           options={genres}
-          selectedOptions={values.selectedGenres}
+          selectedOptions={values.genres}
           defaultLabel="Select genre"
-          onSelect={(options) => handleValueChange(options, "selectedGenres")}
+          onSelect={(options) => handleValueChange(options, "genres")}
           multiSelect
         />
       </ModalField>
@@ -124,7 +124,7 @@ UpdateMovieFields.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   values: state.modals[ownProps.type],
-  genres: state.movies.genres
+  genres: state.movies.genres.filter((genre) => genre.value !== "All")
 });
 
 const mapDispatchToProps = (dispatch) => ({
