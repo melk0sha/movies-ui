@@ -5,9 +5,10 @@ import { connect } from "react-redux";
 import { HashLink } from "react-router-hash-link";
 import { func } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS, PATHS, MODAL_TYPES } from "consts";
+import { modalsDefaultState } from "reducers/defaultStates";
 import { movieType } from "types";
-import { updateModalValueField } from "actions";
-import { getYearFromReleaseDate } from "utils";
+import { setModalValuesForEdit } from "actions";
+import { getYearFromReleaseDate, getHashCodeFromString } from "utils";
 import {
   MovieWrapper,
   MovieImageWrapper,
@@ -20,8 +21,8 @@ import {
 } from "components/resultsSection/movies/movie/movie.styled";
 import noImagePicture from "assets/images/no_picture.jpg";
 
-const Movie = ({ movie = {}, onOptionClick, onMovieChoose }) => {
-  const { id, poster_path, genres, title, release_date } = movie;
+const Movie = ({ movie = {}, onOptionClick, onModalValuesUpdate }) => {
+  const { id, poster_path, genres, title, release_date, overview, runtime } = movie;
 
   const genresText = useMemo(() => genres.join(", "), [genres]);
   const year = useMemo(() => getYearFromReleaseDate(release_date), [release_date]);
@@ -30,10 +31,23 @@ const Movie = ({ movie = {}, onOptionClick, onMovieChoose }) => {
     (option) => {
       const type = option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id ? MODAL_TYPES.EDIT_MOVIE : MODAL_TYPES.DELETE_MOVIE;
 
-      onMovieChoose(movie.id, type, "id");
-      onOptionClick(type);
+      if (type === MODAL_TYPES.EDIT_MOVIE) {
+        const genresList = genres.map((genre) => ({ id: getHashCodeFromString(genre), value: genre }));
+
+        onModalValuesUpdate({
+          id,
+          title: title || modalsDefaultState[type].title,
+          poster_path: poster_path || modalsDefaultState[type].poster_path,
+          release_date: release_date || modalsDefaultState[type].release_date,
+          genres: genresList || modalsDefaultState[type].genres,
+          overview: overview || modalsDefaultState[type].overview,
+          runtime: (runtime && String(runtime)) || modalsDefaultState[type].runtime
+        });
+      }
+
+      onOptionClick(type, id);
     },
-    [movie]
+    [movie, onModalValuesUpdate]
   );
 
   const handleSrcError = useCallback(({ target }) => {
@@ -60,11 +74,15 @@ const Movie = ({ movie = {}, onOptionClick, onMovieChoose }) => {
 Movie.propTypes = {
   movie: movieType,
   onOptionClick: func,
-  onMovieChoose: func
+  onModalValuesUpdate: func
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onMovieChoose: bindActionCreators(updateModalValueField, dispatch)
+const mapStateToProps = (_state, ownProps) => ({
+  movie: ownProps.movie
 });
 
-export default connect(null, mapDispatchToProps)(Movie);
+const mapDispatchToProps = (dispatch) => ({
+  onModalValuesUpdate: bindActionCreators(setModalValuesForEdit, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);

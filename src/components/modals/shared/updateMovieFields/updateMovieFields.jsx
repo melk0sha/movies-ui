@@ -6,6 +6,7 @@ import { MODAL_TYPES } from "consts";
 import { modalValuesAddType, modalValuesEditType, genreType } from "types";
 import { resetModalValues, updateModalValueField } from "actions";
 import Button from "components/shared/button";
+import DatePicker from "components/shared/datePicker";
 import {
   ModalForm,
   ModalInput,
@@ -53,13 +54,12 @@ const UpdateMovieFields = ({
       </ModalField>
       <ModalField>
         <ModalLabel htmlFor="release-date">Release Date</ModalLabel>
-        {/* Will be DatePicker instead of release date*/}
-        <ModalInput
+        <DatePicker
           value={values.release_date}
-          onChange={({ target }) => handleValueChange(target.value, "release_date")}
+          onDateChange={(date) => handleValueChange(date, "release_date")}
           id="release-date"
           placeholder="Select date"
-          type="text"
+          isClearable
         />
       </ModalField>
       <ModalField>

@@ -13,7 +13,7 @@ const EditMovieModal = ({ moviesSortBy, newMovie, oldMovie, onMovieEdit, onNewMo
   const handleEditMovieSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      const updatedMovie = { ...newMovie, ...oldMovie };
+      const updatedMovie = { ...oldMovie, ...newMovie };
 
       onMovieEdit(updatedMovie);
       onNewMoviesUpdate({ sortBy: moviesSortBy });
