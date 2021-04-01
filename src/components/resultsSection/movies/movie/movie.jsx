@@ -38,7 +38,7 @@ const Movie = ({ movie = {}, onOptionClick, onModalValuesUpdate }) => {
           id,
           title: title || modalsDefaultState[type].title,
           poster_path: poster_path || modalsDefaultState[type].poster_path,
-          release_date: release_date || modalsDefaultState[type].release_date,
+          release_date: new Date(release_date) || modalsDefaultState[type].release_date,
           genres: genresList || modalsDefaultState[type].genres,
           overview: overview || modalsDefaultState[type].overview,
           runtime: (runtime && String(runtime)) || modalsDefaultState[type].runtime

@@ -27,7 +27,7 @@ const ActionMenu = ({ className, options = [], onOptionClick }) => {
           {option.value}
         </ActionMenuOption>
       )),
-    [options]
+    [options, onOptionClick]
   );
 
   return (
@@ -50,8 +50,7 @@ ActionMenu.propTypes = {
   options: arrayOf(
     shape({
       id: number,
-      value: string,
-      handler: func
+      value: string
     })
   ),
   onOptionClick: func
