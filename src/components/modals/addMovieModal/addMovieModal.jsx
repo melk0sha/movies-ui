@@ -10,14 +10,14 @@ import { ModalMovieWrapper, ModalTitle } from "components/modals/shared/styles/m
 
 const AddMovieModal = ({ movie, moviesSortBy, onMovieAdd, onNewMoviesUpdate, onAddingSubmit }) => {
   const handleAddMovieSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
 
-      onMovieAdd(movie);
-      onNewMoviesUpdate({ sortBy: moviesSortBy });
+      await onMovieAdd(movie);
+      await onNewMoviesUpdate({ sortBy: moviesSortBy });
       onAddingSubmit();
     },
-    [movie, moviesSortBy]
+    [movie, moviesSortBy, onAddingSubmit]
   );
 
   return (

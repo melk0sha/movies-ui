@@ -1,23 +1,25 @@
 import React, { useCallback, useMemo } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { arrayOf, func, oneOf, oneOfType } from "prop-types";
-import { MODAL_TYPES } from "consts";
-import { modalValuesAddType, modalValuesEditType, genreType } from "types";
+import { func, oneOf, oneOfType } from "prop-types";
+import { MODAL_TYPES, ALL_GENRES_OPTION } from "consts";
+import { genres } from "consts/genres";
+import { modalValuesAddType, modalValuesEditType } from "types";
 import { resetModalValues, updateModalValueField } from "actions";
 import Button from "components/shared/button";
 import DatePicker from "components/shared/datePicker";
+import { ModalLabel, ModalButtonWrapper } from "components/modals/shared/styles/modals.styled";
 import {
   ModalForm,
   ModalInput,
   ModalField,
   ModalDropdown
 } from "components/modals/shared/updateMovieFields/updateMovieFields.styled";
-import { ModalLabel, ModalButtonWrapper } from "components/modals/shared/styles/modals.styled";
+
+const genresList = genres.filter((genre) => genre.value !== ALL_GENRES_OPTION.value);
 
 const UpdateMovieFields = ({
   values = {},
-  genres = [],
   onValuesChange,
   onValuesReset,
   type,
@@ -78,7 +80,7 @@ const UpdateMovieFields = ({
         <ModalLabel htmlFor="genre">Genre</ModalLabel>
         <ModalDropdown
           id="genre"
-          options={genres}
+          options={genresList}
           selectedOptions={values.genres}
           defaultLabel="Select genre"
           onSelect={(options) => handleValueChange(options, "genres")}
@@ -121,14 +123,12 @@ UpdateMovieFields.propTypes = {
   values: oneOfType([modalValuesAddType, modalValuesEditType]),
   onValuesChange: func,
   onValuesReset: func,
-  genres: arrayOf(genreType),
   type: oneOf([MODAL_TYPES.ADD_MOVIE, MODAL_TYPES.EDIT_MOVIE]),
   onFieldsSubmit: func
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  values: state.modals[ownProps.type],
-  genres: state.movies.genres.filter((genre) => genre.value !== "All")
+  values: state.modals[ownProps.type]
 });
 
 const mapDispatchToProps = (dispatch) => ({

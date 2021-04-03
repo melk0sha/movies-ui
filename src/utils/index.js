@@ -1,19 +1,7 @@
 import { SORT_BY_VALUES } from "consts";
+import { genres } from "consts/genres";
 
-export const getHashCodeFromString = (s) => s.split("").reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
-
-export const getUniqueGenres = (movies) =>
-  movies?.reduce((moviesAcc, movie) => {
-    const uniqueGenresWithIds = movie.genres.reduce(
-      (genresAcc, genre) =>
-        moviesAcc.findIndex((accValue) => accValue.value === genre) === -1
-          ? [...genresAcc, { id: getHashCodeFromString(genre), value: genre }]
-          : genresAcc,
-      []
-    );
-
-    return [...moviesAcc, ...uniqueGenresWithIds];
-  }, []);
+export const getGenreId = (genreValue) => genres.find((genre) => genre.value === genreValue).id;
 
 export const getYearFromReleaseDate = (releaseDate) => releaseDate?.slice(0, 4);
 

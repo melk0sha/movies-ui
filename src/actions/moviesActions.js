@@ -1,6 +1,5 @@
 import axios from "axios";
-import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR, MAKE_GENRES } from "consts/actions";
-import { getUniqueGenres } from "utils";
+import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR } from "consts/actions";
 
 const moviesUrl = "http://localhost:4000/movies";
 const defaultSortOrder = "desc";
@@ -13,7 +12,6 @@ export const getMoviesByParams = (params) => async (dispatch) => {
     const movies = response.data;
 
     dispatch(requestMoviesSuccess(movies.data));
-    dispatch(makeGenres(getUniqueGenres(movies.data)));
   } catch (e) {
     dispatch(requestMoviesError(e.message));
   }
@@ -65,9 +63,4 @@ export const requestMoviesSuccess = (movies) => ({
 export const requestMoviesError = (error) => ({
   type: REQUEST_MOVIES_ERROR,
   payload: error
-});
-
-export const makeGenres = (genres) => ({
-  type: MAKE_GENRES,
-  payload: genres
 });

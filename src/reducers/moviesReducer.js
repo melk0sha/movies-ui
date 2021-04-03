@@ -1,5 +1,4 @@
-import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR, MAKE_GENRES } from "consts/actions";
-import { ALL_GENRES_OPTION } from "consts";
+import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR } from "consts/actions";
 
 const initialState = {
   error: null,
@@ -19,11 +18,6 @@ export const moviesReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload
-      };
-    case MAKE_GENRES:
-      return {
-        ...state,
-        genres: [ALL_GENRES_OPTION, ...action.payload]
       };
     default:
       return state;

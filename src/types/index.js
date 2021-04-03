@@ -2,11 +2,6 @@ import { arrayOf, number, oneOf, shape, string, date } from "prop-types";
 import { SORT_BY_OPTIONS } from "consts";
 import { getValueToSortBy } from "utils";
 
-export const genreType = shape({
-  id: number,
-  value: string
-});
-
 export const movieType = shape({
   id: number,
   title: string,
@@ -31,7 +26,7 @@ export const modalValuesAddType = shape({
   title: string,
   release_date: date,
   poster_path: string,
-  genres: arrayOf(genreType),
+  genres: arrayOf(dropdownOptionType),
   overview: string,
   runtime: string
 });
@@ -41,7 +36,7 @@ export const modalValuesEditType = shape({
   title: string,
   release_date: date,
   poster_path: string,
-  genres: arrayOf(genreType),
+  genres: arrayOf(dropdownOptionType),
   overview: string,
   runtime: string
 });

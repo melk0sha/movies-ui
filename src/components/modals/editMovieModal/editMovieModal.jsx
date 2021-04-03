@@ -11,15 +11,15 @@ import { StyledModalSpan } from "components/modals/editMovieModal/editMovieModal
 
 const EditMovieModal = ({ moviesSortBy, newMovie, oldMovie, onMovieEdit, onNewMoviesUpdate, onEditingSubmit }) => {
   const handleEditMovieSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
       const updatedMovie = { ...oldMovie, ...newMovie };
 
-      onMovieEdit(updatedMovie);
-      onNewMoviesUpdate({ sortBy: moviesSortBy });
+      await onMovieEdit(updatedMovie);
+      await onNewMoviesUpdate({ sortBy: moviesSortBy });
       onEditingSubmit();
     },
-    [moviesSortBy, newMovie, oldMovie]
+    [moviesSortBy, newMovie, oldMovie, onEditingSubmit]
   );
 
   return (

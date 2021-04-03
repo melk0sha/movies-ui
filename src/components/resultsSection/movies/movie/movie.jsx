@@ -8,7 +8,7 @@ import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS, PATHS, MODAL_TYPES
 import { modalsDefaultState } from "reducers/defaultStates";
 import { movieType } from "types";
 import { setModalValuesForEdit } from "actions";
-import { getYearFromReleaseDate, getHashCodeFromString } from "utils";
+import { getYearFromReleaseDate, getGenreId } from "utils";
 import {
   MovieWrapper,
   MovieImageWrapper,
@@ -32,22 +32,22 @@ const Movie = ({ movie = {}, onOptionClick, onModalValuesUpdate }) => {
       const type = option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id ? MODAL_TYPES.EDIT_MOVIE : MODAL_TYPES.DELETE_MOVIE;
 
       if (type === MODAL_TYPES.EDIT_MOVIE) {
-        const genresList = genres.map((genre) => ({ id: getHashCodeFromString(genre), value: genre }));
+        const movieGenres = genres.map((genre) => ({ id: getGenreId(genre), value: genre }));
 
         onModalValuesUpdate({
           id,
           title: title || modalsDefaultState[type].title,
           poster_path: poster_path || modalsDefaultState[type].poster_path,
           release_date: new Date(release_date) || modalsDefaultState[type].release_date,
-          genres: genresList || modalsDefaultState[type].genres,
+          genres: movieGenres || modalsDefaultState[type].genres,
           overview: overview || modalsDefaultState[type].overview,
           runtime: (runtime && String(runtime)) || modalsDefaultState[type].runtime
         });
       }
 
-      onOptionClick(type, id);
+      onOptionClick(type);
     },
-    [movie, onModalValuesUpdate]
+    [movie, onModalValuesUpdate, onOptionClick]
   );
 
   const handleSrcError = useCallback(({ target }) => {
