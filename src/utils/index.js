@@ -1,6 +1,6 @@
 import { SORT_BY_VALUES } from "consts";
 
-const getHashCodeFromString = (s) => s.split("").reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
+export const getHashCodeFromString = (s) => s.split("").reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
 
 export const getUniqueGenres = (movies) =>
   movies?.reduce((moviesAcc, movie) => {

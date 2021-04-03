@@ -1,5 +1,5 @@
 import { modalsDefaultState } from "reducers/defaultStates";
-import { RESET_MODAL_VALUES, UPDATE_MODAL_VALUE_FIELD } from "consts/actions";
+import { RESET_MODAL_VALUES, UPDATE_MODAL_VALUE_FIELD, SET_MODAL_VALUES_FOR_EDIT } from "consts/actions";
 import { MODAL_TYPES } from "consts";
 
 const initialState = modalsDefaultState;
@@ -22,6 +22,11 @@ export const modalsReducer = (state = initialState, action) => {
       return {
         ...state,
         [action.payload.modalType]: { ...(valuesWithId || modalsDefaultState[action.payload.modalType]) }
+      };
+    case SET_MODAL_VALUES_FOR_EDIT:
+      return {
+        ...state,
+        [MODAL_TYPES.EDIT_MOVIE]: { ...action.payload }
       };
     default:
       return state;

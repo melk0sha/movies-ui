@@ -6,6 +6,10 @@ export const ModalForm = styled.form`
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
+
+  .react-datepicker__input-container {
+    padding: 0 20px 0 0;
+  }
 `;
 
 export const ModalInput = styled(Input)`
