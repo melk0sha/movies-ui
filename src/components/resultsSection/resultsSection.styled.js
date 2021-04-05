@@ -21,7 +21,7 @@ export const ResultsSectionHeader = styled.div`
   border-bottom: 5px solid ${({ theme }) => theme.colors.vinous.dark};
 
   @media ${device.laptop} {
-    justify-content: space-between;
+    justify-content: flex-end;
   }
 `;
 

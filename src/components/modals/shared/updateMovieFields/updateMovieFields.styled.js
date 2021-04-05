@@ -19,6 +19,7 @@ export const ModalInput = styled(Input)`
 `;
 
 export const ModalField = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -33,4 +34,14 @@ export const ModalDropdown = styled(Dropdown)`
   div {
     justify-content: flex-start;
   }
+`;
+
+export const ModalFieldError = styled.span`
+  position: absolute;
+  bottom: -17px;
+  right: 15px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.7rem;
+  color: ${({ theme }) => theme.colors.red};
 `;

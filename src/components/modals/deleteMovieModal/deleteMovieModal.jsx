@@ -14,11 +14,11 @@ import {
 } from "components/modals/shared/styles/modals.styled";
 
 const DeleteMovieModal = ({ movieId, moviesSortBy, onMovieDelete, onDeletionSubmit, onNewMoviesUpdate }) => {
-  const handleDeleteMovieClick = useCallback(() => {
-    onMovieDelete(movieId);
-    onNewMoviesUpdate({ sortBy: moviesSortBy });
+  const handleDeleteMovieClick = useCallback(async () => {
+    await onMovieDelete(movieId);
+    await onNewMoviesUpdate({ sortBy: moviesSortBy });
     onDeletionSubmit();
-  }, [movieId, moviesSortBy]);
+  }, [movieId, moviesSortBy, onDeletionSubmit]);
 
   return (
     <ModalMovieWrapper>

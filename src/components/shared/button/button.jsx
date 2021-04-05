@@ -3,8 +3,8 @@ import { bool, func, node, oneOf } from "prop-types";
 import { BUTTON_SIZE } from "consts";
 import { StyledButton } from "components/shared/button/button.styled";
 
-const Button = ({ children, primary = false, rounded = false, size = BUTTON_SIZE.sm, onClick }) => (
-  <StyledButton primary={primary} rounded={rounded} size={size} onClick={onClick}>
+const Button = ({ children, primary = false, rounded = false, size = BUTTON_SIZE.sm, onClick, ...props }) => (
+  <StyledButton primary={primary} rounded={rounded} size={size} onClick={onClick} {...props}>
     {children}
   </StyledButton>
 );

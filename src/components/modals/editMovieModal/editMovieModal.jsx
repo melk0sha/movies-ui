@@ -11,9 +11,8 @@ import { StyledModalSpan } from "components/modals/editMovieModal/editMovieModal
 
 const EditMovieModal = ({ moviesSortBy, newMovie, oldMovie, onMovieEdit, onNewMoviesUpdate, onEditingSubmit }) => {
   const handleEditMovieSubmit = useCallback(
-    async (e) => {
-      e.preventDefault();
-      const updatedMovie = { ...oldMovie, ...newMovie };
+    async (values) => {
+      const updatedMovie = { ...oldMovie, ...values };
 
       await onMovieEdit(updatedMovie);
       await onNewMoviesUpdate({ sortBy: moviesSortBy });

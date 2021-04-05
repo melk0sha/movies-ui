@@ -7,7 +7,7 @@ import { func } from "prop-types";
 import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS, PATHS, MODAL_TYPES } from "consts";
 import { modalsDefaultState } from "reducers/defaultStates";
 import { movieType } from "types";
-import { setModalValuesForEdit } from "actions";
+import { setModalValues } from "actions";
 import { getYearFromReleaseDate, getGenreId } from "utils";
 import {
   MovieWrapper,
@@ -34,15 +34,20 @@ const Movie = ({ movie = {}, onOptionClick, onModalValuesUpdate }) => {
       if (type === MODAL_TYPES.EDIT_MOVIE) {
         const movieGenres = genres.map((genre) => ({ id: getGenreId(genre), value: genre }));
 
-        onModalValuesUpdate({
-          id,
-          title: title || modalsDefaultState[type].title,
-          poster_path: poster_path || modalsDefaultState[type].poster_path,
-          release_date: new Date(release_date) || modalsDefaultState[type].release_date,
-          genres: movieGenres || modalsDefaultState[type].genres,
-          overview: overview || modalsDefaultState[type].overview,
-          runtime: (runtime && String(runtime)) || modalsDefaultState[type].runtime
-        });
+        onModalValuesUpdate(
+          {
+            id,
+            title: title || modalsDefaultState[type].title,
+            poster_path: poster_path || modalsDefaultState[type].poster_path,
+            release_date: new Date(release_date) || modalsDefaultState[type].release_date,
+            genres: movieGenres || modalsDefaultState[type].genres,
+            overview: overview || modalsDefaultState[type].overview,
+            runtime: (runtime && String(runtime)) || modalsDefaultState[type].runtime
+          },
+          MODAL_TYPES.EDIT_MOVIE
+        );
+      } else if (type === MODAL_TYPES.DELETE_MOVIE) {
+        onModalValuesUpdate({ id }, MODAL_TYPES.DELETE_MOVIE);
       }
 
       onOptionClick(type);
@@ -82,7 +87,7 @@ const mapStateToProps = (_state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onModalValuesUpdate: bindActionCreators(setModalValuesForEdit, dispatch)
+  onModalValuesUpdate: bindActionCreators(setModalValues, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movie);
