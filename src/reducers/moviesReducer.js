@@ -1,7 +1,7 @@
-import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR } from "consts/actions";
+import { CLEAR_REQUEST_RESULT, REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR } from "consts/actions";
 
 const initialState = {
-  error: null,
+  error: false,
   movieList: [],
   genres: []
 };
@@ -11,13 +11,17 @@ export const moviesReducer = (state = initialState, action) => {
     case REQUEST_MOVIES_SUCCESS:
       return {
         ...state,
-        error: null,
         movieList: [...action.payload]
       };
     case REQUEST_MOVIES_ERROR:
       return {
         ...state,
-        error: action.payload
+        error: true
+      };
+    case CLEAR_REQUEST_RESULT:
+      return {
+        ...state,
+        error: false
       };
     default:
       return state;

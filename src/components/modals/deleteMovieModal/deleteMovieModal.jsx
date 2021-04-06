@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { func, number } from "prop-types";
 import { MODAL_TYPES } from "consts";
 import { moviesSortByType } from "types";
-import { getMoviesByParams, deleteMovieById } from "actions";
+import { alertShow, getMoviesByParams, deleteMovieById } from "actions";
 import Button from "components/shared/button";
 import {
   ModalMovieWrapper,
@@ -13,11 +13,20 @@ import {
   ModalSpan
 } from "components/modals/shared/styles/modals.styled";
 
-const DeleteMovieModal = ({ movieId, moviesSortBy, onMovieDelete, onDeletionSubmit, onNewMoviesUpdate }) => {
+const DeleteMovieModal = ({
+  movieId,
+  moviesSortBy,
+  onMovieDelete,
+  onDeletionSubmit,
+  onNewMoviesUpdate,
+  onAlertShow
+}) => {
   const handleDeleteMovieClick = useCallback(async () => {
     await onMovieDelete(movieId);
     await onNewMoviesUpdate({ sortBy: moviesSortBy });
+
     onDeletionSubmit();
+    onAlertShow();
   }, [movieId, moviesSortBy, onDeletionSubmit]);
 
   return (
@@ -38,7 +47,8 @@ DeleteMovieModal.propTypes = {
   moviesSortBy: moviesSortByType,
   onMovieDelete: func,
   onNewMoviesUpdate: func,
-  onDeletionSubmit: func
+  onDeletionSubmit: func,
+  onAlertShow: func
 };
 
 const mapStateToProps = (state) => ({
@@ -48,7 +58,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onMovieDelete: bindActionCreators(deleteMovieById, dispatch),
-  onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch)
+  onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch),
+  onAlertShow: bindActionCreators(alertShow, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteMovieModal);

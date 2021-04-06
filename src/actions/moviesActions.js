@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR } from "consts/actions";
+import { CLEAR_REQUEST_RESULT, REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR } from "consts/actions";
 
 const moviesUrl = "http://localhost:4000/movies";
 const defaultSortOrder = "desc";
@@ -13,7 +13,7 @@ export const getMoviesByParams = (params) => async (dispatch) => {
 
     dispatch(requestMoviesSuccess(movies.data));
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
   }
 };
 
@@ -25,7 +25,7 @@ export const addMovieByData = (data) => async (dispatch) => {
       genres: data.genres.map((genre) => genre.value)
     });
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
   }
 };
 
@@ -51,7 +51,7 @@ export const updateMovieByData = (data) => async (dispatch) => {
       genres: updatedData.genres.map((genre) => genre.value)
     });
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
   }
 };
 
@@ -63,4 +63,8 @@ export const requestMoviesSuccess = (movies) => ({
 export const requestMoviesError = (error) => ({
   type: REQUEST_MOVIES_ERROR,
   payload: error
+});
+
+export const clearRequestResult = () => ({
+  type: CLEAR_REQUEST_RESULT
 });
