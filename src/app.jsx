@@ -5,7 +5,6 @@ import { theme } from "assets/styles/theme";
 import ErrorBoundary from "components/errorBoundary";
 import Footer from "components/footer";
 import Header from "components/header";
-import ResultsSection from "components/resultsSection";
 import Routes from "routes";
 
 const App = () => (
@@ -15,7 +14,6 @@ const App = () => (
         <Header />
         <Main>
           <Routes />
-          <ResultsSection />
         </Main>
         <Footer />
       </Wrapper>
