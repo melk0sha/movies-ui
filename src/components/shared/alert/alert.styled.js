@@ -31,7 +31,3 @@ export const AlertText = styled.span`
   font-size: 1rem;
   margin-bottom: 20px;
 `;
-
-// export const StyledButton = styled(Button)`
-//   margin-top: 30px;
-// `;

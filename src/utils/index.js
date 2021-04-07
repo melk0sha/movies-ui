@@ -1,7 +1,7 @@
 import { SORT_BY_VALUES } from "consts";
 import { genres } from "consts/genres";
 
-export const getGenreId = (genreValue) => genres.find((genre) => genre.value === genreValue).id;
+export const getGenreId = (genreValue) => genres.find((genre) => genre.value === genreValue)?.id || Math.random();
 
 export const getYearFromReleaseDate = (releaseDate) => releaseDate?.slice(0, 4);
 
