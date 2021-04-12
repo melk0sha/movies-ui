@@ -9,6 +9,8 @@ import { Logo } from "assets/styles";
 import { HeaderWrapper, LogoWrapper, StyledHashLink } from "components/header/header.styled";
 import logoImage from "assets/images/logo.png";
 
+const [RESULTS_PATH] = PATHS.RESULTS.split(":");
+
 const Header = () => {
   const { pathname } = useLocation();
   const [isModalShown, setModalShown] = useState(false);
@@ -25,7 +27,7 @@ const Header = () => {
         </HashLink>
       </LogoWrapper>
 
-      {pathname === PATHS.HOME ? (
+      {pathname === PATHS.HOME || pathname.includes(RESULTS_PATH) ? (
         <Button rounded size={BUTTON_SIZE.sm} onClick={handleModalShowingChange}>
           Add movie
         </Button>

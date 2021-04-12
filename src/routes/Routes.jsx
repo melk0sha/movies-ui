@@ -9,6 +9,7 @@ const Routes = () => (
   <Switch>
     <Route exact path={PATHS.HOME} component={Home} />
     <Route path={PATHS.MOVIE} component={Movie} />
+    <Route path={PATHS.RESULTS} component={Home} />
     <Route component={NotFound} />
   </Switch>
 );

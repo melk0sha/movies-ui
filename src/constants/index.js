@@ -41,7 +41,8 @@ export const MODAL_TYPES = {
 
 export const PATHS = {
   HOME: "/",
-  MOVIE: "/movie/:id"
+  MOVIE: "/film/:id",
+  RESULTS: "/search/:value"
 };
 
 export const ALL_GENRES_OPTION = {

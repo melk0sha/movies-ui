@@ -1,27 +1,26 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { func } from "prop-types";
+import { func, string } from "prop-types";
 import { getMoviesByParams } from "actions";
 import { ALL_GENRES_OPTION } from "consts";
 import { moviesSortByType } from "types";
 import { genres } from "consts/genres";
 import { GenresWrapper, Genre } from "components/resultsSection/genres/genres.styled";
 
-const Genres = ({ moviesSortBy, onGenresFilter }) => {
+const Genres = ({ moviesSortBy, searchValue, onGenresFilter }) => {
   const [activeGenreId, setActiveGenreId] = useState(0);
 
   const handleGenreClick = useCallback(
     (newGenre) => {
+      const defaultParams = { sortBy: moviesSortBy, search: searchValue, searchBy: "title" };
       const params =
-        newGenre.value === ALL_GENRES_OPTION.value
-          ? { sortBy: moviesSortBy }
-          : { sortBy: moviesSortBy, search: newGenre.value, searchBy: "genres" };
+        newGenre.value === ALL_GENRES_OPTION.value ? defaultParams : { ...defaultParams, filter: newGenre.value };
 
       onGenresFilter(params);
       setActiveGenreId(newGenre.id);
     },
-    [setActiveGenreId]
+    [searchValue, setActiveGenreId]
   );
 
   const Genres = useMemo(
@@ -43,11 +42,13 @@ const Genres = ({ moviesSortBy, onGenresFilter }) => {
 
 Genres.propTypes = {
   moviesSortBy: moviesSortByType,
+  searchValue: string,
   onGenresFilter: func
 };
 
 const mapStateToProps = (state) => ({
-  moviesSortBy: state.app.moviesSortBy
+  moviesSortBy: state.app.moviesSortBy,
+  searchValue: state.app.searchValue
 });
 
 const mapDispatchToProps = (dispatch) => ({

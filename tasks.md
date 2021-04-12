@@ -1,3 +1,39 @@
+### Task 8. Routing
+
+Create routing for your application (via React Router).  
+Add 404 (error page) and ‘No movies found’ page.  
+Link app states between each other with React Router.  
+By default, user lands on a new page with empty results state.  
+When user clicks on a film item, redirect them to:
+_localhost/film/id_.  
+Handle invalid URLs, display a 404 page, where user will be redirected in case of invalid URL.  
+On switching search type or sorting type you shouldn’t switch any routes.  
+When user performs a new search, you should redirect them to: _localhost/search/Search%20Query_.  
+When a new user lands on the page with such URL, you should perform search and display results.
+
+**Evaluation criteria**
+
+2.1 - Add 404 and “No movies found” pages with markup  
+2.2 - Have 2+ pages which displays on different URLs  
+3 - Implement displaying 404 page for all invalid URLs  
+4 - By default, user lands on a new page with empty results page  
+5.1 - When user performs a search on the page, change URL and show search results  
+5.2 - When new user enters the site using direct link with search parameters – show search results
+
+### Task 7. Forms
+
+1. Implement «Add movie» form.
+2. Implement «Edit movie» form.
+
+Required validation criteria: http://localhost:4000/api-docs
+
+**Evaluation criteria**
+
+2 - Installed formik  
+3 - Implementation of “Add movie” form with validation  
+4 - Implementation of “Edit movie” form with validation  
+5 - Use hooks from formik
+
 ### Task 6. Redux
 
 1. Go through API docs in swagger: http://localhost:4000/api-docs

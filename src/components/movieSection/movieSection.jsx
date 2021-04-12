@@ -30,13 +30,13 @@ const MovieSection = ({ movie = {} }) => {
           <MovieInfoSection>
             <InfoWrapper>
               <MovieTitle>{movie.title}</MovieTitle>
-              <MovieRating>{movie.vote_average}</MovieRating>
+              {!!movie.vote_average && <MovieRating>{movie.vote_average}</MovieRating>}
             </InfoWrapper>
-            <MovieSpan>{movie.tagline}</MovieSpan>
+            {!!movie.tagline && <MovieSpan>{movie.tagline}</MovieSpan>}
             <MovieGenres>{genres}</MovieGenres>
             <InfoWrapper>
-              <MovieSpan>{year}</MovieSpan>
-              <MovieSpan>{movie.runtime} min</MovieSpan>
+              {!!year && <MovieSpan>{year}</MovieSpan>}
+              {!!movie.runtime && <MovieSpan>{movie.runtime} min</MovieSpan>}
             </InfoWrapper>
             <MovieSpan>{movie.overview}</MovieSpan>
           </MovieInfoSection>

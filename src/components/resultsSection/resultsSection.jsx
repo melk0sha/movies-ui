@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { bool, func, number } from "prop-types";
-import { alertHide, getMoviesByParams, clearRequestResult } from "actions";
-import { SORT_BY_DEFAULT_VALUE } from "consts";
+import { alertHide, clearRequestResult } from "actions";
 import Genres from "components/resultsSection/genres";
 import MoviesSorting from "components/resultsSection/moviesSorting";
 import Movies from "components/resultsSection/movies";
@@ -15,18 +14,7 @@ import {
   NoMovieFoundSpan
 } from "components/resultsSection/resultsSection.styled";
 
-const ResultsSection = ({
-  moviesLength = 0,
-  isAlertShown,
-  isRequestError,
-  onMoviesByParamsGet,
-  onErrorClear,
-  onAlertHide
-}) => {
-  useEffect(() => {
-    onMoviesByParamsGet({ sortBy: SORT_BY_DEFAULT_VALUE });
-  }, []);
-
+const ResultsSection = ({ moviesLength = 0, isAlertShown, isRequestError, onErrorClear, onAlertHide }) => {
   const handleClose = useCallback(() => {
     onErrorClear();
     onAlertHide();
@@ -57,7 +45,6 @@ ResultsSection.propTypes = {
   moviesLength: number,
   isRequestError: bool,
   isAlertShown: bool,
-  onMoviesByParamsGet: func,
   onErrorClear: func,
   onAlertHide: func
 };
@@ -69,7 +56,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoviesByParamsGet: bindActionCreators(getMoviesByParams, dispatch),
   onErrorClear: bindActionCreators(clearRequestResult, dispatch),
   onAlertHide: bindActionCreators(alertHide, dispatch)
 });
