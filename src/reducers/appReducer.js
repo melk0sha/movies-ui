@@ -1,11 +1,12 @@
-import { ALERT_SHOW, ALERT_HIDE, CHANGE_SEARCH_VALUE, SET_MOVIES_SORT_BY } from "consts/actions";
-import { SORT_BY_DEFAULT_VALUE } from "consts";
+import { ALERT_SHOW, ALERT_HIDE, CHANGE_SEARCH_VALUE, CHANGE_ACTIVE_GENRE, SET_MOVIES_SORT_BY } from "consts/actions";
+import { SORT_BY_DEFAULT_VALUE, ALL_GENRES_OPTION } from "consts";
 import { getValueToSortBy } from "utils";
 
 const initialState = {
   moviesSortBy: SORT_BY_DEFAULT_VALUE,
   alertShown: false,
-  searchValue: ""
+  searchValue: "",
+  activeGenre: ALL_GENRES_OPTION.value
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -31,6 +32,11 @@ export const appReducer = (state = initialState, action) => {
       return {
         ...state,
         searchValue: action.payload
+      };
+    case CHANGE_ACTIVE_GENRE:
+      return {
+        ...state,
+        activeGenre: action.payload
       };
     default:
       return state;

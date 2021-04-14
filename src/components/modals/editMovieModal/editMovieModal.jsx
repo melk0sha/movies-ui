@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { func } from "prop-types";
+import { func, string } from "prop-types";
 import { MODAL_TYPES } from "consts";
 import { movieType, modalValuesEditType, moviesSortByType } from "types";
 import { alertShow, getMoviesByParams, updateMovieByData } from "actions";
@@ -13,6 +13,8 @@ const EditMovieModal = ({
   moviesSortBy,
   newMovie,
   oldMovie,
+  searchValue,
+  activeGenre,
   onMovieEdit,
   onNewMoviesUpdate,
   onEditingSubmit,
@@ -23,12 +25,12 @@ const EditMovieModal = ({
       const updatedMovie = { ...oldMovie, ...values };
 
       await onMovieEdit(updatedMovie);
-      await onNewMoviesUpdate({ sortBy: moviesSortBy });
+      await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
 
       onEditingSubmit();
       onAlertShow();
     },
-    [moviesSortBy, newMovie, oldMovie, onEditingSubmit]
+    [moviesSortBy, searchValue, activeGenre, newMovie, oldMovie, onEditingSubmit]
   );
 
   return (
@@ -44,6 +46,8 @@ const EditMovieModal = ({
 EditMovieModal.propTypes = {
   newMovie: modalValuesEditType,
   oldMovie: movieType,
+  searchValue: string,
+  activeGenre: string,
   moviesSortBy: moviesSortByType,
   onMovieEdit: func,
   onNewMoviesUpdate: func,
@@ -55,11 +59,15 @@ const mapStateToProps = (state) => {
   const { moviesSortBy } = state.app;
   const newMovie = state.modals[MODAL_TYPES.EDIT_MOVIE];
   const oldMovie = state.movies.movieList.find((movie) => movie.id === newMovie.id);
+  const searchValue = state.app.searchValue;
+  const activeGenre = state.app.activeGenre;
 
   return {
     newMovie,
     oldMovie,
-    moviesSortBy
+    moviesSortBy,
+    searchValue,
+    activeGenre
   };
 };
 

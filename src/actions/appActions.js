@@ -1,4 +1,4 @@
-import { ALERT_SHOW, ALERT_HIDE, CHANGE_SEARCH_VALUE, SET_MOVIES_SORT_BY } from "consts/actions";
+import { ALERT_SHOW, ALERT_HIDE, CHANGE_SEARCH_VALUE, CHANGE_ACTIVE_GENRE, SET_MOVIES_SORT_BY } from "consts/actions";
 
 export const setMoviesSortBy = (newSortByValue) => ({
   type: SET_MOVIES_SORT_BY,
@@ -16,4 +16,9 @@ export const alertHide = () => ({
 export const changeSearchValue = (newValue) => ({
   type: CHANGE_SEARCH_VALUE,
   payload: newValue
+});
+
+export const changeActiveGenre = (newGenre) => ({
+  type: CHANGE_ACTIVE_GENRE,
+  payload: newGenre
 });

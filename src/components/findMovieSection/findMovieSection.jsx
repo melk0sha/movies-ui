@@ -14,7 +14,7 @@ import {
   StyledInput
 } from "components/findMovieSection/findMovieSection.styled";
 
-const FindMovieSection = ({ moviesSortBy, searchValue, onMoviesByParamsGet, onSearchValueChange }) => {
+const FindMovieSection = ({ moviesSortBy, searchValue, activeGenre, onMoviesByParamsGet, onSearchValueChange }) => {
   const history = useHistory();
   const { value: searchValueFromURL } = useParams();
 
@@ -23,13 +23,14 @@ const FindMovieSection = ({ moviesSortBy, searchValue, onMoviesByParamsGet, onSe
       const params = {
         search: searchValueFromURL,
         sortBy: moviesSortBy,
-        searchBy: "title"
+        searchBy: "title",
+        filter: activeGenre
       };
 
       onSearchValueChange(searchValueFromURL);
       onMoviesByParamsGet(params);
     }
-  }, [searchValueFromURL]);
+  }, [searchValueFromURL, activeGenre]);
 
   useEffect(() => {
     if (searchValue) {
@@ -48,14 +49,15 @@ const FindMovieSection = ({ moviesSortBy, searchValue, onMoviesByParamsGet, onSe
       const params = {
         search: searchValue,
         sortBy: moviesSortBy,
-        searchBy: "title"
+        searchBy: "title",
+        filter: activeGenre
       };
       const path = generatePath(PATHS.RESULTS, { value: searchValue });
 
       history.push(path);
       onMoviesByParamsGet(params);
     },
-    [searchValue, moviesSortBy]
+    [searchValue, moviesSortBy, activeGenre]
   );
 
   return (
@@ -80,13 +82,16 @@ const FindMovieSection = ({ moviesSortBy, searchValue, onMoviesByParamsGet, onSe
 
 FindMovieSection.propTypes = {
   moviesSortBy: moviesSortByType,
+  searchValue: string,
+  activeGenre: string,
   onMoviesByParamsGet: func,
-  searchValue: string
+  onSearchValueChange: func
 };
 
 const mapStateToProps = (state) => ({
   moviesSortBy: state.app.moviesSortBy,
-  searchValue: state.app.searchValue
+  searchValue: state.app.searchValue,
+  activeGenre: state.app.activeGenre
 });
 
 const mapDispatchToProps = (dispatch) => ({
