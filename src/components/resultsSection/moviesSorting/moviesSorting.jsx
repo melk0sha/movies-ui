@@ -1,9 +1,10 @@
 import React, { useCallback, useMemo } from "react";
+import { generatePath, useHistory } from "react-router";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { func } from "prop-types";
+import { func, string } from "prop-types";
 import { setMoviesSortBy, getMoviesByParams } from "actions";
-import { SORT_BY_OPTIONS } from "consts";
+import { SORT_BY_OPTIONS, PATHS } from "consts";
 import { getValueToSortBy } from "utils";
 import { moviesSortByType } from "types";
 import {
@@ -12,19 +13,29 @@ import {
   StyledDropdown
 } from "components/resultsSection/moviesSorting/moviesSorting.styled";
 
-const MoviesSorting = ({ valueToSortBy, onSortByChange, onNewMoviesUpdate }) => {
+const MoviesSorting = ({ valueToSortBy, searchValue, activeGenre, onSortByChange, onNewMoviesUpdate }) => {
+  const history = useHistory();
   const selectedOption = useMemo(
     () => SORT_BY_OPTIONS.find((option) => getValueToSortBy(option.value) === valueToSortBy),
     [valueToSortBy]
   );
 
-  const handleOptionSelect = useCallback((newOption) => {
-    const [selectedOption] = newOption;
-    const sortBy = getValueToSortBy(selectedOption.value);
+  const handleOptionSelect = useCallback(
+    (newOption) => {
+      const [newSelectedOption] = newOption;
+      const path = generatePath(PATHS.RESULTS, { value: searchValue });
 
-    onSortByChange(selectedOption.value);
-    onNewMoviesUpdate({ sortBy });
-  }, []);
+      if (searchValue) {
+        const sortBy = getValueToSortBy(newSelectedOption.value);
+
+        onNewMoviesUpdate({ sortBy, search: searchValue, searchBy: "title", filter: activeGenre });
+      }
+
+      history.push(path);
+      onSortByChange(newSelectedOption.value);
+    },
+    [searchValue, activeGenre]
+  );
 
   return (
     <MoviesSortingWrapper>
@@ -41,12 +52,16 @@ const MoviesSorting = ({ valueToSortBy, onSortByChange, onNewMoviesUpdate }) => 
 
 MoviesSorting.propTypes = {
   valueToSortBy: moviesSortByType,
+  searchValue: string,
+  activeGenre: string,
   onSortByChange: func,
   onNewMoviesUpdate: func
 };
 
 const mapStateToProps = (state) => ({
-  valueToSortBy: state.app.moviesSortBy
+  valueToSortBy: state.app.moviesSortBy,
+  searchValue: state.app.searchValue,
+  activeGenre: state.app.activeGenre
 });
 
 const mapDispatchToProps = (dispatch) => ({
