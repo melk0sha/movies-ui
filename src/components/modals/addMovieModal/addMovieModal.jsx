@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { func, string } from "prop-types";
 import { MODAL_TYPES } from "consts";
 import { moviesSortByType } from "types";
-import { alertShow, addMovieByData, getMoviesByParams } from "actions";
+import { alertShow, addMovieByData, getMoviesByParams, requestMoviesSuccess } from "actions";
 import UpdateMovieFields from "components/modals/shared/updateMovieFields";
 import { ModalMovieWrapper, ModalTitle } from "components/modals/shared/styles/modals.styled";
 
@@ -15,14 +15,20 @@ const AddMovieModal = ({
   activeGenre,
   onNewMoviesUpdate,
   onAddingSubmit,
-  onAlertShow
+  onAlertShow,
+  onMoviesNotFound
 }) => {
   const handleAddMovieSubmit = useCallback(
     async (values) => {
       await onMovieAdd(values);
-      await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
-
       onAddingSubmit();
+
+      if (searchValue) {
+        await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
+      } else {
+        onMoviesNotFound([]);
+      }
+
       onAlertShow();
     },
     [moviesSortBy, searchValue, activeGenre, onAddingSubmit]
@@ -43,7 +49,8 @@ AddMovieModal.propTypes = {
   onMovieAdd: func,
   onNewMoviesUpdate: func,
   onAddingSubmit: func,
-  onAlertShow: func
+  onAlertShow: func,
+  onMoviesNotFound: func
 };
 
 const mapStateToProps = (state) => ({
@@ -55,7 +62,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onMovieAdd: bindActionCreators(addMovieByData, dispatch),
   onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch),
-  onAlertShow: bindActionCreators(alertShow, dispatch)
+  onAlertShow: bindActionCreators(alertShow, dispatch),
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddMovieModal);

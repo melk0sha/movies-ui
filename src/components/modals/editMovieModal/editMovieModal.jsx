@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { func, string } from "prop-types";
 import { MODAL_TYPES } from "consts";
 import { movieType, modalValuesEditType, moviesSortByType } from "types";
-import { alertShow, getMoviesByParams, updateMovieByData } from "actions";
+import { alertShow, getMoviesByParams, updateMovieByData, requestMoviesSuccess } from "actions";
 import UpdateMovieFields from "components/modals/shared/updateMovieFields";
 import { ModalMovieWrapper, ModalTitle, ModalLabel } from "components/modals/shared/styles/modals.styled";
 import { StyledModalSpan } from "components/modals/editMovieModal/editMovieModal.styled";
@@ -18,16 +18,22 @@ const EditMovieModal = ({
   onMovieEdit,
   onNewMoviesUpdate,
   onEditingSubmit,
-  onAlertShow
+  onAlertShow,
+  onMoviesNotFound
 }) => {
   const handleEditMovieSubmit = useCallback(
     async (values) => {
       const updatedMovie = { ...oldMovie, ...values };
 
       await onMovieEdit(updatedMovie);
-      await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
-
       onEditingSubmit();
+
+      if (searchValue) {
+        await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
+      } else {
+        onMoviesNotFound([]);
+      }
+
       onAlertShow();
     },
     [moviesSortBy, searchValue, activeGenre, newMovie, oldMovie, onEditingSubmit]
@@ -52,7 +58,8 @@ EditMovieModal.propTypes = {
   onMovieEdit: func,
   onNewMoviesUpdate: func,
   onEditingSubmit: func,
-  onAlertShow: func
+  onAlertShow: func,
+  onMoviesNotFound: func
 };
 
 const mapStateToProps = (state) => {
@@ -74,7 +81,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   onMovieEdit: bindActionCreators(updateMovieByData, dispatch),
   onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch),
-  onAlertShow: bindActionCreators(alertShow, dispatch)
+  onAlertShow: bindActionCreators(alertShow, dispatch),
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditMovieModal);

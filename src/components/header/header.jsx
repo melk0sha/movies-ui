@@ -2,9 +2,9 @@ import React, { useCallback, useMemo, useState } from "react";
 import { generatePath, useLocation } from "react-router";
 import { HashLink } from "react-router-hash-link";
 import { connect } from "react-redux";
-import { func, string } from "prop-types";
+import { func, number, string } from "prop-types";
 import { bindActionCreators } from "redux";
-import { changeSearchValue } from "actions";
+import { requestMoviesSuccess } from "actions";
 import { BUTTON_SIZE, PATHS } from "consts";
 import Button from "components/shared/button";
 import Modal from "components/shared/modal";
@@ -15,13 +15,19 @@ import logoImage from "assets/images/logo.png";
 
 const [RESULTS_PATH] = PATHS.RESULTS.split(":");
 
-const Header = ({ searchValue, onSearchValueChange }) => {
+const Header = ({ searchValue, moviesLength, onMoviesNotFound }) => {
   const { pathname } = useLocation();
   const [isModalShown, setModalShown] = useState(false);
 
   const handleModalShowingChange = useCallback(() => {
     setModalShown((prevState) => !prevState);
   }, [setModalShown]);
+
+  const handleLinkClick = useCallback(() => {
+    if (!searchValue && moviesLength) {
+      onMoviesNotFound([]);
+    }
+  }, [searchValue, moviesLength]);
 
   const linkTo = useMemo(() => {
     const path = `${searchValue ? PATHS.RESULTS : PATHS.HOME}#`;
@@ -32,7 +38,7 @@ const Header = ({ searchValue, onSearchValueChange }) => {
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <HashLink smooth to={linkTo}>
+        <HashLink smooth to={linkTo} onClick={handleLinkClick}>
           <Logo src={logoImage} alt="Logo" />
         </HashLink>
       </LogoWrapper>
@@ -42,7 +48,7 @@ const Header = ({ searchValue, onSearchValueChange }) => {
           Add movie
         </Button>
       ) : (
-        <StyledHashLink smooth to={linkTo}>
+        <StyledHashLink smooth to={linkTo} onClick={handleLinkClick}>
           Back to movie search
         </StyledHashLink>
       )}
@@ -56,15 +62,17 @@ const Header = ({ searchValue, onSearchValueChange }) => {
 
 Header.propTypes = {
   searchValue: string,
-  onSearchValueChange: func
+  moviesLength: number,
+  onMoviesNotFound: func
 };
 
 const mapStateToProps = (state) => ({
-  searchValue: state.app.searchValue
+  searchValue: state.app.searchValue,
+  moviesLength: state.movies.movieList.length
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSearchValueChange: bindActionCreators(changeSearchValue, dispatch)
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
