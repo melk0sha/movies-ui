@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { func, number, string } from "prop-types";
 import { MODAL_TYPES, PATHS } from "consts";
 import { moviesSortByType } from "types";
-import { alertShow, getMoviesByParams, deleteMovieById } from "actions";
+import { alertShow, getMoviesByParams, deleteMovieById, requestMoviesSuccess } from "actions";
 import Button from "components/shared/button";
 import {
   ModalMovieWrapper,
@@ -22,18 +22,24 @@ const DeleteMovieModal = ({
   onMovieDelete,
   onDeletionSubmit,
   onNewMoviesUpdate,
-  onAlertShow
+  onAlertShow,
+  onMoviesNotFound
 }) => {
   const history = useHistory();
 
   const handleDeleteMovieClick = useCallback(async () => {
-    const path = generatePath(PATHS.RESULTS, { value: searchValue });
+    const path = generatePath(searchValue ? PATHS.RESULTS : PATHS.HOME, searchValue && { value: searchValue });
 
     await onMovieDelete(movieId);
-    await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
+    onDeletionSubmit();
+
+    if (searchValue) {
+      await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
+    } else {
+      onMoviesNotFound([]);
+    }
 
     history.push(path);
-    onDeletionSubmit();
     onAlertShow();
   }, [searchValue, activeGenre, movieId, moviesSortBy, onDeletionSubmit]);
 
@@ -58,7 +64,8 @@ DeleteMovieModal.propTypes = {
   onMovieDelete: func,
   onNewMoviesUpdate: func,
   onDeletionSubmit: func,
-  onAlertShow: func
+  onAlertShow: func,
+  onMoviesNotFound: func
 };
 
 const mapStateToProps = (state) => ({
@@ -71,7 +78,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onMovieDelete: bindActionCreators(deleteMovieById, dispatch),
   onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch),
-  onAlertShow: bindActionCreators(alertShow, dispatch)
+  onAlertShow: bindActionCreators(alertShow, dispatch),
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteMovieModal);

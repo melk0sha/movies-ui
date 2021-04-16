@@ -1,6 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { generatePath, useLocation } from "react-router";
 import { HashLink } from "react-router-hash-link";
+import { connect } from "react-redux";
+import { func, number, string } from "prop-types";
+import { bindActionCreators } from "redux";
+import { requestMoviesSuccess } from "actions";
 import { BUTTON_SIZE, PATHS } from "consts";
 import Button from "components/shared/button";
 import Modal from "components/shared/modal";
@@ -11,7 +15,7 @@ import logoImage from "assets/images/logo.png";
 
 const [RESULTS_PATH] = PATHS.RESULTS.split(":");
 
-const Header = () => {
+const Header = ({ searchValue, moviesLength, onMoviesNotFound }) => {
   const { pathname } = useLocation();
   const [isModalShown, setModalShown] = useState(false);
 
@@ -19,10 +23,22 @@ const Header = () => {
     setModalShown((prevState) => !prevState);
   }, [setModalShown]);
 
+  const handleLinkClick = useCallback(() => {
+    if (!searchValue && moviesLength) {
+      onMoviesNotFound([]);
+    }
+  }, [searchValue, moviesLength]);
+
+  const linkTo = useMemo(() => {
+    const path = `${searchValue ? PATHS.RESULTS : PATHS.HOME}#`;
+
+    return generatePath(path, { value: searchValue });
+  }, [searchValue]);
+
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <HashLink smooth to={generatePath(`${PATHS.HOME}#`)}>
+        <HashLink smooth to={linkTo} onClick={handleLinkClick}>
           <Logo src={logoImage} alt="Logo" />
         </HashLink>
       </LogoWrapper>
@@ -32,7 +48,7 @@ const Header = () => {
           Add movie
         </Button>
       ) : (
-        <StyledHashLink smooth to={generatePath(`${PATHS.HOME}#`)}>
+        <StyledHashLink smooth to={linkTo} onClick={handleLinkClick}>
           Back to movie search
         </StyledHashLink>
       )}
@@ -44,4 +60,19 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  searchValue: string,
+  moviesLength: number,
+  onMoviesNotFound: func
+};
+
+const mapStateToProps = (state) => ({
+  searchValue: state.app.searchValue,
+  moviesLength: state.movies.movieList.length
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

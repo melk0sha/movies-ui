@@ -10,7 +10,7 @@ export const getMoviesByParams = (params) => async (dispatch) => {
     if (params.filter === ALL_GENRES_OPTION.value) {
       delete params.filter;
     }
-    console.log(params);
+
     const response = await axios.get(moviesUrl, {
       params: { ...params, sortOrder: params.sortOrder || defaultSortOrder }
     });

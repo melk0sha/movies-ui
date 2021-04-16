@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { func, string } from "prop-types";
 import { PATHS, BUTTON_SIZE, SEARCH_PLACEHOLDER_TEXT } from "consts";
-import { getMoviesByParams, changeSearchValue } from "actions";
+import { getMoviesByParams, changeSearchValue, requestMoviesSuccess } from "actions";
 import { moviesSortByType } from "types";
 import Button from "components/shared/button";
 import {
@@ -14,7 +14,14 @@ import {
   StyledInput
 } from "components/findMovieSection/findMovieSection.styled";
 
-const FindMovieSection = ({ moviesSortBy, searchValue, activeGenre, onMoviesByParamsGet, onSearchValueChange }) => {
+const FindMovieSection = ({
+  moviesSortBy,
+  searchValue,
+  activeGenre,
+  onMoviesByParamsGet,
+  onSearchValueChange,
+  onMoviesNotFound
+}) => {
   const history = useHistory();
   const { value: searchValueFromURL } = useParams();
 
@@ -46,16 +53,22 @@ const FindMovieSection = ({ moviesSortBy, searchValue, activeGenre, onMoviesByPa
   const handleSearchFormSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      const params = {
-        search: searchValue,
-        sortBy: moviesSortBy,
-        searchBy: "title",
-        filter: activeGenre
-      };
-      const path = generatePath(PATHS.RESULTS, { value: searchValue });
+      const path = generatePath(searchValue ? PATHS.RESULTS : PATHS.HOME, searchValue && { value: searchValue });
+
+      if (searchValue) {
+        const params = {
+          search: searchValue,
+          sortBy: moviesSortBy,
+          searchBy: "title",
+          filter: activeGenre
+        };
+
+        onMoviesByParamsGet(params);
+      } else {
+        onMoviesNotFound([]);
+      }
 
       history.push(path);
-      onMoviesByParamsGet(params);
     },
     [searchValue, moviesSortBy, activeGenre]
   );
@@ -85,7 +98,8 @@ FindMovieSection.propTypes = {
   searchValue: string,
   activeGenre: string,
   onMoviesByParamsGet: func,
-  onSearchValueChange: func
+  onSearchValueChange: func,
+  onMoviesNotFound: func
 };
 
 const mapStateToProps = (state) => ({
@@ -96,7 +110,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onMoviesByParamsGet: bindActionCreators(getMoviesByParams, dispatch),
-  onSearchValueChange: bindActionCreators(changeSearchValue, dispatch)
+  onSearchValueChange: bindActionCreators(changeSearchValue, dispatch),
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindMovieSection);

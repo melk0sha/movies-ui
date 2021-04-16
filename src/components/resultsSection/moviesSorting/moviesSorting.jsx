@@ -3,7 +3,7 @@ import { generatePath, useHistory } from "react-router";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { func, string } from "prop-types";
-import { setMoviesSortBy, getMoviesByParams } from "actions";
+import { setMoviesSortBy, getMoviesByParams, requestMoviesSuccess } from "actions";
 import { SORT_BY_OPTIONS, PATHS } from "consts";
 import { getValueToSortBy } from "utils";
 import { moviesSortByType } from "types";
@@ -13,7 +13,14 @@ import {
   StyledDropdown
 } from "components/resultsSection/moviesSorting/moviesSorting.styled";
 
-const MoviesSorting = ({ valueToSortBy, searchValue, activeGenre, onSortByChange, onNewMoviesUpdate }) => {
+const MoviesSorting = ({
+  valueToSortBy,
+  searchValue,
+  activeGenre,
+  onSortByChange,
+  onNewMoviesUpdate,
+  onMoviesNotFound
+}) => {
   const history = useHistory();
   const selectedOption = useMemo(
     () => SORT_BY_OPTIONS.find((option) => getValueToSortBy(option.value) === valueToSortBy),
@@ -23,12 +30,14 @@ const MoviesSorting = ({ valueToSortBy, searchValue, activeGenre, onSortByChange
   const handleOptionSelect = useCallback(
     (newOption) => {
       const [newSelectedOption] = newOption;
-      const path = generatePath(PATHS.RESULTS, { value: searchValue });
+      const path = generatePath(searchValue ? PATHS.RESULTS : PATHS.HOME, searchValue && { value: searchValue });
 
       if (searchValue) {
         const sortBy = getValueToSortBy(newSelectedOption.value);
 
         onNewMoviesUpdate({ sortBy, search: searchValue, searchBy: "title", filter: activeGenre });
+      } else {
+        onMoviesNotFound([]);
       }
 
       history.push(path);
@@ -55,7 +64,8 @@ MoviesSorting.propTypes = {
   searchValue: string,
   activeGenre: string,
   onSortByChange: func,
-  onNewMoviesUpdate: func
+  onNewMoviesUpdate: func,
+  onMoviesNotFound: func
 };
 
 const mapStateToProps = (state) => ({
@@ -66,7 +76,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSortByChange: bindActionCreators(setMoviesSortBy, dispatch),
-  onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch)
+  onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch),
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesSorting);
