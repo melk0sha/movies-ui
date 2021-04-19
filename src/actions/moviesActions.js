@@ -40,7 +40,7 @@ export const deleteMovieById = (id) => async (dispatch) => {
       id
     });
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
   }
 };
 
@@ -53,7 +53,7 @@ export const getMovieById = (id) => async (dispatch) => {
 
     dispatch(requestMoviesSuccess([movie]));
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
   }
 };
 
