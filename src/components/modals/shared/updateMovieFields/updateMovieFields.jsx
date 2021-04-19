@@ -131,7 +131,7 @@ const UpdateMovieFields = ({ movieValues = {}, type, onModalValuesUpdate, onFiel
         <Button primary rounded onClick={handleResetClick}>
           Reset
         </Button>
-        <Button rounded type="submit">
+        <Button data-testid="add-movie-modal-submit" rounded type="submit">
           {submitButtonText}
         </Button>
       </ModalButtonWrapper>
