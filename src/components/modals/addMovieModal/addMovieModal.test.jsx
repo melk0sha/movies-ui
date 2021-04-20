@@ -8,12 +8,6 @@ import AddMovieModal from "components/modals/addMovieModal";
 import "@testing-library/jest-dom/extend-expect";
 
 jest.mock("react-datepicker/dist/react-datepicker.css", () => {});
-// jest.mock("react-router-dom", () => ({
-//   useLocation: jest.fn().mockReturnValue({ pathname: "/" }),
-//   generatePath: jest.fn().mockReturnValue("url")
-// }));
-// jest.mock("react-router-hash-link", () => ({ HashLink: jest.fn().mockReturnValue(<div></div>) }));
-// jest.mock("components/shared/modal", () => jest.fn().mockReturnValue(<div></div>));
 
 describe("<AddMovieModal /> component testing", () => {
   const initialState = {
@@ -23,7 +17,14 @@ describe("<AddMovieModal /> component testing", () => {
       activeGenre: "All"
     },
     modals: {
-      [MODAL_TYPES.ADD_MOVIE]: {}
+      [MODAL_TYPES.ADD_MOVIE]: {
+        title: "Title",
+        release_date: new Date("01-01-2000"),
+        poster_path: "https://www.google.com/",
+        genres: [{ id: 1332, value: "Action" }],
+        overview: "Overview",
+        runtime: "1"
+      }
     }
   };
 
@@ -34,12 +35,38 @@ describe("<AddMovieModal /> component testing", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("should handle form submit", () => {
+  it("should handle form submit", async () => {
     const store = mockStore(initialState);
-    const { container, getByTestId } = render(<AddMovieModal />, { store, theme });
+    const onAddingSubmit = jest.fn();
+    const { getByTestId } = render(<AddMovieModal onAddingSubmit={onAddingSubmit} />, {
+      store,
+      theme
+    });
+    const form = getByTestId("add-movie-modal-submit");
 
-    fireEvent.submit(getByTestId("add-movie-modal-submit"));
+    fireEvent.submit(form);
 
-    expect(container).toMatchSnapshot();
+    await waitFor(() => expect(onAddingSubmit).toHaveBeenCalled());
+  });
+
+  it("should handle form submit with empty searchValue", async () => {
+    const initialStateWithEmptySearchValue = {
+      ...initialState,
+      app: {
+        ...initialState.app,
+        searchValue: ""
+      }
+    };
+    const store = mockStore(initialStateWithEmptySearchValue);
+    const onAddingSubmit = jest.fn();
+    const { getByTestId } = render(<AddMovieModal onAddingSubmit={onAddingSubmit} />, {
+      store,
+      theme
+    });
+    const form = getByTestId("add-movie-modal-submit");
+
+    fireEvent.submit(form);
+
+    await waitFor(() => expect(onAddingSubmit).toHaveBeenCalled());
   });
 });
