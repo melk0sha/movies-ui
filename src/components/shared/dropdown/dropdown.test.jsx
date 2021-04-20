@@ -5,14 +5,6 @@ import { theme } from "assets/styles/theme";
 import Dropdown from "components/shared/dropdown";
 import "@testing-library/jest-dom/extend-expect";
 
-// className,
-// options = [],
-// defaultLabel = "",
-// selectedOptions = [],
-// onSelect,
-// primary = false,
-// multiSelect = false
-
 describe("<Dropdown /> component testing", () => {
   const options = [{ id: 1, value: "Option 1" }, { value: "Option 2" }];
 
