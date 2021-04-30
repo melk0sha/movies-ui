@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { bool, element, func } from "prop-types";
 import { ModalContainer, ModalWrapper, ModalCloseIcon } from "components/shared/modal/modal.styled";
 
-const modalParentElement = document.getElementById("root");
-
 const Modal = ({ show = false, children, onClose }) => {
+  const [modalParentElement, setModalParentElement] = useState(null);
+
+  useEffect(() => {
+    const root = document.getElementById("root");
+
+    setModalParentElement(root);
+  }, []);
+
   return createPortal(
     <ModalContainer show={show}>
       <ModalWrapper show={show}>
