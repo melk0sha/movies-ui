@@ -10,7 +10,7 @@ import {
   Close
 } from "components/shared/actionMenu/actionMenu.styled";
 
-const ActionMenu = ({ className = "", options = [], onOptionClick }) => {
+const ActionMenu = ({ className, options = [], onOptionClick }) => {
   const [isCircleHidden, setCircleHidden] = useState(false);
   const actionMenuWrapperRef = useRef(null);
 
@@ -27,7 +27,7 @@ const ActionMenu = ({ className = "", options = [], onOptionClick }) => {
           {option.value}
         </ActionMenuOption>
       )),
-    [options]
+    [options, onOptionClick]
   );
 
   return (
@@ -50,11 +50,10 @@ ActionMenu.propTypes = {
   options: arrayOf(
     shape({
       id: number,
-      value: string,
-      handler: func
+      value: string
     })
   ),
   onOptionClick: func
 };
 
-export { ActionMenu };
+export default ActionMenu;

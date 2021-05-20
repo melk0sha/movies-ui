@@ -22,9 +22,10 @@ export const ModalWrapper = styled.div`
   margin: 20px;
   padding: 40px 20px;
   z-index: 3;
-  background-color: ${({ theme }) => theme.colors.vinous.dark};
+  border-radius: 3px;
+  background-color: ${({ theme }) => theme.colors.brown.light};
   color: ${({ theme }) => theme.colors.white};
-  box-shadow: 0px 0px 1px 1000px ${({ theme }) => theme.colors.transparent.black_05};
+  box-shadow: 0px 0px 1px 1000px ${({ theme }) => theme.colors.transparent.black_08};
 
   @media ${device.tablet} {
     padding: 40px;

@@ -1,1 +1,1 @@
-export { UpdateMovieFields } from "./updateMovieFields";
+export { default } from "./updateMovieFields";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { device } from "assets/styles/device";
-import { Input } from "components/shared/input";
+import Input from "components/shared/input";
 import mainBackgroundImage from "assets/images/background.jpg";
 
 const getTextOutlineByColor = (color) =>

@@ -1,100 +1,70 @@
-import React, { Component } from "react";
-import { arrayOf, func } from "prop-types";
+import React, { useCallback, useMemo, useState } from "react";
+import { connect } from "react-redux";
+import { arrayOf } from "prop-types";
 import { MODAL_TYPES } from "consts";
-import { genreType, movieType, modalValues } from "types";
-import { Modal } from "components/shared/modal";
-import { EditMovieModal } from "components/modals/editMovieModal";
-import { DeleteMovieModal } from "components/modals/deleteMovieModal";
-import { Movie } from "components/resultsSection/movies/movie";
+import { movieType } from "types";
+import Modal from "components/shared/modal";
+import EditMovieModal from "components/modals/editMovieModal";
+import DeleteMovieModal from "components/modals/deleteMovieModal";
+import Movie from "components/resultsSection/movies/movie";
 import { MoviesWrapper } from "components/resultsSection/movies/movies.styled";
 
-class Movies extends Component {
-  static defaultProps = {
-    movies: [],
-    genres: [],
-    modalValues: {},
-    defaultModalValues: {}
-  };
+const Movies = ({ movies = [] }) => {
+  const [isModalShown, setModalShown] = useState({
+    [MODAL_TYPES.EDIT_MOVIE]: false,
+    [MODAL_TYPES.DELETE_MOVIE]: false
+  });
 
-  state = {
-    isModalShown: {
-      [MODAL_TYPES.EDIT_MOVIE]: false,
-      [MODAL_TYPES.DELETE_MOVIE]: false
-    }
-  };
+  const handleModalShowingChange = useCallback(
+    (type) => {
+      setModalShown((prevState) => ({ ...prevState, [type]: !prevState[type] }));
+    },
+    [setModalShown]
+  );
 
-  handleModalShowingChange = (type) => {
-    this.setState((prevState) => ({
-      isModalShown: {
-        ...prevState.isModalShown,
-        [type]: !prevState.isModalShown[type]
-      }
-    }));
-  };
+  const handleOptionClick = useCallback(
+    (type) => {
+      handleModalShowingChange(type);
+    },
+    [handleModalShowingChange]
+  );
 
-  handleOptionClick = (movie, type) => {
-    const { handleModalShowingChange } = this;
-    const { modalValues, onModalValuesChange } = this.props;
+  const handleMovieUpdatingSubmit = useCallback(
+    (type) => {
+      handleModalShowingChange(type);
+    },
+    [handleModalShowingChange]
+  );
 
-    handleModalShowingChange(type);
-    onModalValuesChange({ values: { ...modalValues[type], id: movie.id }, type });
-  };
+  const MoviesCards = useMemo(
+    () =>
+      movies.map((movie, index) => (
+        <Movie key={movie.id || index} movie={movie} onOptionClick={(type) => handleOptionClick(type)} />
+      )),
+    [movies, handleOptionClick]
+  );
 
-  handleMovieDelete = (movieId) => {
-    const { handleModalShowingChange } = this;
-    const { onMovieDelete } = this.props;
+  return (
+    <MoviesWrapper>
+      {MoviesCards}
 
-    onMovieDelete(movieId);
-    handleModalShowingChange(MODAL_TYPES.DELETE_MOVIE);
-  };
+      <Modal show={isModalShown.editMovie} onClose={() => handleModalShowingChange(MODAL_TYPES.EDIT_MOVIE)}>
+        <EditMovieModal onEditingSubmit={() => handleMovieUpdatingSubmit(MODAL_TYPES.EDIT_MOVIE)} />
+      </Modal>
 
-  handleModalValuesChange = (values) => {
-    const { onModalValuesChange } = this.props;
-    onModalValuesChange(values);
-  };
-
-  render() {
-    const { handleModalShowingChange, handleOptionClick, handleMovieDelete, handleModalValuesChange } = this;
-    const { genres, movies, modalValues, defaultModalValues } = this.props;
-    const { isModalShown } = this.state;
-
-    const MoviesCards = movies.map((movie, index) => (
-      <Movie
-        movie={movie}
-        key={movie.id || index}
-        onEditClick={(movie) => handleOptionClick(movie, MODAL_TYPES.EDIT_MOVIE)}
-        onDeleteClick={(movie) => handleOptionClick(movie, MODAL_TYPES.DELETE_MOVIE)}
-      />
-    ));
-
-    return (
-      <MoviesWrapper>
-        {MoviesCards}
-
-        <Modal show={isModalShown.editMovie} onClose={() => handleModalShowingChange(MODAL_TYPES.EDIT_MOVIE)}>
-          <EditMovieModal
-            values={modalValues.editMovie}
-            defaultValues={defaultModalValues.editMovie}
-            onValuesChange={handleModalValuesChange}
-            genres={genres}
-          />
-        </Modal>
-
-        <Modal show={isModalShown.deleteMovie} onClose={() => handleModalShowingChange(MODAL_TYPES.DELETE_MOVIE)}>
-          <DeleteMovieModal values={modalValues.deleteMovie} onDelete={handleMovieDelete} />
-        </Modal>
-      </MoviesWrapper>
-    );
-  }
-}
-
-Movies.propTypes = {
-  genres: arrayOf(genreType),
-  movies: arrayOf(movieType),
-  modalValues: modalValues,
-  defaultModalValues: modalValues,
-  onModalValuesChange: func,
-  onMovieDelete: func
+      <Modal show={isModalShown.deleteMovie} onClose={() => handleModalShowingChange(MODAL_TYPES.DELETE_MOVIE)}>
+        <DeleteMovieModal onDeletionSubmit={() => handleMovieUpdatingSubmit(MODAL_TYPES.DELETE_MOVIE)} />
+      </Modal>
+    </MoviesWrapper>
+  );
 };
 
-export { Movies };
+Movies.propTypes = {
+  movies: arrayOf(movieType)
+};
+
+const mapStateToProps = (state) => ({
+  movies: state.movies.movieList
+});
+
+export default connect(mapStateToProps)(Movies);

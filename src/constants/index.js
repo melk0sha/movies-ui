@@ -13,14 +13,10 @@ export const SORT_BY_VALUES = {
   RATING: {
     id: 1,
     value: "Rating"
-  },
-  GENRE: {
-    id: 2,
-    value: "Genre"
   }
 };
 
-export const SORT_BY_OPTIONS = [SORT_BY_VALUES.RELEASE_DATE, SORT_BY_VALUES.RATING, SORT_BY_VALUES.GENRE];
+export const SORT_BY_OPTIONS = [SORT_BY_VALUES.RELEASE_DATE, SORT_BY_VALUES.RATING];
 
 export const SEARCH_PLACEHOLDER_TEXT = "What do you want to watch?";
 
@@ -42,3 +38,16 @@ export const MODAL_TYPES = {
   EDIT_MOVIE: "editMovie",
   DELETE_MOVIE: "deleteMovie"
 };
+
+export const PATHS = {
+  HOME: "/",
+  MOVIE: "/film/:id",
+  RESULTS: "/search/:value"
+};
+
+export const ALL_GENRES_OPTION = {
+  id: 0,
+  value: "All"
+};
+
+export const SORT_BY_DEFAULT_VALUE = "release_date";

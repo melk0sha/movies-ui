@@ -1,1 +1,1 @@
-export { Movie } from "./movie";
+export { default } from "./movie";

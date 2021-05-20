@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DropdownWrapper = styled.button`
+export const DropdownWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -13,7 +13,6 @@ export const DropdownWrapper = styled.button`
       : primary
       ? theme.colors.vinous.original
       : theme.colors.brown.original};
-  border: 0;
 
   &:focus,
   &:hover {
@@ -28,7 +27,7 @@ export const DropdownHeader = styled.div`
   height: 100%;
   width: 100%;
   padding: 10px 20px;
-  border-radius: ${({ primary }) => !primary && "5px"};
+  border-radius: ${({ primary }) => !primary && "3px"};
   color: ${({ theme }) => theme.colors.white};
   opacity: ${({ isLabel }) => isLabel && "0.6"};
   font-size: 1rem;
@@ -40,8 +39,10 @@ export const DropdownList = styled.ul`
   top: 100%;
   left: 0;
   width: 100%;
+  max-height: 177px;
+  overflow: auto;
   border: 2px solid ${({ theme, primary }) => (primary ? theme.colors.vinous.dark : theme.colors.brown.dark)};
-  border-radius: ${({ primary }) => !primary && "5px"};
+  border-radius: ${({ primary }) => !primary && "3px"};
   z-index: 1;
 `;
 

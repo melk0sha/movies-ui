@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { arrayOf, bool, string } from "prop-types";
 import { useOnClickOutside } from "hooks";
-import { optionType } from "types";
+import { dropdownOptionType } from "types";
 import { DropdownWrapper, DropdownHeader, DropdownList, ListItem } from "components/shared/dropdown/dropdown.styled";
 
 const Dropdown = ({
   id,
-  className = "",
+  className,
   options = [],
   defaultLabel = "",
   selectedOptions = [],
@@ -58,18 +58,14 @@ const Dropdown = ({
 
   return (
     <DropdownWrapper
+      id={id}
       primary={primary}
       className={className}
       ref={dropdownWrapperRef}
       opened={isOpen}
       onClick={(e) => e.preventDefault()}
     >
-      <DropdownHeader
-        id={id}
-        primary={primary}
-        isLabel={!!defaultLabel && !selectedOptionsText}
-        onClick={handleHeaderClick}
-      >
+      <DropdownHeader primary={primary} isLabel={!!defaultLabel && !selectedOptionsText} onClick={handleHeaderClick}>
         {selectedOptionsText || defaultLabel}
       </DropdownHeader>
       {isOpen && !!options.length && <DropdownList primary={primary}>{OptionItems}</DropdownList>}
@@ -80,11 +76,11 @@ const Dropdown = ({
 Dropdown.propTypes = {
   id: string,
   className: string,
-  options: arrayOf(optionType),
+  options: arrayOf(dropdownOptionType),
   defaultLabel: string,
-  selectedOptions: arrayOf(optionType),
+  selectedOptions: arrayOf(dropdownOptionType),
   primary: bool,
   multiSelect: bool
 };
 
-export { Dropdown };
+export default Dropdown;

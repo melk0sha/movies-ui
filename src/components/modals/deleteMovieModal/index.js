@@ -1,1 +1,1 @@
-export { DeleteMovieModal } from "./deleteMovieModal";
+export { default } from "./deleteMovieModal";

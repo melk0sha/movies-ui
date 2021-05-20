@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Dropdown } from "components/shared/dropdown";
+import Dropdown from "components/shared/dropdown";
 
 export const MoviesSortingWrapper = styled.div`
   position: relative;

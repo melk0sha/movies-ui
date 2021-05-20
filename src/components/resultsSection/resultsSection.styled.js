@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { device } from "assets/styles/device";
 
 export const ResultsSectionWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 20px 20px 50px;
   background-color: ${({ theme }) => theme.colors.vinous.original};
+  box-shadow: 0px -1px 5px 0px ${({ theme }) => theme.colors.transparent.black_08};
 
   @media ${device.tablet} {
     padding: 20px 100px 50px;
@@ -19,7 +21,7 @@ export const ResultsSectionHeader = styled.div`
   border-bottom: 5px solid ${({ theme }) => theme.colors.vinous.dark};
 
   @media ${device.laptop} {
-    justify-content: space-between;
+    justify-content: flex-end;
   }
 `;
 

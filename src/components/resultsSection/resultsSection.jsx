@@ -1,10 +1,12 @@
-import React, { Component } from "react";
-import { arrayOf, func } from "prop-types";
-import { getMovies } from "api";
-import { genreType, modalValues } from "types";
-import { Genres } from "components/resultsSection/genres";
-import { MoviesSorting } from "components/resultsSection/moviesSorting";
-import { Movies } from "components/resultsSection/movies";
+import React, { useCallback } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { bool, func, number } from "prop-types";
+import { alertHide, clearRequestResult } from "actions";
+import Genres from "components/resultsSection/genres";
+import MoviesSorting from "components/resultsSection/moviesSorting";
+import Movies from "components/resultsSection/movies";
+import Alert from "components/shared/alert/alert";
 import {
   ResultsSectionHeader,
   ResultsSectionWrapper,
@@ -12,64 +14,50 @@ import {
   NoMovieFoundSpan
 } from "components/resultsSection/resultsSection.styled";
 
-class ResultsSection extends Component {
-  static defaultProps = {
-    genres: [],
-    movies: [],
-    modalValues: {},
-    defaultModalValues: {}
-  };
+const ResultsSection = ({ moviesLength = 0, isAlertShown, isRequestError, onErrorClear, onAlertHide }) => {
+  const handleClose = useCallback(() => {
+    onErrorClear();
+    onAlertHide();
+  }, [onErrorClear, onAlertHide]);
 
-  handleMovieDelete = (movieId) => {
-    const { movies, onMovieUpdate } = this.props;
-    const movieIndex = movies.findIndex((movie) => movie.id === movieId);
-    movies.splice(movieIndex, 1);
+  return (
+    <ResultsSectionWrapper>
+      <ResultsSectionHeader>
+        <Genres />
+        <MoviesSorting />
+      </ResultsSectionHeader>
 
-    onMovieUpdate(movies);
-  };
+      {moviesLength ? (
+        <>
+          <MoviesFoundSpan>{moviesLength} movies found</MoviesFoundSpan>
+          <Movies />
+        </>
+      ) : (
+        <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
+      )}
 
-  handleModalValuesChange = (values) => {
-    const { onModalValuesChange } = this.props;
-    onModalValuesChange(values);
-  };
-
-  render() {
-    const { handleMovieDelete, handleModalValuesChange } = this;
-    const { genres, movies, modalValues, defaultModalValues } = this.props;
-
-    return (
-      <ResultsSectionWrapper>
-        <ResultsSectionHeader>
-          <Genres genres={genres} />
-          <MoviesSorting />
-        </ResultsSectionHeader>
-
-        {movies?.length ? (
-          <>
-            <MoviesFoundSpan>{movies.length} movies found</MoviesFoundSpan>
-            <Movies
-              movies={movies}
-              genres={genres}
-              modalValues={modalValues}
-              defaultModalValues={defaultModalValues}
-              onModalValuesChange={handleModalValuesChange}
-              onMovieDelete={handleMovieDelete}
-            />
-          </>
-        ) : (
-          <NoMovieFoundSpan>No Movie Found</NoMovieFoundSpan>
-        )}
-      </ResultsSectionWrapper>
-    );
-  }
-}
-
-ResultsSection.propTypes = {
-  genres: arrayOf(genreType),
-  modalValues: modalValues,
-  defaultModalValues: modalValues,
-  onModalValuesChange: func,
-  onMovieUpdate: func
+      <Alert show={isAlertShown} isError={isRequestError} onClose={handleClose} />
+    </ResultsSectionWrapper>
+  );
 };
 
-export { ResultsSection };
+ResultsSection.propTypes = {
+  moviesLength: number,
+  isRequestError: bool,
+  isAlertShown: bool,
+  onErrorClear: func,
+  onAlertHide: func
+};
+
+const mapStateToProps = (state) => ({
+  moviesLength: state.movies.movieList.length,
+  isRequestError: state.movies.error,
+  isAlertShown: state.app.alertShown
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onErrorClear: bindActionCreators(clearRequestResult, dispatch),
+  onAlertHide: bindActionCreators(alertHide, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsSection);

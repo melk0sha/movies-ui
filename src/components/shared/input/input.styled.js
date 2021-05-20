@@ -6,14 +6,17 @@ export const StyledInput = styled.input`
   margin: 0 10px;
   padding: 15px 30px;
   border: none;
-  border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.transparent.black_04};
+  border-radius: ${({ rounded }) => (rounded ? "40px" : "3px")};
+  background-color: ${({ theme, primary }) =>
+    primary ? theme.colors.transparent.black_04 : theme.colors.brown.original};
   font-size: 1.2rem;
   color: ${({ theme }) => theme.colors.white};
   transition: background-color 0.2s ease-out;
+  box-shadow: 0px 0px 3px -1px ${({ theme }) => theme.colors.transparent.black_08};
 
   &:focus {
-    background-color: ${({ theme }) => theme.colors.transparent.black_08};
+    background-color: ${({ theme, primary }) =>
+      primary ? theme.colors.transparent.black_08 : theme.colors.brown.dark};
   }
 
   &::placeholder {
