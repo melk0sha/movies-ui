@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { generatePath, useLocation } from "react-router";
+import { generatePath, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { connect } from "react-redux";
 import { func, number, string } from "prop-types";
@@ -44,7 +44,7 @@ const Header = ({ searchValue, moviesLength, onMoviesNotFound }) => {
       </LogoWrapper>
 
       {pathname === PATHS.HOME || pathname.includes(RESULTS_PATH) ? (
-        <Button rounded size={BUTTON_SIZE.sm} onClick={handleModalShowingChange}>
+        <Button data-testid="add-movie-btn" rounded size={BUTTON_SIZE.sm} onClick={handleModalShowingChange}>
           Add movie
         </Button>
       ) : (

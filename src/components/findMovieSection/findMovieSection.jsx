@@ -77,10 +77,11 @@ const FindMovieSection = ({
     <FindMovieSectionWrapper>
       <FindMovieTitle>Find your movie</FindMovieTitle>
 
-      <SearchForm onSubmit={handleSearchFormSubmit}>
+      <SearchForm data-testid="find-movie-form" onSubmit={handleSearchFormSubmit}>
         <StyledInput
           primary
           rounded
+          data-testid="find-movie-input"
           value={searchValue}
           onChange={handleInputSearchChange}
           placeholder={SEARCH_PLACEHOLDER_TEXT}

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { func, oneOf, oneOfType } from "prop-types";
@@ -55,7 +55,7 @@ const UpdateMovieFields = ({ movieValues = {}, type, onModalValuesUpdate, onFiel
   );
 
   return (
-    <ModalForm onSubmit={formik.handleSubmit}>
+    <ModalForm data-testid="add-movie-modal-submit" onSubmit={formik.handleSubmit}>
       <ModalField>
         <ModalLabel htmlFor="title">Title</ModalLabel>
         <ModalInput
