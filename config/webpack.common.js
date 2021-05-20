@@ -53,6 +53,7 @@ module.exports = {
       reducers: path.resolve(__dirname, "../src/reducers"),
       routes: path.resolve(__dirname, "../src/routes"),
       store: path.resolve(__dirname, "../src/store"),
+      tests: path.resolve(__dirname, "../src/tests"),
       types: path.resolve(__dirname, "../src/types"),
       utils: path.resolve(__dirname, "../src/utils")
     }

@@ -1,41 +1,43 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
+import { generatePath, useHistory } from "react-router";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { func } from "prop-types";
-import { getMoviesByParams } from "actions";
-import { ALL_GENRES_OPTION } from "consts";
+import { func, string } from "prop-types";
+import { getMoviesByParams, changeActiveGenre, requestMoviesSuccess } from "actions";
+import { PATHS } from "consts";
 import { moviesSortByType } from "types";
 import { genres } from "consts/genres";
 import { GenresWrapper, Genre } from "components/resultsSection/genres/genres.styled";
 
-const Genres = ({ moviesSortBy, onGenresFilter }) => {
-  const [activeGenreId, setActiveGenreId] = useState(0);
+const Genres = ({ moviesSortBy, activeGenre, searchValue, onGenresFilter, onGenreChange, onMoviesNotFound }) => {
+  const history = useHistory();
 
   const handleGenreClick = useCallback(
     (newGenre) => {
-      const params =
-        newGenre.value === ALL_GENRES_OPTION.value
-          ? { sortBy: moviesSortBy }
-          : { sortBy: moviesSortBy, search: newGenre.value, searchBy: "genres" };
+      const path = generatePath(searchValue ? PATHS.RESULTS : PATHS.HOME, searchValue && { value: searchValue });
 
-      onGenresFilter(params);
-      setActiveGenreId(newGenre.id);
+      if (searchValue) {
+        const params = { sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: newGenre.value };
+
+        onGenresFilter(params);
+      } else {
+        onMoviesNotFound([]);
+      }
+
+      history.push(path);
+      onGenreChange(newGenre.value);
     },
-    [setActiveGenreId]
+    [searchValue, moviesSortBy]
   );
 
   const Genres = useMemo(
     () =>
       genres.map((genre, idx) => (
-        <Genre
-          key={genre.id || idx}
-          active={genre.id === activeGenreId || idx === activeGenreId}
-          onClick={() => handleGenreClick(genre)}
-        >
+        <Genre key={genre.id || idx} active={genre.value === activeGenre} onClick={() => handleGenreClick(genre)}>
           {genre.value}
         </Genre>
       )),
-    [activeGenreId, handleGenreClick]
+    [activeGenre, handleGenreClick]
   );
 
   return <GenresWrapper>{Genres}</GenresWrapper>;
@@ -43,15 +45,22 @@ const Genres = ({ moviesSortBy, onGenresFilter }) => {
 
 Genres.propTypes = {
   moviesSortBy: moviesSortByType,
-  onGenresFilter: func
+  searchValue: string,
+  activeGenre: string,
+  onGenresFilter: func,
+  onMoviesNotFound: func
 };
 
 const mapStateToProps = (state) => ({
-  moviesSortBy: state.app.moviesSortBy
+  moviesSortBy: state.app.moviesSortBy,
+  searchValue: state.app.searchValue,
+  activeGenre: state.app.activeGenre
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenresFilter: bindActionCreators(getMoviesByParams, dispatch)
+  onGenresFilter: bindActionCreators(getMoviesByParams, dispatch),
+  onGenreChange: bindActionCreators(changeActiveGenre, dispatch),
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);

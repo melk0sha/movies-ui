@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ALL_GENRES_OPTION } from "consts";
 import { CLEAR_REQUEST_RESULT, REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR } from "consts/actions";
 
 const moviesUrl = "http://localhost:4000/movies";
@@ -6,6 +7,10 @@ const defaultSortOrder = "desc";
 
 export const getMoviesByParams = (params) => async (dispatch) => {
   try {
+    if (params.filter === ALL_GENRES_OPTION.value) {
+      delete params.filter;
+    }
+
     const response = await axios.get(moviesUrl, {
       params: { ...params, sortOrder: params.sortOrder || defaultSortOrder }
     });
@@ -35,7 +40,20 @@ export const deleteMovieById = (id) => async (dispatch) => {
       id
     });
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
+  }
+};
+
+export const getMovieById = (id) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${moviesUrl}/${id}`, {
+      id
+    });
+    const movie = response.data;
+
+    dispatch(requestMoviesSuccess([movie]));
+  } catch (e) {
+    dispatch(requestMoviesError());
   }
 };
 

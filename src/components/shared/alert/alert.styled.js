@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// import Button from "components/shared/button";
 
 export const AlertContainer = styled.div`
   position: fixed;

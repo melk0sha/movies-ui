@@ -7,11 +7,10 @@ export const getYearFromReleaseDate = (releaseDate) => releaseDate?.slice(0, 4);
 
 export const getValueToSortBy = (sortValue) => {
   switch (sortValue) {
-    case SORT_BY_VALUES.RELEASE_DATE.value:
-      return "release_date";
     case SORT_BY_VALUES.RATING.value:
       return "vote_average";
+    case SORT_BY_VALUES.RELEASE_DATE.value:
     default:
-      return;
+      return "release_date";
   }
 };

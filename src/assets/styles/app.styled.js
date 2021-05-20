@@ -18,4 +18,5 @@ export const Wrapper = styled.div`
 
 export const Main = styled.main`
   flex: 1 0 auto;
+  background-color: ${({ theme }) => theme.colors.vinous.light};
 `;
