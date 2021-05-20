@@ -1,6 +1,14 @@
-import React, { Component } from "react";
-import { arrayOf, number, shape, string } from "prop-types";
-import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS } from "consts";
+import React, { useCallback, useMemo } from "react";
+import { bindActionCreators } from "redux";
+import { generatePath } from "react-router-dom";
+import { connect } from "react-redux";
+import { HashLink } from "react-router-hash-link";
+import { func } from "prop-types";
+import { ACTION_MENU_MOVIE_VALUES, ACTION_MENU_MOVIE_OPTIONS, PATHS, MODAL_TYPES } from "consts";
+import { modalsDefaultState } from "reducers/defaultStates";
+import { movieType } from "types";
+import { setModalValues } from "actions";
+import { getYearFromReleaseDate, getGenreId } from "utils";
 import {
   MovieWrapper,
   MovieImageWrapper,
@@ -11,60 +19,75 @@ import {
   MovieYear,
   StyledActionMenu
 } from "components/resultsSection/movies/movie/movie.styled";
+import noImagePicture from "assets/images/no_picture.jpg";
 
-class Movie extends Component {
-  static defaultProps = {
-    movie: {},
-    genres: []
-  };
+const Movie = ({ movie = {}, onOptionClick, onModalValuesUpdate }) => {
+  const { id, poster_path, genres, title, release_date, overview, runtime } = movie;
 
-  handleOptionClick = (option) => {
-    if (option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id) {
-      console.log("Edit was clicked");
-    }
+  const genresText = useMemo(() => genres.join(", "), [genres]);
+  const year = useMemo(() => getYearFromReleaseDate(release_date), [release_date]);
 
-    if (option.id === ACTION_MENU_MOVIE_VALUES.DELETE.id) {
-      console.log("Delete was clicked");
-    }
-  };
+  const handleOptionClick = useCallback(
+    (option) => {
+      const type = option.id === ACTION_MENU_MOVIE_VALUES.EDIT.id ? MODAL_TYPES.EDIT_MOVIE : MODAL_TYPES.DELETE_MOVIE;
 
-  render() {
-    const { handleOptionClick } = this;
-    const { movie, genres } = this.props;
-    const { image, genreIds, name, year } = movie;
+      if (type === MODAL_TYPES.EDIT_MOVIE) {
+        const movieGenres = genres.map((genre) => ({ id: getGenreId(genre), value: genre }));
 
-    const genresText = genreIds.map((genreId) => genres.find((genre) => genre.id === genreId).name).join(", ");
+        onModalValuesUpdate(
+          {
+            id,
+            title: title || modalsDefaultState[type].title,
+            poster_path: poster_path || modalsDefaultState[type].poster_path,
+            release_date: new Date(release_date) || modalsDefaultState[type].release_date,
+            genres: movieGenres || modalsDefaultState[type].genres,
+            overview: overview || modalsDefaultState[type].overview,
+            runtime: (runtime && String(runtime)) || modalsDefaultState[type].runtime
+          },
+          MODAL_TYPES.EDIT_MOVIE
+        );
+      } else if (type === MODAL_TYPES.DELETE_MOVIE) {
+        onModalValuesUpdate({ id }, MODAL_TYPES.DELETE_MOVIE);
+      }
 
-    return (
-      <MovieWrapper>
-        <MovieImageWrapper>
-          <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
-          <MovieImage src={image} alt={name} />
-        </MovieImageWrapper>
-        <MovieInfoWrapper>
-          <MovieTitle>{name}</MovieTitle>
-          <MovieYear>{year}</MovieYear>
-        </MovieInfoWrapper>
-        <MovieGenres>{genresText}</MovieGenres>
-      </MovieWrapper>
-    );
-  }
-}
+      onOptionClick(type);
+    },
+    [movie, onModalValuesUpdate, onOptionClick]
+  );
 
-Movie.propTypes = {
-  movie: shape({
-    id: number,
-    name: string,
-    genreIds: arrayOf(number),
-    year: string,
-    image: string
-  }),
-  genres: arrayOf(
-    shape({
-      id: number,
-      name: string
-    })
-  )
+  const handleSrcError = useCallback(({ target }) => {
+    target.src = noImagePicture;
+  }, []);
+
+  return (
+    <MovieWrapper>
+      <MovieImageWrapper>
+        <StyledActionMenu options={ACTION_MENU_MOVIE_OPTIONS} onOptionClick={handleOptionClick} />
+        <HashLink smooth to={generatePath(`${PATHS.MOVIE}#`, { id })}>
+          <MovieImage src={poster_path} alt={title} onError={handleSrcError} />
+        </HashLink>
+      </MovieImageWrapper>
+      <MovieInfoWrapper>
+        <MovieTitle>{title}</MovieTitle>
+        <MovieYear>{year}</MovieYear>
+      </MovieInfoWrapper>
+      <MovieGenres>{genresText}</MovieGenres>
+    </MovieWrapper>
+  );
 };
 
-export { Movie };
+Movie.propTypes = {
+  movie: movieType,
+  onOptionClick: func,
+  onModalValuesUpdate: func
+};
+
+const mapStateToProps = (_state, ownProps) => ({
+  movie: ownProps.movie
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onModalValuesUpdate: bindActionCreators(setModalValues, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);

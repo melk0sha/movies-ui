@@ -8,7 +8,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "[name].bundle.js"
+    filename: "[name].bundle.js",
+    publicPath: "/"
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -33,18 +34,27 @@ module.exports = {
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         type: "asset/inline"
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"]
       }
     ]
   },
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
+      actions: path.resolve(__dirname, "../src/actions"),
       api: path.resolve(__dirname, "../src/api"),
       assets: path.resolve(__dirname, "../src/assets"),
       components: path.resolve(__dirname, "../src/components"),
       consts: path.resolve(__dirname, "../src/constants"),
       hooks: path.resolve(__dirname, "../src/hooks"),
+      reducers: path.resolve(__dirname, "../src/reducers"),
       routes: path.resolve(__dirname, "../src/routes"),
+      store: path.resolve(__dirname, "../src/store"),
+      tests: path.resolve(__dirname, "../src/tests"),
+      types: path.resolve(__dirname, "../src/types"),
       utils: path.resolve(__dirname, "../src/utils")
     }
   }

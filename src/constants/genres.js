@@ -1,0 +1,22 @@
+export const genres = [
+  { id: 1331, value: "All" },
+  { id: 1332, value: "Action" },
+  { id: 1333, value: "Adventure" },
+  { id: 1334, value: "Science Fiction" },
+  { id: 1335, value: "Fantasy" },
+  { id: 1336, value: "Thriller" },
+  { id: 1337, value: "Drama" },
+  { id: 1338, value: "Family" },
+  { id: 1339, value: "Comedy" },
+  { id: 1340, value: "Horror" },
+  { id: 1341, value: "TV Movie" },
+  { id: 1342, value: "Documentary" },
+  { id: 1343, value: "History" },
+  { id: 1344, value: "Mystery" },
+  { id: 1345, value: "Crime" },
+  { id: 1346, value: "Romance" },
+  { id: 1347, value: "Music" },
+  { id: 1348, value: "Animation" },
+  { id: 1349, value: "War" },
+  { id: 1350, value: "Western" }
+];

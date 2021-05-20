@@ -1,1 +1,1 @@
-export { ResultsSection } from "./resultsSection";
+export { default } from "./resultsSection";

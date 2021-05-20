@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ActionMenu } from "components/shared/actionMenu";
+import ActionMenu from "components/shared/actionMenu";
 
 export const MovieWrapper = styled.div`
   display: flex;
@@ -19,14 +19,14 @@ export const MovieImageWrapper = styled.div`
 
 export const MovieImage = styled.img`
   height: 320px;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
 `;
 
 export const MovieInfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 10px;
 `;
 
@@ -37,6 +37,7 @@ export const MovieTitle = styled.h3`
 `;
 
 export const MovieYear = styled.span`
+  line-height: 2rem;
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.grey.light};
 `;

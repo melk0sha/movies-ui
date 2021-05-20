@@ -1,1 +1,1 @@
-export { ActionMenu } from "./actionMenu";
+export { default } from "./actionMenu";
