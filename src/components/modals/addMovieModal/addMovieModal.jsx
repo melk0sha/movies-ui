@@ -1,36 +1,69 @@
 import React, { useCallback } from "react";
-import { arrayOf, func } from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { func, string } from "prop-types";
 import { MODAL_TYPES } from "consts";
-import { modalValuesAddType, genreType } from "types";
+import { moviesSortByType } from "types";
+import { alertShow, addMovieByData, getMoviesByParams, requestMoviesSuccess } from "actions";
+import UpdateMovieFields from "components/modals/shared/updateMovieFields";
 import { ModalMovieWrapper, ModalTitle } from "components/modals/shared/styles/modals.styled";
-import { UpdateMovieFields } from "components/modals/shared/updateMovieFields";
 
-const AddMovieModal = ({ values = {}, defaultValues = {}, genres = [], onValuesChange: handleValuesChange }) => {
-  const handleAddMovieSubmit = useCallback((e) => {
-    e.preventDefault();
-    console.log("Add Movie Submitting");
-  }, []);
+const AddMovieModal = ({
+  moviesSortBy,
+  onMovieAdd,
+  searchValue,
+  activeGenre,
+  onNewMoviesUpdate,
+  onAddingSubmit,
+  onAlertShow,
+  onMoviesNotFound
+}) => {
+  const handleAddMovieSubmit = useCallback(
+    async (values) => {
+      await onMovieAdd(values);
+      onAddingSubmit();
+
+      if (searchValue) {
+        await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
+      } else {
+        onMoviesNotFound([]);
+      }
+
+      onAlertShow();
+    },
+    [moviesSortBy, searchValue, activeGenre, onAddingSubmit]
+  );
 
   return (
     <ModalMovieWrapper>
       <ModalTitle>Add movie</ModalTitle>
-      <UpdateMovieFields
-        values={values}
-        defaultValues={defaultValues}
-        onValuesChange={handleValuesChange}
-        genres={genres}
-        type={MODAL_TYPES.ADD_MOVIE}
-        onFieldsSubmit={handleAddMovieSubmit}
-      />
+      <UpdateMovieFields type={MODAL_TYPES.ADD_MOVIE} onFieldsSubmit={handleAddMovieSubmit} />
     </ModalMovieWrapper>
   );
 };
 
 AddMovieModal.propTypes = {
-  values: modalValuesAddType,
-  defaultValues: modalValuesAddType,
-  genres: arrayOf(genreType),
-  onValuesChange: func
+  moviesSortBy: moviesSortByType,
+  searchValue: string,
+  activeGenre: string,
+  onMovieAdd: func,
+  onNewMoviesUpdate: func,
+  onAddingSubmit: func,
+  onAlertShow: func,
+  onMoviesNotFound: func
 };
 
-export { AddMovieModal };
+const mapStateToProps = (state) => ({
+  moviesSortBy: state.app.moviesSortBy,
+  searchValue: state.app.searchValue,
+  activeGenre: state.app.activeGenre
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMovieAdd: bindActionCreators(addMovieByData, dispatch),
+  onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch),
+  onAlertShow: bindActionCreators(alertShow, dispatch),
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddMovieModal);

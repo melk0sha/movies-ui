@@ -1,13 +1,17 @@
 import React from "react";
-import { arrayOf } from "prop-types";
-import { movieType } from "types";
+import { useParams } from "react-router";
+import MovieSection from "components/movieSection";
+import ResultsSection from "components/resultsSection";
 
-import { MovieSection } from "components/movieSection";
+const Movie = () => {
+  const { id } = useParams();
 
-const Movie = ({ movies = [] }) => <MovieSection movies={movies} />;
-
-Movie.propTypes = {
-  movies: arrayOf(movieType)
+  return (
+    <>
+      <MovieSection movieId={id} />
+      <ResultsSection />
+    </>
+  );
 };
 
-export { Movie };
+export default Movie;

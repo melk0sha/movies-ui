@@ -23,4 +23,4 @@ Modal.propTypes = {
   onClose: func
 };
 
-export { Modal };
+export default Modal;

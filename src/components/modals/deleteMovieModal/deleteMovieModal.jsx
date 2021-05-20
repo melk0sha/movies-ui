@@ -1,19 +1,47 @@
 import React, { useCallback } from "react";
-import { func } from "prop-types";
-import { modalValuesDeleteType } from "types";
+import { generatePath, useHistory } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { func, number, string } from "prop-types";
+import { MODAL_TYPES, PATHS } from "consts";
+import { moviesSortByType } from "types";
+import { alertShow, getMoviesByParams, deleteMovieById, requestMoviesSuccess } from "actions";
+import Button from "components/shared/button";
 import {
   ModalMovieWrapper,
   ModalTitle,
   ModalButtonWrapper,
   ModalSpan
 } from "components/modals/shared/styles/modals.styled";
-import { Button } from "components/shared/button";
 
-const DeleteMovieModal = ({ values = {}, onDelete }) => {
-  const handleDeleteMovieClick = useCallback(() => {
-    console.log("Delete Movie Confirming", values.id);
-    onDelete(values.id);
-  }, [values]);
+const DeleteMovieModal = ({
+  movieId,
+  moviesSortBy,
+  searchValue,
+  activeGenre,
+  onMovieDelete,
+  onDeletionSubmit,
+  onNewMoviesUpdate,
+  onAlertShow,
+  onMoviesNotFound
+}) => {
+  const history = useHistory();
+
+  const handleDeleteMovieClick = useCallback(async () => {
+    const path = generatePath(searchValue ? PATHS.RESULTS : PATHS.HOME, searchValue && { value: searchValue });
+
+    await onMovieDelete(movieId);
+    onDeletionSubmit();
+
+    if (searchValue) {
+      await onNewMoviesUpdate({ sortBy: moviesSortBy, search: searchValue, searchBy: "title", filter: activeGenre });
+    } else {
+      onMoviesNotFound([]);
+    }
+
+    history.push(path);
+    onAlertShow();
+  }, [searchValue, activeGenre, movieId, moviesSortBy, onDeletionSubmit]);
 
   return (
     <ModalMovieWrapper>
@@ -29,8 +57,29 @@ const DeleteMovieModal = ({ values = {}, onDelete }) => {
 };
 
 DeleteMovieModal.propTypes = {
-  values: modalValuesDeleteType,
-  onValuesChange: func
+  movieId: number,
+  moviesSortBy: moviesSortByType,
+  searchValue: string,
+  activeGenre: string,
+  onMovieDelete: func,
+  onNewMoviesUpdate: func,
+  onDeletionSubmit: func,
+  onAlertShow: func,
+  onMoviesNotFound: func
 };
 
-export { DeleteMovieModal };
+const mapStateToProps = (state) => ({
+  movieId: state.modals[MODAL_TYPES.DELETE_MOVIE].id,
+  moviesSortBy: state.app.moviesSortBy,
+  searchValue: state.app.searchValue,
+  activeGenre: state.app.activeGenre
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMovieDelete: bindActionCreators(deleteMovieById, dispatch),
+  onNewMoviesUpdate: bindActionCreators(getMoviesByParams, dispatch),
+  onAlertShow: bindActionCreators(alertShow, dispatch),
+  onMoviesNotFound: bindActionCreators(requestMoviesSuccess, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteMovieModal);

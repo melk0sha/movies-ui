@@ -2,9 +2,9 @@ import React from "react";
 import { bool, object, string } from "prop-types";
 import { StyledInput } from "components/shared/input/input.styled";
 
-const Input = ({ className, primary = false, rounded = false, ...props }) => {
-  return <StyledInput className={className} primary={primary} rounded={rounded} {...props} />;
-};
+const Input = ({ className, primary = false, rounded = false, ...props }) => (
+  <StyledInput className={className} primary={primary} rounded={rounded} {...props} />
+);
 
 Input.propTypes = {
   className: string,
@@ -13,4 +13,4 @@ Input.propTypes = {
   props: object
 };
 
-export { Input };
+export default Input;

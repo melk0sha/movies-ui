@@ -6,7 +6,7 @@ export const MovieSectionWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   min-height: 600px;
   margin-top: -70px;
@@ -110,6 +110,7 @@ export const MovieRating = styled.span`
 export const MovieSpan = styled.span`
   padding: 8px;
   text-align: center;
+  color: ${({ theme }) => theme.colors.white};
 
   @media ${device.tablet} {
     text-align: start;
