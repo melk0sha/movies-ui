@@ -1,21 +1,24 @@
 import axios from "axios";
-import { REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR, MAKE_GENRES } from "consts/actions";
-import { getUniqueGenres } from "utils";
+import { ALL_GENRES_OPTION } from "consts";
+import { CLEAR_REQUEST_RESULT, REQUEST_MOVIES_SUCCESS, REQUEST_MOVIES_ERROR } from "consts/actions";
 
 const moviesUrl = "http://localhost:4000/movies";
 const defaultSortOrder = "desc";
 
 export const getMoviesByParams = (params) => async (dispatch) => {
   try {
+    if (params.filter === ALL_GENRES_OPTION.value) {
+      delete params.filter;
+    }
+
     const response = await axios.get(moviesUrl, {
       params: { ...params, sortOrder: params.sortOrder || defaultSortOrder }
     });
     const movies = response.data;
 
     dispatch(requestMoviesSuccess(movies.data));
-    dispatch(makeGenres(getUniqueGenres(movies.data)));
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
   }
 };
 
@@ -27,7 +30,7 @@ export const addMovieByData = (data) => async (dispatch) => {
       genres: data.genres.map((genre) => genre.value)
     });
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
   }
 };
 
@@ -37,7 +40,20 @@ export const deleteMovieById = (id) => async (dispatch) => {
       id
     });
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
+  }
+};
+
+export const getMovieById = (id) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${moviesUrl}/${id}`, {
+      id
+    });
+    const movie = response.data;
+
+    dispatch(requestMoviesSuccess([movie]));
+  } catch (e) {
+    dispatch(requestMoviesError());
   }
 };
 
@@ -53,7 +69,7 @@ export const updateMovieByData = (data) => async (dispatch) => {
       genres: updatedData.genres.map((genre) => genre.value)
     });
   } catch (e) {
-    dispatch(requestMoviesError(e.message));
+    dispatch(requestMoviesError());
   }
 };
 
@@ -67,7 +83,6 @@ export const requestMoviesError = (error) => ({
   payload: error
 });
 
-export const makeGenres = (genres) => ({
-  type: MAKE_GENRES,
-  payload: genres
+export const clearRequestResult = () => ({
+  type: CLEAR_REQUEST_RESULT
 });

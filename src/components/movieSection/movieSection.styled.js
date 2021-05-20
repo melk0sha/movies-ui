@@ -6,7 +6,7 @@ export const MovieSectionWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   min-height: 600px;
   margin-top: -70px;

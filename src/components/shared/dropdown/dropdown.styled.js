@@ -39,6 +39,8 @@ export const DropdownList = styled.ul`
   top: 100%;
   left: 0;
   width: 100%;
+  max-height: 177px;
+  overflow: auto;
   border: 2px solid ${({ theme, primary }) => (primary ? theme.colors.vinous.dark : theme.colors.brown.dark)};
   border-radius: ${({ primary }) => !primary && "3px"};
   z-index: 1;
